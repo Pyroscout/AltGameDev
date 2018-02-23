@@ -38,8 +38,17 @@ class Tile
 
     public static Tile randomTile()
     {
-        Tile tile = new Tile();
-        tile.biome = (Biome)Calculator.rand.Next((int)Biome.COUNT);
-        return tile;
+        BiomeType biome = (BiomeType)Calculator.rand.Next((int)BiomeType.COUNT);
+        switch (biome)
+        {
+            case BiomeType.Forest:
+                return forestTile();
+            case BiomeType.Desert:
+                return desertTile();
+            case BiomeType.Tundra:
+                return tundraTile();
+            default:
+                return new Tile();
+        }
     }
 }
