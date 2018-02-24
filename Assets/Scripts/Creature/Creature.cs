@@ -8,6 +8,8 @@ public class Creature : MonoBehaviour
     Stats stats;
     Size size;
 
+    int population; //added population counter
+
     bool carnivore;
     bool herbavore;
 
