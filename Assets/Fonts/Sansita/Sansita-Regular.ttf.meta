@@ -1,0 +1,30 @@
+fileFormatVersion: 2
+guid: fd0ce724be73060448cbf9d7df2c0481
+timeCreated: 1519515814
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Sansita
+  fontNames:
+  - Sansita
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 9c169930662952c4392209e4d63ac345, type: 3}
+  - {fileID: 12800000, guid: 5f49b8f0be4128249bff009b1e6a6674, type: 3}
+  - {fileID: 12800000, guid: 17844de29f7b8074fa7e50687f5161d3, type: 3}
+  - {fileID: 12800000, guid: b2347be6d91443b4381fcc0e85dfb25b, type: 3}
+  - {fileID: 12800000, guid: f659d19c48c32e143bb204a256b0dad7, type: 3}
+  - {fileID: 12800000, guid: dc50d9acf4d5d454c99f350dee78675e, type: 3}
+  - {fileID: 12800000, guid: ba0d50dd9ebf053438cec3d4cb254d06, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
