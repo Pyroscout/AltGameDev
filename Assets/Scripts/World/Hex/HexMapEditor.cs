@@ -5,14 +5,14 @@ public class HexMapEditor : MonoBehaviour
 {
 
     public Color[] colors;
-    private Color activeColor;
+    private BiomeType activeBiome;
     int activeElevation;
 
     public HexGrid hexGrid;
 
     void Awake()
     {
-        SelectColor(0);
+        SelectBiome(0);
     }
 
     void Update()
@@ -36,14 +36,14 @@ public class HexMapEditor : MonoBehaviour
 
     void EditCell(HexCell cell)
     {
-        cell.Color = activeColor;
+        cell.Biome = activeBiome;
         cell.Elevation = activeElevation;
         //hexGrid.Refresh();
     }
 
-    public void SelectColor(int index)
+    public void SelectBiome(int index)
     {
-        activeColor = colors[index];
+        activeBiome = (BiomeType)index;
     }
 
     public void SetElevation(float elevation)

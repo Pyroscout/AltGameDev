@@ -7,7 +7,7 @@ public class HexGrid : MonoBehaviour
 
     public int chunkCountX = 4, chunkCountZ = 3;
 
-    public Color defaultColor = Color.white;
+    public BiomeType defaultBiome = BiomeType.Ocean;
 
     public HexCell cellPrefab;
     HexCell[] cells;
@@ -80,7 +80,7 @@ public class HexGrid : MonoBehaviour
         //cell.transform.SetParent(transform, false);
         cell.transform.localPosition = position;
         cell.coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
-        cell.Color = defaultColor;
+        cell.tile = Tile.RandomTile();
 
         if (x > 0)
         {

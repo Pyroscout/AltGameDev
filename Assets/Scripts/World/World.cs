@@ -1,16 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-class World
+public class World: MonoBehaviour
 {
-    List<Tile> tiles = new List<Tile>();
-
-    public World(int tileCount)
-    {
-        for(int i = 0; i < tileCount; i++)
-        {
-            tiles[i] = Tile.randomTile();
-        }
-    }
+    HexGrid hexGrid;
 }

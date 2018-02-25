@@ -1,22 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using UnityEngine;
 
-enum BiomeType { Forest, Desert, Tundra, COUNT }
+public enum BiomeType { Ocean, Forest, Desert, Mountain, COUNT }
 
 class Biome
 {
     public string name;
-    int temperature;
+    //int temperature;
     int herbSupply;
-    double herbGrowthFactor;
+    int meatSupply;
+    //double herbGrowthFactor;
+    public Color color;
 
-    public Biome(string name, int temperature, int herbSupply, double herbGrowthFactor)
+    public Biome(string name, Color color, int herbSupply, int meatSupply)
     {
         this.name = name;
-        this.temperature = temperature;
         this.herbSupply = herbSupply;
-        this.herbGrowthFactor = herbGrowthFactor;
+        this.meatSupply = meatSupply;
+        this.color = color;
     }
 }

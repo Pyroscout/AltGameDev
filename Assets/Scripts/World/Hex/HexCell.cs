@@ -4,21 +4,30 @@ public class HexCell : MonoBehaviour
 {
     public HexCoordinates coordinates;
 
-    Color color;
+    public Tile tile;
+
+    public BiomeType Biome
+    {
+        get
+        {
+            return tile.BiomeType;
+        }
+        set
+        {
+            if(tile.BiomeType == value)
+            {
+                return;
+            }
+            tile.SetBiomeType(value);
+            Refresh();
+        }
+    }
+
     public Color Color
     {
         get
         {
-            return color;
-        }
-        set
-        {
-            if (color == value)
-            {
-                return;
-            }
-            color = value;
-            Refresh();
+            return tile.Color;
         }
     }
 

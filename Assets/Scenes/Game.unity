@@ -157,16 +157,6 @@ Prefab:
       propertyPath: grid
       value: 
       objectReference: {fileID: 1218419664}
-    - target: {fileID: 114401884054111482, guid: 1e15742357b73614d9439a89c4e9da64,
-        type: 2}
-      propertyPath: stickMinZoom
-      value: 250
-      objectReference: {fileID: 0}
-    - target: {fileID: 114401884054111482, guid: 1e15742357b73614d9439a89c4e9da64,
-        type: 2}
-      propertyPath: stickMaxZoom
-      value: 45
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1e15742357b73614d9439a89c4e9da64, type: 2}
   m_IsPrefabParent: 0
