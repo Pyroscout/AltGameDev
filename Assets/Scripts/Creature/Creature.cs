@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Creature : MonoBehaviour
 {
-    string name;
     Stats stats;
     Size size;
+    
 
     bool carnivore;
     bool herbavore;
@@ -21,4 +21,9 @@ public class Creature : MonoBehaviour
 
 
     enum Size { small, med, large };
+
+    public Creature(string name)
+    {
+        this.name = name;
+    }
 }

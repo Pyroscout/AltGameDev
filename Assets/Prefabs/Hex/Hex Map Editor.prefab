@@ -85,7 +85,7 @@ GameObject:
   - component: {fileID: 224036785855861824}
   - component: {fileID: 114763885133775890}
   m_Layer: 5
-  m_Name: Toggle White
+  m_Name: Toggle Mountain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 224184256382510962}
   - component: {fileID: 114807091893564592}
   m_Layer: 5
-  m_Name: Toggle Blue
+  m_Name: Toggle Desert
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 224654384405208662}
   - component: {fileID: 114575134495367044}
   m_Layer: 5
-  m_Name: Toggle Green
+  m_Name: Toggle Forest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -234,7 +234,7 @@ GameObject:
   - component: {fileID: 224443461858204632}
   - component: {fileID: 114732101955043918}
   m_Layer: 5
-  m_Name: Toggle Yellow
+  m_Name: Toggle Ocean
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -559,7 +559,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: White
+  m_Text: Mountain
 --- !u!114 &114423748725543088
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -592,9 +592,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Green
-
-'
+  m_Text: Forest
 --- !u!114 &114441257587417920
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -627,7 +625,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Blue
+  m_Text: 'Desert
+
+'
 --- !u!114 &114480101262749562
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -797,7 +797,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Yellow
+  m_Text: Ocean
 --- !u!114 &114651877609613340
 MonoBehaviour:
   m_ObjectHideFlags: 1

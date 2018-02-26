@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class Tile
 {
     // int sqMI;
-    int capacity;
+    //int capacity;
+    Dictionary<string, int> creatures = new Dictionary<string, int>();
+
 
     Biome biome;
     BiomeType biomeType;
@@ -23,9 +26,26 @@ public class Tile
         }
     }
 
-    public Tile()
+    public void AddCreature(string creatureName, int creatureCount)
     {
-        capacity = 100;
+        int prevCreatureCount = 0;
+        creatures.TryGetValue(creatureName, out prevCreatureCount);
+        creatures[creatureName] = prevCreatureCount + creatureCount;
+    }
+    
+    public void RemoveCreature(string creatureName, int creatureCount)
+    {
+        int prevCreatureCount = 0;
+        creatures.TryGetValue(creatureName, out prevCreatureCount);
+        int deltaCreatureCount = prevCreatureCount - creatureCount;
+        if(deltaCreatureCount <= 0)
+        {
+            creatures.Remove(creatureName);
+        }
+        else
+        {
+            creatures[creatureName] = deltaCreatureCount;
+        }
     }
 
     public void SetBiomeType(BiomeType biome)
@@ -33,16 +53,16 @@ public class Tile
         switch (biome)
         {
             case BiomeType.Ocean:
-                OceanTile();
+                SetOcean();
                 break;
             case BiomeType.Forest:
-                ForestTile();
+                SetForest();
                 break;
             case BiomeType.Desert:
-                DesertTile();
+                SetDesert();
                 break;
             case BiomeType.Mountain:
-                MountainTile();
+                SetMountain();
                 break;
             default:
                 this.biome = new Biome("Oops", Color.magenta, 0, 0);
@@ -50,35 +70,33 @@ public class Tile
         }
     }
 
-    void ForestTile()
+    public void SetForest()
     {
         this.biome = new Biome("Forest", Color.green, 6, 6);
         this.biomeType = BiomeType.Forest;
     }
 
-    void DesertTile()
+    public void SetDesert()
     {
         this.biome = new Biome("Desert", Color.yellow, 2, 2);
         this.biomeType = BiomeType.Desert;
     }
 
-    void MountainTile()
+    public void SetMountain()
     {
         this.biome = new Biome("Mountain", Color.white, 4, 2);
         this.biomeType = BiomeType.Mountain;
     }
 
-    void OceanTile()
+    public void SetOcean()
     {
         this.biome = new Biome("Ocean", Color.blue, 0, 0);
         this.biomeType = BiomeType.Ocean;
     }
 
-    public static Tile RandomTile()
+    public void SetRandomTile()
     {
-        Tile tile = new Tile();
-        BiomeType biome = (BiomeType)Calculator.rand.Next((int)BiomeType.COUNT);
-        tile.SetBiomeType(biome);
-        return tile;
+        BiomeType biome = (BiomeType)(Calculator.rand.Next((int)BiomeType.COUNT-1)+1);
+        this.SetBiomeType(biome);
     }
 }

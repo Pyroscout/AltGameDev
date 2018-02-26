@@ -38,7 +38,16 @@ public struct HexCoordinates
 
     public static HexCoordinates FromOffsetCoordinates(int x, int z)
     {
-        return new HexCoordinates(x - z / 2, z);
+        int xHex = x - HexMetrics.cellCountX / 2 + 1;
+        int zHex = z - HexMetrics.cellCountZ / 2 + 1;
+        int xOffset = HexMetrics.cellCountX % 2;
+        if(zHex >= 0)
+        {
+            return new HexCoordinates(xHex - zHex / 2 - xOffset, zHex - 1);
+        }
+        return new HexCoordinates(xHex - (zHex-1) / 2 - xOffset, zHex - 1);
+
+        //return new HexCoordinates(x - z / 2, z);
     }
 
 

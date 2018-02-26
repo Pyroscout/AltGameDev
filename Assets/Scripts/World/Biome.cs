@@ -5,11 +5,11 @@ public enum BiomeType { Ocean, Forest, Desert, Mountain, COUNT }
 class Biome
 {
     public string name;
-    //int temperature;
     int herbSupply;
     int meatSupply;
-    //double herbGrowthFactor;
     public Color color;
+    //double herbGrowthFactor;
+    //int temperature;
 
     public Biome(string name, Color color, int herbSupply, int meatSupply)
     {
