@@ -8,7 +8,8 @@ public class GameManager : MonoBehaviour
 
     int generationNum;
 
-    public Dictionary<string, int> creatures = new Dictionary<string, int>();
+    Phase phase;
+    enum Phase { Evolve, Migrate, Reproduce, Feed, COUNT }
 
     void Awake()
     {
@@ -17,7 +18,9 @@ public class GameManager : MonoBehaviour
 
     // Use this for initialization
     void Start () {
-		
+        Creature rabbit = new Creature("rabbit");
+        rabbit.population = 0;
+        Creature.creatures[rabbit.name] = rabbit;
 	}
 	
 	// Update is called once per frame

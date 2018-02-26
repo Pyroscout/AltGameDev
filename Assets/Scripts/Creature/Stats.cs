@@ -7,11 +7,11 @@ class Stats
     int atk; // attack, formerly str/strength
     int def; // defense, formerly aggro
     int evs; // evasion, formerly mobility
-    int hnt; // hunt
-    int vcon; // vegitable consumption required
-    int mcon; // meat consumption required
-    int mval; // meat value of creature
-    int lspn; // lifespan
+    int hunt; // hunt
+    int vegCon; // vegitable consumption required
+    int meatCon; // meat consumption required
+    int meatVal; // meat value of creature
+    int lSpn; // lifespan
     int fert; // birth rate
 
     public Stats()
@@ -19,25 +19,25 @@ class Stats
         atk = 1;
         def = 1;
         evs = 1;
-        hnt = 1;
-        vcon = 1;
-        mcon = 1;
-        mval = 1;
-        lspn = 1;
+        hunt = 1;
+        vegCon = 1;
+        meatCon = 1;
+        meatVal = 1;
+        lSpn = 1;
         fert = 1;
     }
 
-    public Stats(int attack, int defense, int evasion, int hunt, int vegcon, int meatcon, int meatval, int lifespan, int fertility)
+    public Stats(int attack, int defense, int evasion, int hunt, int vegCon, int meatCon, int meatVal, int lifeSpan, int fertility)
     {
-        atk = attack;
-        def = defense;
-        evs = evasion;
-        hnt = hunt;
-        vcon = vegcon;
-        mcon = meatcon;
-        mval = meatval;
-        lspn = lifespan;
-        fert = fertility;
+        this.atk = attack;
+        this.def = defense;
+        this.evs = evasion;
+        this.hunt = hunt;
+        this.vegCon = vegCon;
+        this.meatCon = meatCon;
+        this.meatVal = meatVal;
+        this.lSpn = lifeSpan;
+        this.fert = fertility;
     }
 
     // basic/example trait functions

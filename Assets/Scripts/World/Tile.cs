@@ -6,7 +6,6 @@ public class Tile
     // int sqMI;
     //int capacity;
     Dictionary<string, int> creatureCounts = new Dictionary<string, int>();
-    Dictionary<string, Creature> creatures = new Dictionary<string, Creature>();
 
     Biome biome;
     BiomeType biomeType;

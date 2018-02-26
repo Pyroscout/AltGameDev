@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Creature : MonoBehaviour
+public class Creature
 {
+    public static Dictionary<string, Creature> creatures = new Dictionary<string, Creature>();
+
+    public string name;
     Stats stats;
     Size size;
-    
 
-    int population; //added population counter
+    public int population; //added population counter
 
     bool carnivore;
     bool herbavore;
@@ -27,5 +29,8 @@ public class Creature : MonoBehaviour
     public Creature(string name)
     {
         this.name = name;
+        stats = new Stats();
     }
 }
+
+
