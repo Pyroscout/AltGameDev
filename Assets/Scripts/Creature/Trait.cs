@@ -5,6 +5,5 @@ using UnityEngine;
 class Trait
 {
     string name;
-    
 
 }
