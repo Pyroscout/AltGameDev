@@ -5,8 +5,8 @@ public class Tile
 {
     // int sqMI;
     //int capacity;
-    Dictionary<string, int> creatures = new Dictionary<string, int>();
-
+    Dictionary<string, int> creatureCounts = new Dictionary<string, int>();
+    Dictionary<string, Creature> creatures = new Dictionary<string, Creature>();
 
     Biome biome;
     BiomeType biomeType;
@@ -26,25 +26,30 @@ public class Tile
         }
     }
 
+    public void Update()
+    {
+        
+    }
+
     public void AddCreature(string creatureName, int creatureCount)
     {
         int prevCreatureCount = 0;
-        creatures.TryGetValue(creatureName, out prevCreatureCount);
-        creatures[creatureName] = prevCreatureCount + creatureCount;
+        creatureCounts.TryGetValue(creatureName, out prevCreatureCount);
+        creatureCounts[creatureName] = prevCreatureCount + creatureCount;
     }
     
     public void RemoveCreature(string creatureName, int creatureCount)
     {
         int prevCreatureCount = 0;
-        creatures.TryGetValue(creatureName, out prevCreatureCount);
+        creatureCounts.TryGetValue(creatureName, out prevCreatureCount);
         int deltaCreatureCount = prevCreatureCount - creatureCount;
         if(deltaCreatureCount <= 0)
         {
-            creatures.Remove(creatureName);
+            creatureCounts.Remove(creatureName);
         }
         else
         {
-            creatures[creatureName] = deltaCreatureCount;
+            creatureCounts[creatureName] = deltaCreatureCount;
         }
     }
 
