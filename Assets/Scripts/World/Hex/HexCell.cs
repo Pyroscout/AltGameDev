@@ -4,21 +4,30 @@ public class HexCell : MonoBehaviour
 {
     public HexCoordinates coordinates;
 
-    Color color;
+    public Tile tile;
+
+    public BiomeType Biome
+    {
+        get
+        {
+            return tile.BiomeType;
+        }
+        set
+        {
+            if(tile.BiomeType == value)
+            {
+                return;
+            }
+            tile.SetBiomeType(value);
+            Refresh();
+        }
+    }
+
     public Color Color
     {
         get
         {
-            return color;
-        }
-        set
-        {
-            if (color == value)
-            {
-                return;
-            }
-            color = value;
-            Refresh();
+            return tile.Color;
         }
     }
 
@@ -97,5 +106,33 @@ public class HexCell : MonoBehaviour
     public HexEdgeType GetEdgeType(HexCell otherCell)
     {
         return HexMetrics.GetEdgeType(elevation, otherCell.elevation);
+    }
+
+    public void DefaultTileSetup()
+    {
+        Tile tile = new Tile();
+        if(isOcean())
+        {
+            tile.SetOcean();
+        } else
+        {
+            tile.SetRandomTile();
+        }
+        this.tile = tile;
+    }
+
+    bool isOcean()
+    {
+        bool ocean = Mathf.Abs(coordinates.Z) >= HexMetrics.cellCountZ / 2-1;
+        ocean = ocean || Mathf.Abs(coordinates.X) + Mathf.Abs(coordinates.Y) >= HexMetrics.cellCountX - 2;
+        if(HexMetrics.cellCountX % 2 == 1)
+        {
+            ocean = ocean || coordinates.X - coordinates.Y == HexMetrics.cellCountX - 3;
+        }
+        else
+        {
+            ocean = ocean || coordinates.Y - coordinates.X == HexMetrics.cellCountX - 3;
+        }
+        return ocean;
     }
 }

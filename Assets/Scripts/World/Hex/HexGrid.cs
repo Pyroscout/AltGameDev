@@ -5,9 +5,7 @@ public class HexGrid : MonoBehaviour
 {
     int cellCountX, cellCountZ;
 
-    public int chunkCountX = 4, chunkCountZ = 3;
-
-    public Color defaultColor = Color.white;
+    //public int chunkCountX = 4, chunkCountZ = 3;
 
     public HexCell cellPrefab;
     HexCell[] cells;
@@ -24,8 +22,8 @@ public class HexGrid : MonoBehaviour
         //gridCanvas = GetComponentInChildren<Canvas>();
         //hexMesh = GetComponentInChildren<HexMesh>();
 
-        cellCountX = chunkCountX * HexMetrics.chunkSizeX;
-        cellCountZ = chunkCountZ * HexMetrics.chunkSizeZ;
+        cellCountX = HexMetrics.chunkCountX * HexMetrics.chunkSizeX;
+        cellCountZ = HexMetrics.chunkCountZ * HexMetrics.chunkSizeZ;
 
         CreateChunks();
         CreateCells();
@@ -43,11 +41,11 @@ public class HexGrid : MonoBehaviour
 
     void CreateChunks()
     {
-        chunks = new HexGridChunk[chunkCountX * chunkCountZ];
+        chunks = new HexGridChunk[HexMetrics.chunkCountX * HexMetrics.chunkCountZ];
 
-        for (int z = 0, i = 0; z < chunkCountZ; z++)
+        for (int z = 0, i = 0; z < HexMetrics.chunkCountZ; z++)
         {
-            for (int x = 0; x < chunkCountX; x++)
+            for (int x = 0; x < HexMetrics.chunkCountX; x++)
             {
                 HexGridChunk chunk = chunks[i++] = Instantiate(chunkPrefab);
                 chunk.transform.SetParent(transform);
@@ -80,7 +78,7 @@ public class HexGrid : MonoBehaviour
         //cell.transform.SetParent(transform, false);
         cell.transform.localPosition = position;
         cell.coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
-        cell.Color = defaultColor;
+        cell.DefaultTileSetup();
 
         if (x > 0)
         {
@@ -106,11 +104,13 @@ public class HexGrid : MonoBehaviour
             }
         }
 
+
         // cell label
         Text label = Instantiate<Text>(cellLabelPrefab);
         //label.rectTransform.SetParent(gridCanvas.transform, false);
         label.rectTransform.anchoredPosition = new Vector2(position.x, position.z);
         label.text = cell.coordinates.ToStringOnSeparateLines();
+        label.enabled = false;
         cell.uiRect = label.rectTransform;
 
         cell.Elevation = 0;
@@ -122,7 +122,7 @@ public class HexGrid : MonoBehaviour
     {
         int chunkX = x / HexMetrics.chunkSizeX;
         int chunkZ = z / HexMetrics.chunkSizeZ;
-        HexGridChunk chunk = chunks[chunkX + chunkZ * chunkCountX];
+        HexGridChunk chunk = chunks[chunkX + chunkZ * HexMetrics.chunkCountX];
 
         int localX = x - chunkX * HexMetrics.chunkSizeX;
         int localZ = z - chunkZ * HexMetrics.chunkSizeZ;

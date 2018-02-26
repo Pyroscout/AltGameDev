@@ -1,54 +1,107 @@
-﻿using System;
+﻿using UnityEngine;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-class Tile
+public class Tile
 {
     // int sqMI;
-    int capacity;
+    //int capacity;
+    Dictionary<string, int> creatureCounts = new Dictionary<string, int>();
+    Dictionary<string, Creature> creatures = new Dictionary<string, Creature>();
 
     Biome biome;
-
-    public Tile()
+    BiomeType biomeType;
+    public BiomeType BiomeType
     {
-        capacity = 100;
+        get
+        {
+            return biomeType;
+        }
     }
 
-    public static Tile forestTile()
+    public Color Color
     {
-        Tile tile = new Tile();
-        tile.biome = new Biome("Forest", 70, 100, 2.0);
-        return tile;
+        get
+        {
+            return biome.color;
+        }
     }
 
-    public static Tile desertTile()
+    public void Update()
     {
-        Tile tile = new Tile();
-        tile.biome = new Biome("Desert", 100, 40, 1.4);
-        return tile;
+        
     }
 
-    public static Tile tundraTile()
+    public void AddCreature(string creatureName, int creatureCount)
     {
-        Tile tile = new Tile();
-        tile.biome = new Biome("Tundra", 7, 70, 1.6);
-        return tile;
+        int prevCreatureCount = 0;
+        creatureCounts.TryGetValue(creatureName, out prevCreatureCount);
+        creatureCounts[creatureName] = prevCreatureCount + creatureCount;
+    }
+    
+    public void RemoveCreature(string creatureName, int creatureCount)
+    {
+        int prevCreatureCount = 0;
+        creatureCounts.TryGetValue(creatureName, out prevCreatureCount);
+        int deltaCreatureCount = prevCreatureCount - creatureCount;
+        if(deltaCreatureCount <= 0)
+        {
+            creatureCounts.Remove(creatureName);
+        }
+        else
+        {
+            creatureCounts[creatureName] = deltaCreatureCount;
+        }
     }
 
-    public static Tile randomTile()
+    public void SetBiomeType(BiomeType biome)
     {
-        BiomeType biome = (BiomeType)Calculator.rand.Next((int)BiomeType.COUNT);
         switch (biome)
         {
+            case BiomeType.Ocean:
+                SetOcean();
+                break;
             case BiomeType.Forest:
-                return forestTile();
+                SetForest();
+                break;
             case BiomeType.Desert:
-                return desertTile();
-            case BiomeType.Tundra:
-                return tundraTile();
+                SetDesert();
+                break;
+            case BiomeType.Mountain:
+                SetMountain();
+                break;
             default:
-                return new Tile();
+                this.biome = new Biome("Oops", Color.magenta, 0, 0);
+                break;
         }
+    }
+
+    public void SetForest()
+    {
+        this.biome = new Biome("Forest", Color.green, 6, 6);
+        this.biomeType = BiomeType.Forest;
+    }
+
+    public void SetDesert()
+    {
+        this.biome = new Biome("Desert", Color.yellow, 2, 2);
+        this.biomeType = BiomeType.Desert;
+    }
+
+    public void SetMountain()
+    {
+        this.biome = new Biome("Mountain", Color.white, 4, 2);
+        this.biomeType = BiomeType.Mountain;
+    }
+
+    public void SetOcean()
+    {
+        this.biome = new Biome("Ocean", Color.blue, 0, 0);
+        this.biomeType = BiomeType.Ocean;
+    }
+
+    public void SetRandomTile()
+    {
+        BiomeType biome = (BiomeType)(Calculator.rand.Next((int)BiomeType.COUNT-1)+1);
+        this.SetBiomeType(biome);
     }
 }

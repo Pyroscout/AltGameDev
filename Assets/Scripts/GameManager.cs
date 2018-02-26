@@ -4,10 +4,19 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    World world;
+    public HexGrid hexGrid;
 
-	// Use this for initialization
-	void Start () {
+    int generationNum;
+
+    public Dictionary<string, int> creatures = new Dictionary<string, int>();
+
+    void Awake()
+    {
+        generationNum = 1;
+    }
+
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
@@ -15,4 +24,9 @@ public class GameManager : MonoBehaviour
 	void Update () {
 		
 	}
+
+    public void NextGen()
+    {
+        generationNum++;
+    }
 }

@@ -49,7 +49,7 @@ class Stats
 
     public void IncreaseAtk(int num)
     {
-        atk = atk + num;
+        atk += num;
     }
 
     public void DecreaseAtk()
@@ -59,9 +59,7 @@ class Stats
 
     public void DecreaseAtk(int num)
     {
-        atk = atk - num;
+        atk -= num;
     }
-
-    //let me know if functions like these are ok, then I can spam these functions for the rest of the stats
 
 }

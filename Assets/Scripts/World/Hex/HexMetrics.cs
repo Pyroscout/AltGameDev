@@ -25,6 +25,9 @@ public static class HexMetrics
     public const float verticalTerraceStepSize = 1f / (terracesPerSlope + 1);
 
     public const int chunkSizeX = 5, chunkSizeZ = 5;
+    public const int chunkCountX = 4, chunkCountZ = 3;
+    public const int cellCountX = chunkSizeX * chunkCountX;
+    public const int cellCountZ = chunkSizeZ * chunkCountZ;
 
     public static Vector3 GetFirstCorner(HexDirection direction)
     {
