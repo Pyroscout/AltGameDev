@@ -2,64 +2,42 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-class Stats
+public class Stats
 {
-    int atk; // attack, formerly str/strength
-    int def; // defense, formerly aggro
-    int evs; // evasion, formerly mobility
-    int hnt; // hunt
-    int vcon; // vegitable consumption required
-    int mcon; // meat consumption required
-    int mval; // meat value of creature
-    int lspn; // lifespan
-    int fert; // birth rate
+    public int atk; // attack, formerly str/strength
+    public int def; // defense, formerly aggro
+    public int evs; // evasion, formerly mobility
+    public int hunt; // hunt
+    public int vegCon; // vegitable consumption required
+    public int meatCon; // meat consumption required
+    public int meatVal; // meat value of creature
+    public int lSpn; // lifespan
+    public int fert; // birth rate
 
     public Stats()
     {
         atk = 1;
         def = 1;
         evs = 1;
-        hnt = 1;
-        vcon = 1;
-        mcon = 1;
-        mval = 1;
-        lspn = 1;
+        hunt = 1;
+        vegCon = 1;
+        meatCon = 1;
+        meatVal = 1;
+        lSpn = 1;
         fert = 1;
     }
 
-    public Stats(int attack, int defense, int evasion, int hunt, int vegcon, int meatcon, int meatval, int lifespan, int fertility)
+    public Stats(int attack, int defense, int evasion, int hunt, int vegCon, int meatCon, int meatVal, int lifeSpan, int fertility)
     {
-        atk = attack;
-        def = defense;
-        evs = evasion;
-        hnt = hunt;
-        vcon = vegcon;
-        mcon = meatcon;
-        mval = meatval;
-        lspn = lifespan;
-        fert = fertility;
-    }
-
-    // basic/example trait functions
-
-    public void IncreaseAtk ()
-    {
-        atk++;
-    }
-
-    public void IncreaseAtk(int num)
-    {
-        atk += num;
-    }
-
-    public void DecreaseAtk()
-    {
-        atk--;
-    }
-
-    public void DecreaseAtk(int num)
-    {
-        atk -= num;
+        this.atk = attack;
+        this.def = defense;
+        this.evs = evasion;
+        this.hunt = hunt;
+        this.vegCon = vegCon;
+        this.meatCon = meatCon;
+        this.meatVal = meatVal;
+        this.lSpn = lifeSpan;
+        this.fert = fertility;
     }
 
 }

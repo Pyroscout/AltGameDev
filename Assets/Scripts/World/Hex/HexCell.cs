@@ -6,6 +6,13 @@ public class HexCell : MonoBehaviour
 
     public Tile tile;
 
+    [SerializeField]
+    HexCell[] neighbors;
+
+    public RectTransform uiRect;
+
+    public HexGridChunk chunk;
+
     public BiomeType Biome
     {
         get
@@ -31,6 +38,42 @@ public class HexCell : MonoBehaviour
         }
     }
 
+    int waterLevel;
+    public int WaterLevel
+    {
+        get
+        {
+            return waterLevel;
+        }
+        set
+        {
+            if (waterLevel == value)
+            {
+                return;
+            }
+            waterLevel = value;
+            Refresh();
+        }
+    }
+
+    public bool IsUnderwater
+    {
+        get
+        {
+            return waterLevel > elevation;
+        }
+    }
+
+    public float WaterSurfaceY
+    {
+        get
+        {
+            return
+                (waterLevel + HexMetrics.waterElevationOffset) *
+                HexMetrics.elevationStep;
+        }
+    }
+
     int elevation = int.MinValue;
     public int Elevation
     {
@@ -46,11 +89,13 @@ public class HexCell : MonoBehaviour
             }
             elevation = value;
             Vector3 position = transform.localPosition;
-            position.y = value * HexMetrics.elevationStep;
+            position.y +=
+                (HexMetrics.SampleNoise(position).y * 2f - 1f) *
+                HexMetrics.elevationPerturbStrength;
             transform.localPosition = position;
 
             Vector3 uiPosition = uiRect.localPosition;
-            uiPosition.z = elevation * -HexMetrics.elevationStep;
+            uiPosition.z = -position.y;
             uiRect.localPosition = uiPosition;
             Refresh();
         }
@@ -63,13 +108,6 @@ public class HexCell : MonoBehaviour
             return transform.localPosition;
         }
     }
-
-    [SerializeField]
-    HexCell[] neighbors;
-
-    public RectTransform uiRect;
-
-    public HexGridChunk chunk;
 
     void Refresh()
     {
@@ -113,6 +151,7 @@ public class HexCell : MonoBehaviour
         Tile tile = new Tile();
         if(isOcean())
         {
+            this.waterLevel = 1;
             tile.SetOcean();
         } else
         {

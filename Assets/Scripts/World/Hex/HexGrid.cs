@@ -8,7 +8,7 @@ public class HexGrid : MonoBehaviour
     //public int chunkCountX = 4, chunkCountZ = 3;
 
     public HexCell cellPrefab;
-    HexCell[] cells;
+    public HexCell[] cells;
 
     public Text cellLabelPrefab;
 
@@ -17,8 +17,19 @@ public class HexGrid : MonoBehaviour
     //Canvas gridCanvas;
     //HexMesh hexMesh;
 
+    public Texture2D noiseSource;
+
+    public Vector3 Position
+    {
+        get
+        {
+            return transform.localPosition;
+        }
+    }
+
     private void Awake()
     {
+        HexMetrics.noiseSource = noiseSource;
         //gridCanvas = GetComponentInChildren<Canvas>();
         //hexMesh = GetComponentInChildren<HexMesh>();
 
@@ -27,6 +38,11 @@ public class HexGrid : MonoBehaviour
 
         CreateChunks();
         CreateCells();
+    }
+
+    void OnEnable()
+    {
+        HexMetrics.noiseSource = noiseSource;
     }
 
     //private void Start()
@@ -113,7 +129,14 @@ public class HexGrid : MonoBehaviour
         label.enabled = false;
         cell.uiRect = label.rectTransform;
 
-        cell.Elevation = 0;
+        if(cell.Biome == BiomeType.Ocean)
+        {
+            cell.Elevation = 0;
+        } else
+        {
+            cell.Elevation = 1;
+        }
+        cell.WaterLevel = 1;
 
         AddCellToChunk(x, z, cell);
     }
