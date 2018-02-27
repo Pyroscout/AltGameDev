@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-class Stats
+public class Stats
 {
-    int atk; // attack, formerly str/strength
-    int def; // defense, formerly aggro
-    int evs; // evasion, formerly mobility
-    int hunt; // hunt
-    int vegCon; // vegitable consumption required
-    int meatCon; // meat consumption required
-    int meatVal; // meat value of creature
-    int lSpn; // lifespan
-    int fert; // birth rate
+    public int atk; // attack, formerly str/strength
+    public int def; // defense, formerly aggro
+    public int evs; // evasion, formerly mobility
+    public int hunt; // hunt
+    public int vegCon; // vegitable consumption required
+    public int meatCon; // meat consumption required
+    public int meatVal; // meat value of creature
+    public int lSpn; // lifespan
+    public int fert; // birth rate
 
     public Stats()
     {
@@ -38,28 +38,6 @@ class Stats
         this.meatVal = meatVal;
         this.lSpn = lifeSpan;
         this.fert = fertility;
-    }
-
-    // basic/example trait functions
-
-    public void IncreaseAtk ()
-    {
-        atk++;
-    }
-
-    public void IncreaseAtk(int num)
-    {
-        atk += num;
-    }
-
-    public void DecreaseAtk()
-    {
-        atk--;
-    }
-
-    public void DecreaseAtk(int num)
-    {
-        atk -= num;
     }
 
 }

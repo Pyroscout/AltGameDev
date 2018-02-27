@@ -7,6 +7,7 @@ public class HexMapEditor : MonoBehaviour
     public Color[] colors;
     private BiomeType activeBiome;
     int activeElevation;
+    int activeWaterLevel;
 
     public HexGrid hexGrid;
 

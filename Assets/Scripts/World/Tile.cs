@@ -5,9 +5,9 @@ public class Tile
 {
     // int sqMI;
     //int capacity;
-    Dictionary<string, int> creatureCounts = new Dictionary<string, int>();
+    public Dictionary<string, int> creatureCounts = new Dictionary<string, int>();
 
-    Biome biome;
+    public Biome biome;
     BiomeType biomeType;
     public BiomeType BiomeType
     {
@@ -74,27 +74,31 @@ public class Tile
         }
     }
 
+    Color32 forestColor = new Color32(34, 139, 34, 255);
     public void SetForest()
     {
-        this.biome = new Biome("Forest", Color.green, 6, 6);
+        this.biome = new Biome("Forest", forestColor, 6, 6);
         this.biomeType = BiomeType.Forest;
     }
 
+    Color32 desertColor = new Color32(237, 201, 175, 255);
     public void SetDesert()
     {
-        this.biome = new Biome("Desert", Color.yellow, 2, 2);
+        this.biome = new Biome("Desert", desertColor, 2, 2);
         this.biomeType = BiomeType.Desert;
     }
 
+    Color32 mountainColor = new Color32(141, 81, 80, 255);
     public void SetMountain()
     {
-        this.biome = new Biome("Mountain", Color.white, 4, 2);
+        this.biome = new Biome("Mountain", mountainColor, 4, 2);
         this.biomeType = BiomeType.Mountain;
     }
 
+    Color32 seaFloorColor = new Color32(194, 178, 128, 255);
     public void SetOcean()
     {
-        this.biome = new Biome("Ocean", Color.blue, 0, 0);
+        this.biome = new Biome("Ocean", seaFloorColor, 0, 0);
         this.biomeType = BiomeType.Ocean;
     }
 
