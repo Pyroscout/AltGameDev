@@ -13,6 +13,64 @@ public class HexCell : MonoBehaviour
 
     public HexGridChunk chunk;
 
+    bool hasIncomingRiver, hasOutgoingRiver;
+	HexDirection incomingRiver, outgoingRiver;
+
+    public bool HasIncomingRiver
+    {
+        get
+        {
+            return hasIncomingRiver;
+        }
+    }
+
+    public bool HasOutgoingRiver
+    {
+        get
+        {
+            return hasOutgoingRiver;
+        }
+    }
+
+    public HexDirection IncomingRiver
+    {
+        get
+        {
+            return incomingRiver;
+        }
+    }
+
+    public HexDirection OutgoingRiver
+    {
+        get
+        {
+            return outgoingRiver;
+        }
+    }
+
+    public bool HasRiver
+    {
+        get
+        {
+            return hasIncomingRiver || hasOutgoingRiver;
+        }
+    }
+
+    public bool HasRiverBeginOrEnd
+    {
+        get
+        {
+            return hasIncomingRiver != hasOutgoingRiver;
+        }
+    }
+
+    public bool HasRiverThroughEdge(HexDirection direction)
+    {
+        return
+            hasIncomingRiver && incomingRiver == direction ||
+            hasOutgoingRiver && outgoingRiver == direction;
+    }
+
     public BiomeType Biome
     {
         get
@@ -97,6 +155,18 @@ public class HexCell : MonoBehaviour
             Vector3 uiPosition = uiRect.localPosition;
             uiPosition.z = -position.y;
             uiRect.localPosition = uiPosition;
+
+            if (hasOutgoingRiver &&
+                elevation < GetNeighbor(outgoingRiver).elevation)
+            {
+                RemoveOutgoingRiver();
+            }
+            if (hasIncomingRiver &&
+                elevation > GetNeighbor(incomingRiver).elevation)
+            {
+                RemoveIncomingRiver();
+            }
+
             Refresh();
         }
     }
@@ -125,6 +195,11 @@ public class HexCell : MonoBehaviour
         }
     }
 
+    void RefreshSelfOnly()
+    {
+        chunk.Refresh();
+    }
+
     public HexCell GetNeighbor(HexDirection direction)
     {
         return neighbors[(int)direction];
@@ -146,17 +221,81 @@ public class HexCell : MonoBehaviour
         return HexMetrics.GetEdgeType(elevation, otherCell.elevation);
     }
 
+
+    public void SetOutgoingRiver(HexDirection direction)
+    {
+        if (hasOutgoingRiver && outgoingRiver == direction)
+        {
+            return;
+        }
+
+        HexCell neighbor = GetNeighbor(direction);
+        if (!neighbor || elevation < neighbor.elevation)
+        {
+            return;
+        }
+
+        RemoveOutgoingRiver();
+        if (hasIncomingRiver && incomingRiver == direction)
+        {
+            RemoveIncomingRiver();
+        }
+
+        hasOutgoingRiver = true;
+        outgoingRiver = direction;
+        RefreshSelfOnly();
+
+        neighbor.RemoveIncomingRiver();
+        neighbor.hasIncomingRiver = true;
+        neighbor.incomingRiver = direction.Opposite();
+        neighbor.RefreshSelfOnly();
+    }
+
+    public void RemoveRiver()
+    {
+        RemoveOutgoingRiver();
+        RemoveIncomingRiver();
+    }
+
+    public void RemoveOutgoingRiver()
+    {
+        if (!hasOutgoingRiver)
+        {
+            return;
+        }
+        hasOutgoingRiver = false;
+        RefreshSelfOnly();
+
+        HexCell neighbor = GetNeighbor(outgoingRiver);
+        neighbor.hasIncomingRiver = false;
+        neighbor.RefreshSelfOnly();
+    }
+
+    public void RemoveIncomingRiver()
+    {
+        if (!hasIncomingRiver)
+        {
+            return;
+        }
+        hasIncomingRiver = false;
+        RefreshSelfOnly();
+
+        HexCell neighbor = GetNeighbor(incomingRiver);
+        neighbor.hasOutgoingRiver = false;
+        neighbor.RefreshSelfOnly();
+    }
+
     public void DefaultTileSetup()
     {
         Tile tile = new Tile();
-        if(isOcean())
-        {
-            this.waterLevel = 1;
-            tile.SetOcean();
-        } else
-        {
+        //if(isOcean())
+        //{
+        //    this.waterLevel = 1;
+        //    tile.SetOcean();
+        //} else
+        //{
             tile.SetRandomTile();
-        }
+        //}
         this.tile = tile;
     }
 

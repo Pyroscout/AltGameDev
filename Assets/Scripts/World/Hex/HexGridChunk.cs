@@ -8,11 +8,14 @@ public class HexGridChunk : MonoBehaviour
     public HexMesh terrain, water, waterShore;
     Canvas gridCanvas;
 
+    public HexFeatureManager features;
+
     void Awake()
     {
         gridCanvas = GetComponentInChildren<Canvas>();
 
         cells = new HexCell[HexMetrics.chunkSizeX * HexMetrics.chunkSizeZ];
+        ShowUI(false);
     }
 
     //void Start()
@@ -47,6 +50,7 @@ public class HexGridChunk : MonoBehaviour
         terrain.Clear();
         water.Clear();
         waterShore.Clear();
+        features.Clear();
         for (int i = 0; i < cells.Length; i++)
         {
             Triangulate(cells[i]);
@@ -54,6 +58,7 @@ public class HexGridChunk : MonoBehaviour
         terrain.Apply();
         water.Apply();
         waterShore.Apply();
+        features.Apply();
     }
 
     void Triangulate(HexCell cell)
@@ -61,6 +66,10 @@ public class HexGridChunk : MonoBehaviour
         for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++)
         {
             Triangulate(d, cell);
+        }
+        if (!cell.IsUnderwater/* && !cell.HasRiver*/)
+        {
+            features.AddFeature(cell.Position);
         }
     }
 
@@ -80,8 +89,6 @@ public class HexGridChunk : MonoBehaviour
 
         if (cell.IsUnderwater)
         {
-            Debug.Log("Ele: " + cell.Elevation);
-            Debug.Log("Wl: " + cell.WaterLevel);
             TriangulateWater(direction, cell, center);
         }
     }
@@ -447,5 +454,10 @@ public class HexGridChunk : MonoBehaviour
 
         terrain.AddTriangleUnperturbed(v2, HexMetrics.Perturb(left), boundary);
         terrain.AddTriangleColor(c2, leftCell.Color, boundaryColor);
+    }
+
+    public void ShowUI(bool visible)
+    {
+        gridCanvas.gameObject.SetActive(visible);
     }
 }

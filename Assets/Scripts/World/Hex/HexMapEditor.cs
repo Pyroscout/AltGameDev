@@ -3,13 +3,24 @@ using UnityEngine.EventSystems;
 
 public class HexMapEditor : MonoBehaviour
 {
+    public HexGrid hexGrid;
 
     public Color[] colors;
     private BiomeType activeBiome;
+    bool applyBiome;
+
     int activeElevation;
+    bool applyElevation = true;
+
+    int brushSize;
+
     int activeWaterLevel;
 
-    public HexGrid hexGrid;
+    OptionalToggle riverMode;
+    enum OptionalToggle
+    {
+        Ignore, Yes, No
+    }
 
     void Awake()
     {
@@ -31,24 +42,77 @@ public class HexMapEditor : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(inputRay, out hit))
         {
-            EditCell(hexGrid.GetCell(hit.point));
+            EditCells(hexGrid.GetCell(hit.point));
+        }
+    }
+
+    void EditCells(HexCell center)
+    {
+        int centerX = center.coordinates.X;
+        int centerZ = center.coordinates.Z;
+
+        for (int r = 0, z = centerZ - brushSize; z <= centerZ; z++, r++)
+        {
+            for (int x = centerX - r; x <= centerX + brushSize; x++)
+            {
+                EditCell(hexGrid.GetCell(new HexCoordinates(x, z)));
+            }
+        }
+        for (int r = 0, z = centerZ + brushSize; z > centerZ; z--, r++)
+        {
+            for (int x = centerX - brushSize; x <= centerX + r; x++)
+            {
+                EditCell(hexGrid.GetCell(new HexCoordinates(x, z)));
+            }
         }
     }
 
     void EditCell(HexCell cell)
     {
-        cell.Biome = activeBiome;
-        cell.Elevation = activeElevation;
-        //hexGrid.Refresh();
+        if (cell)
+        {
+            if (applyBiome)
+            {
+                cell.Biome = activeBiome;
+            }
+            if (applyElevation)
+            {
+                cell.Elevation = activeElevation;
+            }
+        }
     }
 
     public void SelectBiome(int index)
     {
-        activeBiome = (BiomeType)index;
+        applyBiome = index >= 0;
+        if (applyBiome)
+        {
+            activeBiome = (BiomeType)index;
+        }
     }
 
     public void SetElevation(float elevation)
     {
         activeElevation = (int)elevation;
+    }
+
+    public void SetApplyElevation(bool toggle)
+    {
+        applyElevation = toggle;
+    }
+
+    public void SetBrushSize(float size)
+    {
+        brushSize = (int)size;
+    }
+
+    public void SetRiverMode(int mode)
+    {
+        riverMode = (OptionalToggle)mode;
+    }
+
+    public void ShowUI(bool visible)
+    {
+        hexGrid.ShowUI(visible);
     }
 }

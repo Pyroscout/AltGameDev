@@ -120,22 +120,23 @@ public class HexGrid : MonoBehaviour
             }
         }
 
-
         // cell label
         Text label = Instantiate<Text>(cellLabelPrefab);
         //label.rectTransform.SetParent(gridCanvas.transform, false);
         label.rectTransform.anchoredPosition = new Vector2(position.x, position.z);
         label.text = cell.coordinates.ToStringOnSeparateLines();
-        label.enabled = false;
         cell.uiRect = label.rectTransform;
 
-        if(cell.Biome == BiomeType.Ocean)
-        {
-            cell.Elevation = 0;
-        } else
-        {
-            cell.Elevation = 1;
-        }
+        //if (cell.Biome == BiomeType.Ocean)
+        //{
+        //    cell.Elevation = 0;
+        //}
+        //else
+        //{
+        //    cell.Elevation = 1;
+        //}
+
+        cell.Elevation = 0;
         cell.WaterLevel = 1;
 
         AddCellToChunk(x, z, cell);
@@ -158,5 +159,29 @@ public class HexGrid : MonoBehaviour
         HexCoordinates coordinates = HexCoordinates.FromPosition(position);
         int index = coordinates.X + coordinates.Z * cellCountX + coordinates.Z / 2;
         return cells[index];
+    }
+
+    public HexCell GetCell(HexCoordinates coordinates)
+    {
+        int z = coordinates.Z;
+        if (z < 0 || z >= cellCountZ)
+        {
+            return null;
+        }
+        int x = coordinates.X + z / 2;
+        if (x < 0 || x >= cellCountX)
+        {
+            return null;
+        }
+        return cells[x + z * cellCountX];
+    }
+
+
+    public void ShowUI(bool visible)
+    {
+        for (int i = 0; i < chunks.Length; i++)
+        {
+            chunks[i].ShowUI(visible);
+        }
     }
 }
