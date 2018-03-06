@@ -2,8 +2,10 @@
 
 public static class HexMetrics
 {
+    public const float outerToInner = 0.866025404f;
+    public const float innerToOuter = 1f / outerToInner;
     public const float outerRadius = 10f;
-    public const float innerRadius = outerRadius * 0.866025404f;
+    public const float innerRadius = outerRadius * outerToInner;
 
     public const float solidFactor = 0.8f;
     public const float blendFactor = 1f - solidFactor;
@@ -24,6 +26,8 @@ public static class HexMetrics
     public const float horizontalTerraceStepSize = 1f / terraceSteps;
     public const float verticalTerraceStepSize = 1f / (terracesPerSlope + 1);
 
+    public const float streamBedElevationOffset = -1f;
+
     public const float waterFactor = 0.6f;
     public const float waterBlendFactor = 1f - waterFactor;
     public const float waterElevationOffset = -0.5f;
@@ -33,9 +37,18 @@ public static class HexMetrics
     public const int cellCountX = chunkSizeX * chunkCountX;
     public const int cellCountZ = chunkSizeZ * chunkCountZ;
 
+    static HexHash[] hashGrid;
+    public const int hashGridSize = 256;
+    public const float hashGridScale = 0.25f;
+
+    static float[][] featureThresholds = {
+        new float[] {0.0f, 0.0f, 0.4f},
+        new float[] {0.0f, 0.4f, 0.6f},
+        new float[] {0.4f, 0.6f, 0.8f}};
+
     public static Texture2D noiseSource;
     public const float noiseScale = 0.003f;
-    public const float cellPerturbStrength = 4f;
+    public const float cellPerturbStrength = 0f; // 4f;
     public const float elevationPerturbStrength = 1.5f;
 
     public static Vector4 SampleNoise(Vector3 position)
@@ -71,6 +84,13 @@ public static class HexMetrics
     public static Vector3 GetSecondSolidCorner(HexDirection direction)
     {
         return corners[(int)direction + 1] * solidFactor;
+    }
+
+    public static Vector3 GetSolidEdgeMiddle(HexDirection direction)
+    {
+        return
+            (corners[(int)direction] + corners[(int)direction + 1]) *
+            (0.5f * solidFactor);
     }
 
     public static Vector3 GetBridge(HexDirection direction)
@@ -109,6 +129,38 @@ public static class HexMetrics
         float v = ((step + 1) / 2) * HexMetrics.verticalTerraceStepSize;
         a.y += (b.y - a.y) * v;
         return a;
+    }
+
+    public static void InitializeHashGrid(int seed)
+    {
+        hashGrid = new HexHash[hashGridSize * hashGridSize];
+        Random.State currentState = Random.state;
+        Random.InitState(seed);
+        for (int i = 0; i < hashGrid.Length; i++)
+        {
+            hashGrid[i] = HexHash.Create();
+        }
+        Random.state = currentState;
+    }
+
+    public static HexHash SampleHashGrid(Vector3 position)
+    {
+        int x = (int)(position.x * hashGridScale) % hashGridSize;
+        if (x < 0)
+        {
+            x += hashGridSize;
+        }
+        int z = (int)(position.z * hashGridScale) % hashGridSize;
+        if (z < 0)
+        {
+            z += hashGridSize;
+        }
+        return hashGrid[x + z * hashGridSize];
+    }
+
+    public static float[] GetFeatureThresholds(int level)
+    {
+        return featureThresholds[level];
     }
 
     public static HexEdgeType GetEdgeType(int elevation1, int elevation2)

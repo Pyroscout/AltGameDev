@@ -51,6 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b004b3ccb9aa454c8bdfcd37926846f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seed: 1234
   cellPrefab: {fileID: 114863928053262268, guid: 06464edc4c9357247b0e6233545287fa,
     type: 2}
   cells: []

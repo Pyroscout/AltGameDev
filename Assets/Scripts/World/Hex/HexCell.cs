@@ -13,8 +13,13 @@ public class HexCell : MonoBehaviour
 
     public HexGridChunk chunk;
 
-    bool hasIncomingRiver, hasOutgoingRiver;
-	HexDirection incomingRiver, outgoingRiver;
+    int elevation = int.MinValue;
+    int waterLevel;
+
+    int urbanLevel, farmLevel, plantLevel;
+
+    public bool hasIncomingRiver, hasOutgoingRiver;
+	public HexDirection incomingRiver, outgoingRiver;
 
     public bool HasIncomingRiver
     {
@@ -96,7 +101,25 @@ public class HexCell : MonoBehaviour
         }
     }
 
-    int waterLevel;
+    public float StreamBedY
+    {
+        get
+        {
+            return
+                (elevation + HexMetrics.streamBedElevationOffset) *
+                HexMetrics.elevationStep;
+        }
+    }
+
+    public float RiverSurfaceY
+    {
+        get
+        {
+            return
+                (elevation + HexMetrics.waterElevationOffset) *
+                HexMetrics.elevationStep;
+        }
+    }
     public int WaterLevel
     {
         get
@@ -132,7 +155,6 @@ public class HexCell : MonoBehaviour
         }
     }
 
-    int elevation = int.MinValue;
     public int Elevation
     {
         get
@@ -147,8 +169,7 @@ public class HexCell : MonoBehaviour
             }
             elevation = value;
             Vector3 position = transform.localPosition;
-            // this here
-            //position.y = value * HexMetrics.elevationStep;
+            position.y = value * HexMetrics.elevationStep;
             position.y +=
                 (HexMetrics.SampleNoise(position).y * 2f - 1f) *
                 HexMetrics.elevationPerturbStrength;
@@ -178,6 +199,54 @@ public class HexCell : MonoBehaviour
         get
         {
             return transform.localPosition;
+        }
+    }
+
+    public int UrbanLevel
+    {
+        get
+        {
+            return urbanLevel;
+        }
+        set
+        {
+            if (urbanLevel != value)
+            {
+                urbanLevel = value;
+                RefreshSelfOnly();
+            }
+        }
+    }
+
+    public int FarmLevel
+    {
+        get
+        {
+            return farmLevel;
+        }
+        set
+        {
+            if (farmLevel != value)
+            {
+                farmLevel = value;
+                RefreshSelfOnly();
+            }
+        }
+    }
+
+    public int PlantLevel
+    {
+        get
+        {
+            return plantLevel;
+        }
+        set
+        {
+            if (plantLevel != value)
+            {
+                plantLevel = value;
+                RefreshSelfOnly();
+            }
         }
     }
 

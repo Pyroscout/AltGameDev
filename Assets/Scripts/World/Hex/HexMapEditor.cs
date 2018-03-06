@@ -12,9 +12,17 @@ public class HexMapEditor : MonoBehaviour
     int activeElevation;
     bool applyElevation = true;
 
+    int activeWaterLevel;
+    bool applyWaterLevel = true;
+
+    int activeUrbanLevel, activeFarmLevel, activePlantLevel;
+    bool applyUrbanLevel, applyFarmLevel, applyPlantLevel;
+
     int brushSize;
 
-    int activeWaterLevel;
+    bool isDrag;
+    HexDirection dragDirection;
+    HexCell previousCell;
 
     OptionalToggle riverMode;
     enum OptionalToggle
@@ -34,6 +42,10 @@ public class HexMapEditor : MonoBehaviour
         {
             HandleInput();
         }
+        else
+        {
+            previousCell = null;
+        }
     }
 
     void HandleInput()
@@ -42,8 +54,39 @@ public class HexMapEditor : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(inputRay, out hit))
         {
-            EditCells(hexGrid.GetCell(hit.point));
+            HexCell currentCell = hexGrid.GetCell(hit.point);
+            if (previousCell && previousCell != currentCell)
+            {
+                ValidateDrag(currentCell);
+            }
+            else
+            {
+                isDrag = false;
+            }
+            EditCells(currentCell);
+            previousCell = currentCell;
         }
+        else
+        {
+            previousCell = null;
+        }
+    }
+
+    void ValidateDrag(HexCell currentCell)
+    {
+        for (
+            dragDirection = HexDirection.NE;
+            dragDirection <= HexDirection.NW;
+            dragDirection++
+        )
+        {
+            if (previousCell.GetNeighbor(dragDirection) == currentCell)
+            {
+                isDrag = true;
+                return;
+            }
+        }
+        isDrag = false;
     }
 
     void EditCells(HexCell center)
@@ -79,6 +122,34 @@ public class HexMapEditor : MonoBehaviour
             {
                 cell.Elevation = activeElevation;
             }
+            if (applyWaterLevel)
+            {
+                cell.WaterLevel = activeWaterLevel;
+            }
+            if (applyUrbanLevel)
+            {
+                cell.UrbanLevel = activeUrbanLevel;
+            }
+            if (applyFarmLevel)
+            {
+                cell.FarmLevel = activeFarmLevel;
+            }
+            if (applyPlantLevel)
+            {
+                cell.PlantLevel = activePlantLevel;
+            }
+            if (riverMode == OptionalToggle.No)
+            {
+                cell.RemoveRiver();
+            }
+            else if (isDrag && riverMode == OptionalToggle.Yes)
+            {
+                HexCell otherCell = cell.GetNeighbor(dragDirection.Opposite());
+                if (otherCell)
+                {
+                    otherCell.SetOutgoingRiver(dragDirection);
+                }
+            }
         }
     }
 
@@ -101,6 +172,16 @@ public class HexMapEditor : MonoBehaviour
         applyElevation = toggle;
     }
 
+    public void SetApplyWaterLevel(bool toggle)
+    {
+        applyWaterLevel = toggle;
+    }
+
+    public void SetWaterLevel(float level)
+    {
+        activeWaterLevel = (int)level;
+    }
+
     public void SetBrushSize(float size)
     {
         brushSize = (int)size;
@@ -109,6 +190,36 @@ public class HexMapEditor : MonoBehaviour
     public void SetRiverMode(int mode)
     {
         riverMode = (OptionalToggle)mode;
+    }
+
+    public void SetApplyUrbanLevel(bool toggle)
+    {
+        applyUrbanLevel = toggle;
+    }
+
+    public void SetUrbanLevel(float level)
+    {
+        activeUrbanLevel = (int)level;
+    }
+
+    public void SetApplyFarmLevel(bool toggle)
+    {
+        applyFarmLevel = toggle;
+    }
+
+    public void SetFarmLevel(float level)
+    {
+        activeFarmLevel = (int)level;
+    }
+
+    public void SetApplyPlantLevel(bool toggle)
+    {
+        applyPlantLevel = toggle;
+    }
+
+    public void SetPlantLevel(float level)
+    {
+        activePlantLevel = (int)level;
     }
 
     public void ShowUI(bool visible)

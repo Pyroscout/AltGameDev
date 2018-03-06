@@ -3,6 +3,8 @@ using UnityEngine.UI;
 
 public class HexGrid : MonoBehaviour
 {
+    public int seed;
+
     int cellCountX, cellCountZ;
 
     //public int chunkCountX = 4, chunkCountZ = 3;
@@ -14,8 +16,6 @@ public class HexGrid : MonoBehaviour
 
     public HexGridChunk chunkPrefab;
     HexGridChunk[] chunks;
-    //Canvas gridCanvas;
-    //HexMesh hexMesh;
 
     public Texture2D noiseSource;
 
@@ -30,8 +30,7 @@ public class HexGrid : MonoBehaviour
     private void Awake()
     {
         HexMetrics.noiseSource = noiseSource;
-        //gridCanvas = GetComponentInChildren<Canvas>();
-        //hexMesh = GetComponentInChildren<HexMesh>();
+        HexMetrics.InitializeHashGrid(seed);
 
         cellCountX = HexMetrics.chunkCountX * HexMetrics.chunkSizeX;
         cellCountZ = HexMetrics.chunkCountZ * HexMetrics.chunkSizeZ;
@@ -42,18 +41,12 @@ public class HexGrid : MonoBehaviour
 
     void OnEnable()
     {
-        HexMetrics.noiseSource = noiseSource;
+        if (!HexMetrics.noiseSource)
+        {
+            HexMetrics.noiseSource = noiseSource;
+            HexMetrics.InitializeHashGrid(seed);
+        }
     }
-
-    //private void Start()
-    //{
-    //    hexMesh.Triangulate(cells);
-    //}
-
-    //public void Refresh()
-    //{
-    //    hexMesh.Triangulate(cells);
-    //}
 
     void CreateChunks()
     {
@@ -91,7 +84,6 @@ public class HexGrid : MonoBehaviour
         position.z = z * (HexMetrics.outerRadius * 1.5f);
 
         HexCell cell = cells[i] = Instantiate<HexCell>(cellPrefab);
-        //cell.transform.SetParent(transform, false);
         cell.transform.localPosition = position;
         cell.coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
         cell.DefaultTileSetup();
@@ -122,7 +114,6 @@ public class HexGrid : MonoBehaviour
 
         // cell label
         Text label = Instantiate<Text>(cellLabelPrefab);
-        //label.rectTransform.SetParent(gridCanvas.transform, false);
         label.rectTransform.anchoredPosition = new Vector2(position.x, position.z);
         label.text = cell.coordinates.ToStringOnSeparateLines();
         cell.uiRect = label.rectTransform;
@@ -137,7 +128,6 @@ public class HexGrid : MonoBehaviour
         //}
 
         cell.Elevation = 0;
-        cell.WaterLevel = 1;
 
         AddCellToChunk(x, z, cell);
     }
