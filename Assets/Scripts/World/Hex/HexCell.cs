@@ -147,6 +147,8 @@ public class HexCell : MonoBehaviour
             }
             elevation = value;
             Vector3 position = transform.localPosition;
+            // this here
+            //position.y = value * HexMetrics.elevationStep;
             position.y +=
                 (HexMetrics.SampleNoise(position).y * 2f - 1f) *
                 HexMetrics.elevationPerturbStrength;
