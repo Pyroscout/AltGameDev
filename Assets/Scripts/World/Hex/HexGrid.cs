@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.IO;
 
 public class HexGrid : MonoBehaviour
 {
-    public int seed;
 
     int cellCountX, cellCountZ;
 
@@ -18,6 +18,8 @@ public class HexGrid : MonoBehaviour
     HexGridChunk[] chunks;
 
     public Texture2D noiseSource;
+    public int seed;
+    public Color[] colors;
 
     public Vector3 Position
     {
@@ -31,12 +33,8 @@ public class HexGrid : MonoBehaviour
     {
         HexMetrics.noiseSource = noiseSource;
         HexMetrics.InitializeHashGrid(seed);
-
-        cellCountX = HexMetrics.chunkCountX * HexMetrics.chunkSizeX;
-        cellCountZ = HexMetrics.chunkCountZ * HexMetrics.chunkSizeZ;
-
-        CreateChunks();
-        CreateCells();
+        HexMetrics.colors = colors;
+        CreateMap();
     }
 
     void OnEnable()
@@ -45,7 +43,16 @@ public class HexGrid : MonoBehaviour
         {
             HexMetrics.noiseSource = noiseSource;
             HexMetrics.InitializeHashGrid(seed);
+            HexMetrics.colors = colors;
         }
+    }
+
+    public void CreateMap()
+    {
+        cellCountX = HexMetrics.chunkCountX * HexMetrics.chunkSizeX;
+        cellCountZ = HexMetrics.chunkCountZ * HexMetrics.chunkSizeZ;
+        CreateChunks();
+        CreateCells();
     }
 
     void CreateChunks()
@@ -86,7 +93,8 @@ public class HexGrid : MonoBehaviour
         HexCell cell = cells[i] = Instantiate<HexCell>(cellPrefab);
         cell.transform.localPosition = position;
         cell.coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
-        cell.DefaultTileSetup();
+        cell.tile = new Tile();
+        cell.tile.SetBiomeType(0);
 
         if (x > 0)
         {
@@ -172,6 +180,26 @@ public class HexGrid : MonoBehaviour
         for (int i = 0; i < chunks.Length; i++)
         {
             chunks[i].ShowUI(visible);
+        }
+    }
+
+    public void Save(BinaryWriter writer)
+    {
+        for (int i = 0; i < cells.Length; i++)
+        {
+            cells[i].Save(writer);
+        }
+    }
+
+    public void Load(BinaryReader reader)
+    {
+        for (int i = 0; i < cells.Length; i++)
+        {
+            cells[i].Load(reader);
+        }
+        for (int i = 0; i < chunks.Length; i++)
+        {
+            chunks[i].Refresh();
         }
     }
 }

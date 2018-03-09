@@ -74,6 +74,11 @@ public class Tile
         }
     }
 
+    public void SetBiomeType(int biomeTypeIndex)
+    {
+        SetBiomeType((BiomeType)biomeTypeIndex);
+    }
+
     Color32 forestColor = new Color32(34, 139, 34, 255);
     public void SetForest()
     {

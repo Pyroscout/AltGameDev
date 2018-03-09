@@ -1,13 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using System.IO;
 
 public class HexMapEditor : MonoBehaviour
 {
     public HexGrid hexGrid;
 
-    public Color[] colors;
-    private BiomeType activeBiome;
-    bool applyBiome;
+    int activeBiomeTypeIndex;
 
     int activeElevation;
     bool applyElevation = true;
@@ -28,11 +27,6 @@ public class HexMapEditor : MonoBehaviour
     enum OptionalToggle
     {
         Ignore, Yes, No
-    }
-
-    void Awake()
-    {
-        SelectBiome(0);
     }
 
     void Update()
@@ -114,9 +108,9 @@ public class HexMapEditor : MonoBehaviour
     {
         if (cell)
         {
-            if (applyBiome)
+            if (activeBiomeTypeIndex >= 0)
             {
-                cell.Biome = activeBiome;
+                cell.Biome = (BiomeType)activeBiomeTypeIndex;
             }
             if (applyElevation)
             {
@@ -153,13 +147,9 @@ public class HexMapEditor : MonoBehaviour
         }
     }
 
-    public void SelectBiome(int index)
+    public void SetBiomeTypeIndex(int index)
     {
-        applyBiome = index >= 0;
-        if (applyBiome)
-        {
-            activeBiome = (BiomeType)index;
-        }
+        activeBiomeTypeIndex = index;
     }
 
     public void SetElevation(float elevation)
@@ -225,5 +215,35 @@ public class HexMapEditor : MonoBehaviour
     public void ShowUI(bool visible)
     {
         hexGrid.ShowUI(visible);
+    }
+
+    public void Save()
+    {
+        string path =
+            Path.Combine(Application.persistentDataPath, "test.map");
+        using (
+            BinaryWriter writer =
+                new BinaryWriter(File.Open(path, FileMode.Create)))
+        {
+            writer.Write(0);
+            hexGrid.Save(writer);
+        }
+    }
+
+    public void Load()
+    {
+        string path = Path.Combine(Application.persistentDataPath, "test.map");
+        using (BinaryReader reader = new BinaryReader(File.OpenRead(path)))
+        {
+            int header = reader.ReadInt32();
+            if (header == 0)
+            {
+                hexGrid.Load(reader);
+            }
+            else
+            {
+                Debug.LogWarning("Unknown map format " + header);
+            }
+        }
     }
 }

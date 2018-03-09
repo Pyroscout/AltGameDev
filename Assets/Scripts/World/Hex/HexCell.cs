@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.IO;
 
 public class HexCell : MonoBehaviour
 {
@@ -84,7 +85,7 @@ public class HexCell : MonoBehaviour
         }
         set
         {
-            if(tile.BiomeType == value)
+            if (tile.BiomeType == value)
             {
                 return;
             }
@@ -168,16 +169,7 @@ public class HexCell : MonoBehaviour
                 return;
             }
             elevation = value;
-            Vector3 position = transform.localPosition;
-            position.y = value * HexMetrics.elevationStep;
-            position.y +=
-                (HexMetrics.SampleNoise(position).y * 2f - 1f) *
-                HexMetrics.elevationPerturbStrength;
-            transform.localPosition = position;
-
-            Vector3 uiPosition = uiRect.localPosition;
-            uiPosition.z = -position.y;
-            uiRect.localPosition = uiPosition;
+            RefreshPosition();
 
             if (hasOutgoingRiver &&
                 elevation < GetNeighbor(outgoingRiver).elevation)
@@ -269,6 +261,20 @@ public class HexCell : MonoBehaviour
     void RefreshSelfOnly()
     {
         chunk.Refresh();
+    }
+
+    void RefreshPosition()
+    {
+        Vector3 position = transform.localPosition;
+        position.y = elevation * HexMetrics.elevationStep;
+        position.y +=
+            (HexMetrics.SampleNoise(position).y * 2f - 1f) *
+            HexMetrics.elevationPerturbStrength;
+        transform.localPosition = position;
+
+        Vector3 uiPosition = uiRect.localPosition;
+        uiPosition.z = -position.y;
+        uiRect.localPosition = uiPosition;
     }
 
     public HexCell GetNeighbor(HexDirection direction)
@@ -383,5 +389,65 @@ public class HexCell : MonoBehaviour
             ocean = ocean || coordinates.Y - coordinates.X == HexMetrics.cellCountX - 3;
         }
         return ocean;
+    }
+
+    public void Save(BinaryWriter writer)
+    {
+        writer.Write((byte)tile.BiomeType);
+        writer.Write((byte)elevation);
+        writer.Write((byte)waterLevel);
+        writer.Write((byte)urbanLevel);
+        writer.Write((byte)farmLevel);
+        writer.Write((byte)plantLevel);
+
+        if (hasIncomingRiver)
+        {
+            writer.Write((byte)(incomingRiver + 128));
+        }
+        else
+        {
+            writer.Write((byte)0);
+        }
+        if (hasOutgoingRiver)
+        {
+            writer.Write((byte)(outgoingRiver + 128));
+        }
+        else
+        {
+            writer.Write((byte)0);
+        }
+    }
+
+    public void Load(BinaryReader reader)
+    {
+        tile.SetBiomeType(reader.ReadByte());
+        elevation = reader.ReadByte();
+        RefreshPosition();
+        waterLevel = reader.ReadByte();
+        urbanLevel = reader.ReadByte();
+        farmLevel = reader.ReadByte();
+        plantLevel = reader.ReadByte();
+
+        byte riverData = reader.ReadByte();
+        if (riverData >= 128)
+        {
+            hasIncomingRiver = true;
+            incomingRiver = (HexDirection)(riverData - 128);
+        }
+        else
+        {
+            hasIncomingRiver = false;
+        }
+
+        riverData = reader.ReadByte();
+        if (riverData >= 128)
+        {
+            hasOutgoingRiver = true;
+            outgoingRiver = (HexDirection)(riverData - 128);
+        }
+        else
+        {
+            hasOutgoingRiver = false;
+        }
     }
 }
