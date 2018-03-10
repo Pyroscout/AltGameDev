@@ -376,20 +376,20 @@ public class HexCell : MonoBehaviour
         this.tile = tile;
     }
 
-    bool isOcean()
-    {
-        bool ocean = Mathf.Abs(coordinates.Z) >= HexMetrics.cellCountZ / 2-1;
-        ocean = ocean || Mathf.Abs(coordinates.X) + Mathf.Abs(coordinates.Y) >= HexMetrics.cellCountX - 2;
-        if(HexMetrics.cellCountX % 2 == 1)
-        {
-            ocean = ocean || coordinates.X - coordinates.Y == HexMetrics.cellCountX - 3;
-        }
-        else
-        {
-            ocean = ocean || coordinates.Y - coordinates.X == HexMetrics.cellCountX - 3;
-        }
-        return ocean;
-    }
+    //bool isOcean()
+    //{
+    //    bool ocean = Mathf.Abs(coordinates.Z) >= HexMetrics.cellCountZ / 2-1;
+    //    ocean = ocean || Mathf.Abs(coordinates.X) + Mathf.Abs(coordinates.Y) >= HexMetrics.cellCountX - 2;
+    //    if(HexMetrics.cellCountX % 2 == 1)
+    //    {
+    //        ocean = ocean || coordinates.X - coordinates.Y == HexMetrics.cellCountX - 3;
+    //    }
+    //    else
+    //    {
+    //        ocean = ocean || coordinates.Y - coordinates.X == HexMetrics.cellCountX - 3;
+    //    }
+    //    return ocean;
+    //}
 
     public void Save(BinaryWriter writer)
     {

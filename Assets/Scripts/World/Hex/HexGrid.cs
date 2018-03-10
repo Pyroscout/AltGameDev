@@ -4,8 +4,8 @@ using System.IO;
 
 public class HexGrid : MonoBehaviour
 {
-
-    int cellCountX, cellCountZ;
+    public int cellCountX = 20, cellCountZ = 15;
+    int chunkCountX, chunkCountZ;
 
     //public int chunkCountX = 4, chunkCountZ = 3;
 
@@ -19,7 +19,6 @@ public class HexGrid : MonoBehaviour
 
     public Texture2D noiseSource;
     public int seed;
-    public Color[] colors;
 
     public Vector3 Position
     {
@@ -33,8 +32,7 @@ public class HexGrid : MonoBehaviour
     {
         HexMetrics.noiseSource = noiseSource;
         HexMetrics.InitializeHashGrid(seed);
-        HexMetrics.colors = colors;
-        CreateMap();
+        CreateMap(cellCountX, cellCountZ);
     }
 
     void OnEnable()
@@ -43,25 +41,44 @@ public class HexGrid : MonoBehaviour
         {
             HexMetrics.noiseSource = noiseSource;
             HexMetrics.InitializeHashGrid(seed);
-            HexMetrics.colors = colors;
         }
     }
 
-    public void CreateMap()
+    public bool CreateMap(int x, int z)
     {
-        cellCountX = HexMetrics.chunkCountX * HexMetrics.chunkSizeX;
-        cellCountZ = HexMetrics.chunkCountZ * HexMetrics.chunkSizeZ;
+        if (
+            x <= 0 || x % HexMetrics.chunkSizeX != 0 ||
+            z <= 0 || z % HexMetrics.chunkSizeZ != 0)
+        {
+            Debug.LogError("Unsupported map size.");
+            return false;
+        }
+
+        if (chunks != null)
+        {
+            for (int i = 0; i < chunks.Length; i++)
+            {
+                Destroy(chunks[i].gameObject);
+            }
+        }
+
+        cellCountX = x;
+        cellCountZ = z;
+        chunkCountX = cellCountX / HexMetrics.chunkSizeX;
+        chunkCountZ = cellCountZ / HexMetrics.chunkSizeZ;
         CreateChunks();
         CreateCells();
+
+        return true;
     }
 
     void CreateChunks()
     {
-        chunks = new HexGridChunk[HexMetrics.chunkCountX * HexMetrics.chunkCountZ];
+        chunks = new HexGridChunk[chunkCountX * chunkCountZ];
 
-        for (int z = 0, i = 0; z < HexMetrics.chunkCountZ; z++)
+        for (int z = 0, i = 0; z < chunkCountZ; z++)
         {
-            for (int x = 0; x < HexMetrics.chunkCountX; x++)
+            for (int x = 0; x < chunkCountX; x++)
             {
                 HexGridChunk chunk = chunks[i++] = Instantiate(chunkPrefab);
                 chunk.transform.SetParent(transform);
@@ -126,15 +143,6 @@ public class HexGrid : MonoBehaviour
         label.text = cell.coordinates.ToStringOnSeparateLines();
         cell.uiRect = label.rectTransform;
 
-        //if (cell.Biome == BiomeType.Ocean)
-        //{
-        //    cell.Elevation = 0;
-        //}
-        //else
-        //{
-        //    cell.Elevation = 1;
-        //}
-
         cell.Elevation = 0;
 
         AddCellToChunk(x, z, cell);
@@ -144,7 +152,7 @@ public class HexGrid : MonoBehaviour
     {
         int chunkX = x / HexMetrics.chunkSizeX;
         int chunkZ = z / HexMetrics.chunkSizeZ;
-        HexGridChunk chunk = chunks[chunkX + chunkZ * HexMetrics.chunkCountX];
+        HexGridChunk chunk = chunks[chunkX + chunkZ * chunkCountX];
 
         int localX = x - chunkX * HexMetrics.chunkSizeX;
         int localZ = z - chunkZ * HexMetrics.chunkSizeZ;
@@ -185,14 +193,31 @@ public class HexGrid : MonoBehaviour
 
     public void Save(BinaryWriter writer)
     {
+        writer.Write(cellCountX);
+        writer.Write(cellCountZ);
+
         for (int i = 0; i < cells.Length; i++)
         {
             cells[i].Save(writer);
         }
     }
 
-    public void Load(BinaryReader reader)
+    public void Load(BinaryReader reader, int header)
     {
+        int x = 20, z = 15;
+        if (header >= 1)
+        {
+            x = reader.ReadInt32();
+            z = reader.ReadInt32();
+        }
+        if (x != cellCountX || z != cellCountZ)
+        {
+            if (!CreateMap(x, z))
+            {
+                return;
+            }
+        }
+
         for (int i = 0; i < cells.Length; i++)
         {
             cells[i].Load(reader);

@@ -2,7 +2,6 @@
 
 public static class HexMetrics
 {
-    public static Color[] colors;
     public const float outerToInner = 0.866025404f;
     public const float innerToOuter = 1f / outerToInner;
     public const float outerRadius = 10f;
@@ -34,9 +33,9 @@ public static class HexMetrics
     public const float waterElevationOffset = -0.5f;
 
     public const int chunkSizeX = 5, chunkSizeZ = 5;
-    public const int chunkCountX = 4, chunkCountZ = 3;
-    public const int cellCountX = chunkSizeX * chunkCountX;
-    public const int cellCountZ = chunkSizeZ * chunkCountZ;
+    //public const int chunkCountX = 4, chunkCountZ = 3;
+    //public const int cellCountX = chunkSizeX * chunkCountX;
+    //public const int cellCountZ = chunkSizeZ * chunkCountZ;
 
     static HexHash[] hashGrid;
     public const int hashGridSize = 256;

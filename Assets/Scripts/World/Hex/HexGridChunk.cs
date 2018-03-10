@@ -36,9 +36,7 @@ public class HexGridChunk : MonoBehaviour
         cell.transform.SetParent(transform, false);
         cell.uiRect.SetParent(gridCanvas.transform, false);
     }
-
-
-
+    
     public void Triangulate(HexCell[] cells)
     {
         terrain.Clear();
