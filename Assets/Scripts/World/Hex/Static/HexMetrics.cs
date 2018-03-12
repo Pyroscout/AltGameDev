@@ -9,6 +9,9 @@ public static class HexMetrics
 
     public const float solidFactor = 0.8f;
     public const float blendFactor = 1f - solidFactor;
+    
+    public const float noOutlineFactor = 0.95f;
+    public const float outlineFactor = 1f - noOutlineFactor;
 
     static Vector3[] corners = {
         new Vector3(0f, 0f, outerRadius),
@@ -86,6 +89,16 @@ public static class HexMetrics
         return corners[(int)direction + 1] * solidFactor;
     }
 
+    public static Vector3 GetFirstOutlineCorner(HexDirection direction)
+    {
+        return corners[(int)direction] * noOutlineFactor;
+    }
+
+    public static Vector3 GetSecondOutlineCorner(HexDirection direction)
+    {
+        return corners[(int)direction + 1] * noOutlineFactor;
+    }
+
     public static Vector3 GetSolidEdgeMiddle(HexDirection direction)
     {
         return
@@ -97,6 +110,12 @@ public static class HexMetrics
     {
         return (corners[(int)direction] + corners[(int)direction + 1]) *
             blendFactor;
+    }
+
+    public static Vector3 GetOutlineBridge(HexDirection direction)
+    {
+        return (corners[(int)direction] + corners[(int)direction + 1]) *
+            outlineFactor;
     }
 
     public static Vector3 GetWaterBridge(HexDirection direction)

@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4019681934725584}
   - component: {fileID: 114401884054111482}
+  - component: {fileID: 114874523474129862}
   m_Layer: 0
   m_Name: Hex Map Camera
   m_TagString: Untagged
@@ -68,6 +69,7 @@ GameObject:
   - component: {fileID: 20164529849354704}
   - component: {fileID: 124699545399242476}
   - component: {fileID: 81356348603335058}
+  - component: {fileID: 114639540970447424}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -192,6 +194,30 @@ MonoBehaviour:
   moveSpeedMaxZoom: 100
   rotationSpeed: 180
   grid: {fileID: 0}
+--- !u!114 &114639540970447424
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1860226709939976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9d714f4d5b270f41a3ca927bea2fe2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Post_Outline: {fileID: 4800000, guid: c20f97eb725257a47b345c0d5f666730, type: 3}
+  DrawSimple: {fileID: 4800000, guid: c20f97eb725257a47b345c0d5f666730, type: 3}
+--- !u!114 &114874523474129862
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1106554910587726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd8763cb84669ec4f9be523342728ae1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!124 &124699545399242476
 Behaviour:
   m_ObjectHideFlags: 1

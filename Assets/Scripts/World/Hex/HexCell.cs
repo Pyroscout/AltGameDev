@@ -7,6 +7,8 @@ public class HexCell : MonoBehaviour
 
     public Tile tile;
 
+    bool isSelected;
+
     [SerializeField]
     HexCell[] neighbors;
 
@@ -239,6 +241,19 @@ public class HexCell : MonoBehaviour
                 plantLevel = value;
                 RefreshSelfOnly();
             }
+        }
+    }
+
+    public bool IsSelected
+    {
+        get
+        {
+            return isSelected;
+        }
+        set
+        {
+            isSelected = value;
+            RefreshSelfOnly();
         }
     }
 

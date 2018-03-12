@@ -5,10 +5,12 @@ public class HexGridChunk : MonoBehaviour
 {
     HexCell[] cells;
 
-    public HexMesh terrain, rivers, water, waterShore;
+    public HexMesh terrain, rivers, water, waterShore, selectedOutline;
     Canvas gridCanvas;
 
     public HexFeatureManager features;
+
+    public CreatureManager creatures;
 
     void Awake()
     {
@@ -43,7 +45,9 @@ public class HexGridChunk : MonoBehaviour
         rivers.Clear();
         water.Clear();
         waterShore.Clear();
+        selectedOutline.Clear();
         features.Clear();
+        creatures.Clear();
         for (int i = 0; i < cells.Length; i++)
         {
             Triangulate(cells[i]);
@@ -52,7 +56,9 @@ public class HexGridChunk : MonoBehaviour
         rivers.Apply();
         water.Apply();
         waterShore.Apply();
+        selectedOutline.Apply();
         features.Apply();
+        creatures.Apply();
     }
 
     void Triangulate(HexCell cell)
@@ -64,6 +70,10 @@ public class HexGridChunk : MonoBehaviour
         if (!cell.IsUnderwater && !cell.HasRiver)
         {
             features.AddFeature(cell, cell.Position);
+        }
+        if (!cell.IsUnderwater && !cell.HasRiver)
+        {
+            creatures.AddCreature(cell.Position);
         }
     }
 
@@ -95,7 +105,7 @@ public class HexGridChunk : MonoBehaviour
         }
         else
         {
-            TriangulateEdgeFan(center, e, cell.Color);
+            TriangulateEdgeFan(center, e, cell.Color, terrain);
 
             if (!cell.IsUnderwater)
             {
@@ -111,6 +121,11 @@ public class HexGridChunk : MonoBehaviour
         if (cell.IsUnderwater)
         {
             TriangulateWater(direction, cell, center);
+        }
+
+        if (cell.IsSelected)
+        {
+            TriangulateSelectedOutline(direction, cell, center);
         }
     }
 
@@ -157,7 +172,7 @@ public class HexGridChunk : MonoBehaviour
             Vector3.Lerp(centerR, e.v5, 0.5f),
             1f / 6f);
         m.v3.y = center.y = e.v3.y;
-        TriangulateEdgeStrip(m, cell.Color, e, cell.Color);
+        TriangulateEdgeStrip(m, cell.Color, e, cell.Color, terrain);
 
         terrain.AddTriangle(centerL, m.v1, m.v2);
         terrain.AddTriangleColor(cell.Color);
@@ -183,8 +198,8 @@ public class HexGridChunk : MonoBehaviour
             Vector3.Lerp(center, e.v1, 0.5f),
             Vector3.Lerp(center, e.v5, 0.5f));
         m.v3.y = e.v3.y;
-        TriangulateEdgeStrip(m, cell.Color, e, cell.Color);
-        TriangulateEdgeFan(center, m, cell.Color);
+        TriangulateEdgeStrip(m, cell.Color, e, cell.Color, terrain);
+        TriangulateEdgeFan(center, m, cell.Color, terrain);
         bool reversed = cell.HasIncomingRiver;
         TriangulateRiverQuad(m.v2, m.v4, e.v2, e.v4,
             cell.RiverSurfaceY, 0.6f, reversed);
@@ -231,8 +246,8 @@ public class HexGridChunk : MonoBehaviour
             Vector3.Lerp(center, e.v1, 0.5f),
             Vector3.Lerp(center, e.v5, 0.5f));
 
-        TriangulateEdgeStrip(m, cell.Color, e, cell.Color);
-        TriangulateEdgeFan(center, m, cell.Color);
+        TriangulateEdgeStrip(m, cell.Color, e, cell.Color, terrain);
+        TriangulateEdgeFan(center, m, cell.Color, terrain);
 
         if (!cell.IsUnderwater)
         {
@@ -375,7 +390,7 @@ public class HexGridChunk : MonoBehaviour
         }
         else
         {
-            TriangulateEdgeStrip(e1, cell.Color, e2, neighbor.Color);
+            TriangulateEdgeStrip(e1, cell.Color, e2, neighbor.Color, terrain);
         }
 
         HexCell nextNeighbor = cell.GetNeighbor(direction.Next());
@@ -518,7 +533,7 @@ public class HexGridChunk : MonoBehaviour
         EdgeVertices e2 = EdgeVertices.TerraceLerp(begin, end, 1);
         Color c2 = HexMetrics.TerraceLerp(beginCell.Color, endCell.Color, 1);
 
-        TriangulateEdgeStrip(begin, beginCell.Color, e2, c2);
+        TriangulateEdgeStrip(begin, beginCell.Color, e2, c2, terrain);
 
         for (int i = 2; i < HexMetrics.terraceSteps; i++)
         {
@@ -526,36 +541,59 @@ public class HexGridChunk : MonoBehaviour
             Color c1 = c2;
             e2 = EdgeVertices.TerraceLerp(begin, end, i);
             c2 = HexMetrics.TerraceLerp(beginCell.Color, endCell.Color, i);
-            TriangulateEdgeStrip(e1, c1, e2, c2);
+            TriangulateEdgeStrip(e1, c1, e2, c2, terrain);
         }
 
-        TriangulateEdgeStrip(e2, c2, end, endCell.Color);
+        TriangulateEdgeStrip(e2, c2, end, endCell.Color, terrain);
     }
 
-    void TriangulateEdgeFan(Vector3 center, EdgeVertices edge, Color color)
+    void TriangulateEdgeFan(Vector3 center, EdgeVertices edge, Color color, HexMesh mesh)
     {
-        terrain.AddTriangle(center, edge.v1, edge.v2);
-        terrain.AddTriangleColor(color);
-        terrain.AddTriangle(center, edge.v2, edge.v3);
-        terrain.AddTriangleColor(color);
-        terrain.AddTriangle(center, edge.v3, edge.v4);
-        terrain.AddTriangleColor(color);
-        terrain.AddTriangle(center, edge.v4, edge.v5);
-        terrain.AddTriangleColor(color);
+        TriangulateEdgeFanVertices(center, edge, mesh);
+        TriangulateEdgeFanColors(color, mesh);
+    }
+
+    void TriangulateEdgeFanVertices(Vector3 center, EdgeVertices edge, HexMesh mesh)
+    {
+        mesh.AddTriangle(center, edge.v1, edge.v2);
+        mesh.AddTriangle(center, edge.v2, edge.v3);
+        mesh.AddTriangle(center, edge.v3, edge.v4);
+        mesh.AddTriangle(center, edge.v4, edge.v5);
+    }
+
+    void TriangulateEdgeFanColors(Color color, HexMesh mesh)
+    {
+        mesh.AddTriangleColor(color);
+        mesh.AddTriangleColor(color);
+        mesh.AddTriangleColor(color);
+        mesh.AddTriangleColor(color);
     }
 
     void TriangulateEdgeStrip(
        EdgeVertices e1, Color c1,
-       EdgeVertices e2, Color c2)
+       EdgeVertices e2, Color c2,
+       HexMesh mesh)
     {
-        terrain.AddQuad(e1.v1, e1.v2, e2.v1, e2.v2);
-        terrain.AddQuadColor(c1, c2);
-        terrain.AddQuad(e1.v2, e1.v3, e2.v2, e2.v3);
-        terrain.AddQuadColor(c1, c2);
-        terrain.AddQuad(e1.v3, e1.v4, e2.v3, e2.v4);
-        terrain.AddQuadColor(c1, c2);
-        terrain.AddQuad(e1.v4, e1.v5, e2.v4, e2.v5);
-        terrain.AddQuadColor(c1, c2);
+        TriangulateEdgeStripVertices(e1, e2, mesh);
+        TriangulateEdgeStripColors(c1, c2, mesh);
+    }
+
+    void TriangulateEdgeStripVertices(
+        EdgeVertices e1, EdgeVertices e2,
+        HexMesh mesh)
+    {
+        mesh.AddQuad(e1.v1, e1.v2, e2.v1, e2.v2);
+        mesh.AddQuad(e1.v2, e1.v3, e2.v2, e2.v3);
+        mesh.AddQuad(e1.v3, e1.v4, e2.v3, e2.v4);
+        mesh.AddQuad(e1.v4, e1.v5, e2.v4, e2.v5);
+    }
+
+    void TriangulateEdgeStripColors(Color c1, Color c2, HexMesh mesh)
+    {
+        mesh.AddQuadColor(c1, c2);
+        mesh.AddQuadColor(c1, c2);
+        mesh.AddQuadColor(c1, c2);
+        mesh.AddQuadColor(c1, c2);
     }
 
     void TriangulateCornerTerracesCliff(
@@ -637,6 +675,57 @@ public class HexGridChunk : MonoBehaviour
 
         terrain.AddTriangleUnperturbed(v2, HexMetrics.Perturb(left), boundary);
         terrain.AddTriangleColor(c2, leftCell.Color, boundaryColor);
+    }
+
+    void TriangulateSelectedOutline(HexDirection direction, HexCell cell, Vector3 center)
+    {
+        center.y = center.y + 0.2f;
+        HexCell neighbor = cell.GetNeighbor(direction);
+        Vector3 bridge = HexMetrics.GetOutlineBridge(direction);
+        if(neighbor != null)
+        {
+            bridge.y = neighbor.Position.y - cell.Position.y;
+        }
+
+        EdgeVertices e1 = new EdgeVertices(
+            center + HexMetrics.GetFirstOutlineCorner(direction),
+            center + HexMetrics.GetSecondOutlineCorner(direction));
+        EdgeVertices e2 = new EdgeVertices(e1.v1 + bridge, e1.v5 + bridge);
+        TriangulateEdgeStripVertices(e1, e2, selectedOutline);
+        selectedOutline.AddQuadUV(0f, 0f, 0f, 1f);
+        selectedOutline.AddQuadUV(0f, 0f, 0f, 1f);
+        selectedOutline.AddQuadUV(0f, 0f, 0f, 1f);
+        selectedOutline.AddQuadUV(0f, 0f, 0f, 1f);
+
+        HexCell nextNeighbor = cell.GetNeighbor(direction.Next());
+        Vector3 v5 = e1.v5 + HexMetrics.GetOutlineBridge(direction.Next());
+        if( neighbor != null && nextNeighbor != null)
+        {
+            v5.y = nextNeighbor.Position.y;
+            if (cell.Elevation <= neighbor.Elevation)
+            {
+                if (cell.Elevation <= nextNeighbor.Elevation)
+                {
+                    selectedOutline.AddTriangle(e1.v5, e2.v5, v5);
+                }
+                else
+                {
+                    selectedOutline.AddTriangle(v5, e1.v5, e2.v5);
+                }
+            }
+            else if (neighbor.Elevation <= nextNeighbor.Elevation)
+            {
+                selectedOutline.AddTriangle(e2.v5, v5, e1.v5);
+            }
+        }
+        else
+        {
+            selectedOutline.AddTriangle(v5, e1.v5, e2.v5);
+        }
+        selectedOutline.AddTriangleUV(
+                new Vector2(0f, 0f),
+                new Vector2(0f, 1f),
+                new Vector2(0f, 1f));
     }
 
     public void ShowUI(bool visible)

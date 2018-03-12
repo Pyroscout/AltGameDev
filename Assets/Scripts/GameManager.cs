@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 public class GameManager : MonoBehaviour
 {
     public HexGrid hexGrid;
-    HexCell selectedCell;
+    public HexCell selectedCell;
 
     public GameObject UI;
 
@@ -46,7 +46,13 @@ public class GameManager : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(inputRay, out hit))
         {
-            selectedCell = hexGrid.GetCell(hit.point);
+            HexCell newSelected = hexGrid.GetCell(hit.point);
+            if (selectedCell != newSelected)
+            {
+                selectedCell.IsSelected = false;
+                newSelected.IsSelected = true;
+                selectedCell = newSelected;
+            }
         }
     }
 

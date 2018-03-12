@@ -1555,7 +1555,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 166174573}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.057397574
+  m_Size: 0.057397276
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1699,62 +1699,62 @@ Prefab:
     - target: {fileID: 224371164191657788, guid: eb874aedc33d4c4439bdf5cd66f3db4c,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224979911418937714, guid: eb874aedc33d4c4439bdf5cd66f3db4c,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224265862103401804, guid: eb874aedc33d4c4439bdf5cd66f3db4c,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224498808419572762, guid: eb874aedc33d4c4439bdf5cd66f3db4c,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224701542680135084, guid: eb874aedc33d4c4439bdf5cd66f3db4c,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224024942828703512, guid: eb874aedc33d4c4439bdf5cd66f3db4c,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224928788171165746, guid: eb874aedc33d4c4439bdf5cd66f3db4c,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224277782090162210, guid: eb874aedc33d4c4439bdf5cd66f3db4c,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224339281878261588, guid: eb874aedc33d4c4439bdf5cd66f3db4c,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224109090605210402, guid: eb874aedc33d4c4439bdf5cd66f3db4c,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224390188150907906, guid: eb874aedc33d4c4439bdf5cd66f3db4c,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224522740401114110, guid: eb874aedc33d4c4439bdf5cd66f3db4c,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114213203186980526, guid: eb874aedc33d4c4439bdf5cd66f3db4c,
         type: 2}
@@ -1766,6 +1766,10 @@ Prefab:
       propertyPath: hexGrid
       value: 
       objectReference: {fileID: 1218419664}
+    - target: {fileID: 1930616568792430, guid: eb874aedc33d4c4439bdf5cd66f3db4c, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eb874aedc33d4c4439bdf5cd66f3db4c, type: 2}
   m_IsPrefabParent: 0
@@ -2433,25 +2437,16 @@ Prefab:
       propertyPath: grid
       value: 
       objectReference: {fileID: 1218419664}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114639540970447424, guid: 1e15742357b73614d9439a89c4e9da64, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 1e15742357b73614d9439a89c4e9da64, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &486968861 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1106554910587726, guid: 1e15742357b73614d9439a89c4e9da64,
+--- !u!114 &486968862 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114874523474129862, guid: 1e15742357b73614d9439a89c4e9da64,
     type: 2}
   m_PrefabInternal: {fileID: 486968860}
---- !u!114 &486968862
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 486968861}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fd8763cb84669ec4f9be523342728ae1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &523504320
 GameObject:
   m_ObjectHideFlags: 0
