@@ -69,6 +69,14 @@ public static class HexMetrics
         return position;
     }
 
+    public static Vector3 PerturbPerspective(Vector3 position)
+    {
+        Vector4 sample = SampleNoise(position);
+        position.x += (sample.x * 2f - 1f) * cellPerturbStrength;
+        position.y += (sample.z * 2f - 1f) * cellPerturbStrength;
+        return position;
+    }
+
     public static Vector3 GetFirstCorner(HexDirection direction)
     {
         return corners[(int)direction];

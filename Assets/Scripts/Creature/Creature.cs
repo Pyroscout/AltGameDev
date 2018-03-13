@@ -63,9 +63,7 @@ public class Creature
 
     public void ForageAndHunt(Tile tile)
     {
-
-        int tilePop = tile.GetCreatureCount(name);
-        if (tilePop <= 0)
+        if (!tile.HasCreature(name))
         {
             return;
         }

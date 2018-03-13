@@ -58,6 +58,12 @@ public class Tile
         return creatureCount;
     }
 
+    public bool HasCreature(string creatureName)
+    {
+        int count = GetCreatureCount(creatureName);
+        return count > 0;
+    }
+
     public void SetEnergyRequiredCount(string creatureName, int energyRequiredRemaining)
     {
         energyRequiredCounts[creatureName] = energyRequiredRemaining;

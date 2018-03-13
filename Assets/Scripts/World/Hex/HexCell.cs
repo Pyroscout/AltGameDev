@@ -252,8 +252,11 @@ public class HexCell : MonoBehaviour
         }
         set
         {
-            isSelected = value;
-            RefreshSelfOnly();
+            if(isSelected != value)
+            {
+                isSelected = value;
+                RefreshSelfOnly();
+            }
         }
     }
 
@@ -375,6 +378,23 @@ public class HexCell : MonoBehaviour
         HexCell neighbor = GetNeighbor(incomingRiver);
         neighbor.hasOutgoingRiver = false;
         neighbor.RefreshSelfOnly();
+    }
+
+    public void AddCreature(string creatureName, int creatureCount)
+    {
+        tile.AddCreature(creatureName, creatureCount);
+        RefreshSelfOnly();
+    }
+
+    public void RemoveCreature(string creatureName, int creatureCount)
+    {
+        tile.RemoveCreature(creatureName, creatureCount);
+        RefreshSelfOnly();
+    }
+
+    public bool HasCreature(string creatureName)
+    {
+        return tile.HasCreature(creatureName);
     }
 
     public void DefaultTileSetup()

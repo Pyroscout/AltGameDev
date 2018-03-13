@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class UIManager : MonoBehaviour
 {
+    public Text phaseLabel;
+
     public Text[] creatureCountLabels;
     
     public Canvas creatureInfoPrefab;
@@ -20,8 +22,28 @@ public class UIManager : MonoBehaviour
             for(int i = 0; i < Creature.creatures.Count; i++)
             {
                 Creature creature = Creature.creatures[i];
+                
                 creatureCountLabels[i].text = tile.GetCreatureCount(creature.name).ToString();
             }
+        }
+    }
+
+    public void UpdatePhase(Phase phase)
+    {
+        switch (phase)
+        {
+            case Phase.Migrate:
+                phaseLabel.text = "Phase: MIGRATE";
+                break;
+            case Phase.Reproduce:
+                phaseLabel.text = "Phase: REPRODUCE";
+                break;
+            case Phase.Evolve:
+                phaseLabel.text = "Phase: EVOLVE";
+                break;
+            case Phase.Feed:
+                phaseLabel.text = "Phase: FEED";
+                break;
         }
     }
 }

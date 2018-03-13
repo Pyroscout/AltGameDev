@@ -2,12 +2,15 @@
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
 
+public enum Phase { Reproduce, Evolve, Feed, Migrate, COUNT }
+
 public class GameManager : MonoBehaviour
 {
     public HexGrid hexGrid;
     HexCell selectedCell;
 
     public UIManager UI;
+    public UIPerspectiveManager uiPerspective;
 
     int generationNum;
     int turn;
@@ -18,7 +21,6 @@ public class GameManager : MonoBehaviour
     float huntTimeLeft;
 
     Phase phase;
-    enum Phase { Reproduce, Evolve, Feed, Migrate, COUNT }
 
     void Awake()
     {
@@ -79,12 +81,20 @@ public class GameManager : MonoBehaviour
 
     void SelectCell(HexCell newSelection)
     {
-        if (selectedCell != null)
+        if(newSelection != selectedCell)
         {
-            selectedCell.IsSelected = false;
+            if (selectedCell != null)
+            {
+                selectedCell.IsSelected = false;
+            }
+            newSelection.IsSelected = true;
+            selectedCell = newSelection;
+
+            if(phase == Phase.Migrate)
+            {
+                PlaceMigrationArrows();
+            }
         }
-        newSelection.IsSelected = true;
-        selectedCell = newSelection;
     }
 
     public void InitialPhase()
@@ -92,20 +102,24 @@ public class GameManager : MonoBehaviour
         if(turn < Creature.creatures.Count)
         {
             Creature activeCreature = Creature.creatures[turn];
-            selectedCell.tile.AddCreature(activeCreature.name, activeCreature.population);
-
+            selectedCell.AddCreature(activeCreature.name, activeCreature.population);
             turn++;
         }
         else
         {
             initialPhase = false;
             turn = 0;
-            phase = Phase.Evolve;
+            NextPhase();
         }
     }
 
     public void NextPhase()
     {
+        if(phase == Phase.Migrate)
+        {
+            uiPerspective.ClearArrows();
+        }
+
         // remove this and handle no press next phase
         if (huntIsActive)
         {
@@ -120,6 +134,7 @@ public class GameManager : MonoBehaviour
         }
 
         phase = phase == Phase.Migrate ? Phase.Reproduce : (Phase)(((int)phase)+1);
+        UI.UpdatePhase(phase);
         switch (phase)
         {
             case Phase.Migrate:
@@ -182,9 +197,9 @@ public class GameManager : MonoBehaviour
 
             foreach (Creature creature in Creature.creatures)
             {
-                int tilePop = tile.GetCreatureCount(name);
-                if (tilePop > 0)
+                if (tile.HasCreature(name))
                 {
+                    int tilePop = tile.GetCreatureCount(name);
                     tile.energyRequiredCounts[creature.name] = tilePop * (int)creature.size;
                 }
             }
@@ -227,6 +242,26 @@ public class GameManager : MonoBehaviour
 
     void MigrationPhase()
     {
-        // allow to move units
+        PlaceMigrationArrows();
+    }
+
+    void PlaceMigrationArrows()
+    {
+        uiPerspective.ClearArrows();
+        Creature creature = Creature.creatures[turn];
+        if (selectedCell.HasCreature(creature.name))
+        {
+            uiPerspective.PlaceArrows(selectedCell);
+        }
+    }
+
+    public void MoveInDirection(HexCell neighbor, HexCell cell)
+    {
+        Creature creature = Creature.creatures[turn];
+        int pop = cell.tile.GetCreatureCount(creature.name);
+        cell.RemoveCreature(creature.name, pop);
+        Debug.Log("Cell: " + cell.tile.GetCreatureCount(creature.name));
+        neighbor.AddCreature(creature.name, pop);
+        Debug.Log("Neighbor: " + neighbor.tile.GetCreatureCount(creature.name));
     }
 }
