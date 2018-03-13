@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class UIManager : MonoBehaviour
 {
     public Text phaseLabel;
+    public Text timerLabel;
 
     public Text[] creatureCountLabels;
     
@@ -12,6 +13,7 @@ public class UIManager : MonoBehaviour
 
     public void SetupUI()
     {
+        HideTimer();
     }
 
     public void UpdateUI(HexCell selectedCell)
@@ -45,5 +47,20 @@ public class UIManager : MonoBehaviour
                 phaseLabel.text = "Phase: FEED";
                 break;
         }
+    }
+
+    public void HideTimer()
+    {
+        timerLabel.enabled = false;
+    }
+
+    public void ShowTimer()
+    {
+        timerLabel.enabled = true;
+    }
+
+    public void UpdateTimer(int timeLeft)
+    {
+        timerLabel.text = timeLeft.ToString();
     }
 }

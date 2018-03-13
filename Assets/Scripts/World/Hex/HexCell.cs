@@ -397,6 +397,12 @@ public class HexCell : MonoBehaviour
         return tile.HasCreature(creatureName);
     }
 
+    public void KillUnfedCreatrues()
+    {
+        tile.KillUnfedCreatrues();
+        RefreshSelfOnly();
+    }
+
     public void DefaultTileSetup()
     {
         Tile tile = new Tile();

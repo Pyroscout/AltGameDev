@@ -39,7 +39,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hexGrid: {fileID: 0}
-  UI: {fileID: 0}
+  ui: {fileID: 0}
+  uiPerspective: {fileID: 0}
 --- !u!224 &224097870855538852
 RectTransform:
   m_ObjectHideFlags: 1

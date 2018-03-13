@@ -22,15 +22,15 @@ GameObject:
   - component: {fileID: 223882019907722352}
   - component: {fileID: 114791908359452368}
   - component: {fileID: 114940027055696084}
-  - component: {fileID: 114107864887496718}
+  - component: {fileID: 114430741685745486}
   m_Layer: 5
-  m_Name: UI Perspective
+  m_Name: UI Perspective Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &114107864887496718
+--- !u!114 &114430741685745486
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -38,7 +38,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1914434833973258}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f9b144a33bd62a42b4e590a9500dac6, type: 3}
+  m_Script: {fileID: 11500000, guid: 7855b43947b218e4a8cffa095b0d3934, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   game: {fileID: 0}
