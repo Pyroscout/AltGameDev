@@ -58,6 +58,12 @@ public class Tile
         return creatureCount;
     }
 
+    public bool HasCreature(string creatureName)
+    {
+        int count = GetCreatureCount(creatureName);
+        return count > 0;
+    }
+
     public void SetEnergyRequiredCount(string creatureName, int energyRequiredRemaining)
     {
         energyRequiredCounts[creatureName] = energyRequiredRemaining;
@@ -74,10 +80,9 @@ public class Tile
     {
         foreach(Creature creature in Creature.creatures)
         {
-            int creatureCount = GetCreatureCount(creature.name);
             int unfedEnergy = GetEnergyRequiredCount(creature.name);
             int deathCount = unfedEnergy / (int)creature.size;
-            creatureCount -= deathCount;
+            RemoveCreature(creature.name, deathCount);
         }
     }
 

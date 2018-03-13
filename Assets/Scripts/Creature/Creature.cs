@@ -63,22 +63,22 @@ public class Creature
 
     public void ForageAndHunt(Tile tile)
     {
-
-        int tilePop = tile.GetCreatureCount(name);
-        if (tilePop <= 0)
+        if (!tile.HasCreature(name))
         {
             return;
         }
+        
 
         int energyRequired = tile.GetEnergyRequiredCount(name);
-        if(energyRequired <= 0)
+        if (energyRequired <= 0)
         {
             return;
         }
 
         if (isHerbavore)
         {
-            energyRequired = Forage(tile, energyRequired);
+            int foraged = Forage(tile, energyRequired);
+            energyRequired = foraged;
         }
 
         if (energyRequired <= 0)
@@ -94,9 +94,10 @@ public class Creature
         tile.SetEnergyRequiredCount(name, energyRequired);
     }
 
+    // returns new energy required
     int Forage(Tile tile, int energyRequired)
     {
-        float forageSuccessRate = 0.01f;
+        float forageSuccessRate = 0.1f;
         float roll = Random.value;
         int energyForaged = 0;
         
@@ -107,6 +108,8 @@ public class Creature
         return Mathf.Max(0, energyRequired - energyForaged);
     }
 
+
+    // returns new energy required
     int Hunt(Tile tile, int energyRequired)
     {
         return energyRequired;

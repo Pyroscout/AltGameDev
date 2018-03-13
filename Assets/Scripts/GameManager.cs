@@ -2,12 +2,15 @@
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
 
+public enum Phase { Reproduce, Evolve, Feed, Migrate, COUNT }
+
 public class GameManager : MonoBehaviour
 {
     public HexGrid hexGrid;
     HexCell selectedCell;
 
-    public UIManager UI;
+    public UIManager ui;
+    public UIPerspectiveManager uiPerspective;
 
     int generationNum;
     int turn;
@@ -18,7 +21,6 @@ public class GameManager : MonoBehaviour
     float huntTimeLeft;
 
     Phase phase;
-    enum Phase { Reproduce, Evolve, Feed, Migrate, COUNT }
 
     void Awake()
     {
@@ -30,12 +32,7 @@ public class GameManager : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-        foreach (Creature creature in Creature.creatures)
-        {
-            Debug.Log("Start Gen: " + generationNum + "[" + creature.ToString() + "]");
-        }
-
-        UI.SetupUI();
+        ui.SetupUI();
     }
 	
 	// Update is called once per frame
@@ -60,7 +57,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        UI.UpdateUI(selectedCell);
+        ui.UpdateUI(selectedCell);
     }
 
     void HandleInput()
@@ -79,12 +76,20 @@ public class GameManager : MonoBehaviour
 
     void SelectCell(HexCell newSelection)
     {
-        if (selectedCell != null)
+        if(newSelection != selectedCell)
         {
-            selectedCell.IsSelected = false;
+            if (selectedCell != null)
+            {
+                selectedCell.IsSelected = false;
+            }
+            newSelection.IsSelected = true;
+            selectedCell = newSelection;
+
+            if(phase == Phase.Migrate)
+            {
+                PlaceMigrationArrows();
+            }
         }
-        newSelection.IsSelected = true;
-        selectedCell = newSelection;
     }
 
     public void InitialPhase()
@@ -92,24 +97,27 @@ public class GameManager : MonoBehaviour
         if(turn < Creature.creatures.Count)
         {
             Creature activeCreature = Creature.creatures[turn];
-            selectedCell.tile.AddCreature(activeCreature.name, activeCreature.population);
-
+            selectedCell.AddCreature(activeCreature.name, activeCreature.population);
             turn++;
         }
         else
         {
             initialPhase = false;
             turn = 0;
-            phase = Phase.Evolve;
+            NextPhase();
         }
     }
 
     public void NextPhase()
     {
+        if(phase == Phase.Migrate)
+        {
+            uiPerspective.ClearArrows();
+        }
+
         // remove this and handle no press next phase
         if (huntIsActive)
         {
-            Debug.Log(huntTimeLeft);
             return;
         }
 
@@ -120,6 +128,7 @@ public class GameManager : MonoBehaviour
         }
 
         phase = phase == Phase.Migrate ? Phase.Reproduce : (Phase)(((int)phase)+1);
+        ui.UpdatePhase(phase);
         switch (phase)
         {
             case Phase.Migrate:
@@ -132,7 +141,7 @@ public class GameManager : MonoBehaviour
                 EvolutionPhase();
                 break;
             case Phase.Feed:
-                FeedingPhase();
+                FeedPhase();
                 break;
         }
     }
@@ -160,7 +169,6 @@ public class GameManager : MonoBehaviour
             foreach (Creature creature in Creature.creatures)
             {
                 creature.IncreaseGeneration(tile);
-                Debug.Log("Reprod Gen: " + generationNum + "[" + creature.ToString() + "]");
             }
         }
             
@@ -171,21 +179,23 @@ public class GameManager : MonoBehaviour
         // evolve creatures
     }
 
-    void FeedingPhase()
+    void FeedPhase()
     {
+        ui.ShowTimer();
         huntIsActive = true;
         huntTimeLeft = 10f;
 
         foreach (HexCell cell in hexGrid.cells)
         {
             Tile tile = cell.tile;
+            tile.biome.ResetResources();
 
             foreach (Creature creature in Creature.creatures)
             {
-                int tilePop = tile.GetCreatureCount(name);
-                if (tilePop > 0)
+                if (tile.HasCreature(creature.name))
                 {
-                    tile.energyRequiredCounts[creature.name] = tilePop * (int)creature.size;
+                    int tilePop = tile.GetCreatureCount(creature.name);
+                    tile.SetEnergyRequiredCount(creature.name, tilePop * (int)creature.size);
                 }
             }
         }
@@ -193,7 +203,7 @@ public class GameManager : MonoBehaviour
 
     void ForageAndHunt()
     {
-
+        ui.UpdateTimer((int)huntTimeLeft);
         foreach (HexCell cell in hexGrid.cells)
         {
             Tile tile = cell.tile;
@@ -202,31 +212,40 @@ public class GameManager : MonoBehaviour
                 creature.ForageAndHunt(tile);
             }
         }
-        //Creature wolf = Creature.creatures[1];
-        //Creature rabbit = Creature.creatures[0];
-
-        //wolf.Hunt(rabbit);
-
-        //wolf.KillUnfed();
-
-        //Debug.Log("Feed Gen: " + generationNum + "[" + rabbit.ToString() + "]");
-        //Debug.Log("Feed Gen: " + generationNum + "[" + wolf.ToString() + "]");
     }
 
     void EndFeedingPhase()
     {
         foreach (HexCell cell in hexGrid.cells)
         {
-            Tile tile = cell.tile;
-            tile.KillUnfedCreatrues();
+            cell.KillUnfedCreatrues();
         }
 
         huntIsActive = false;
+        ui.HideTimer();
         NextPhase();
     }
 
     void MigrationPhase()
     {
-        // allow to move units
+        PlaceMigrationArrows();
+    }
+
+    void PlaceMigrationArrows()
+    {
+        uiPerspective.ClearArrows();
+        Creature creature = Creature.creatures[turn];
+        if (selectedCell.HasCreature(creature.name))
+        {
+            uiPerspective.PlaceArrows(selectedCell);
+        }
+    }
+
+    public void MoveInDirection(HexCell neighbor, HexCell cell)
+    {
+        Creature creature = Creature.creatures[turn];
+        int pop = cell.tile.GetCreatureCount(creature.name);
+        cell.RemoveCreature(creature.name, pop);
+        neighbor.AddCreature(creature.name, pop);
     }
 }

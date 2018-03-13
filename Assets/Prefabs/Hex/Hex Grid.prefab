@@ -62,8 +62,3 @@ MonoBehaviour:
     type: 2}
   noiseSource: {fileID: 2800000, guid: fbd89eb953b2e884f89631d8b62bdd91, type: 3}
   seed: 1234
-  colors:
-  - {r: 1, g: 1, b: 0, a: 0}
-  - {r: 1, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 1, a: 0}
-  - {r: 0, g: 1, b: 0, a: 0}
