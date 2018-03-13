@@ -7,19 +7,24 @@ public class Biome
     public string name;
     int baseHerbSupply;
     int herbSupply;
+    int herbSupplyFactor;
     int baseMeatSupply;
     int meatSupply;
-    public Color color;
-    //double herbGrowthFactor;
-    //int temperature;
+    int meatSupplyFactor;
 
-    public Biome(string name, Color color, int herbSupply, int meatSupply)
+    public Color color;
+
+    public Biome(string name, Color color,
+        int herbSupply, int herbSupplyFactor,
+        int meatSupply, int meatSupplyFactor)
     {
         this.name = name;
         this.baseHerbSupply = herbSupply;
         this.herbSupply = herbSupply;
+        this.herbSupplyFactor = herbSupplyFactor;
         this.baseMeatSupply = meatSupply;
         this.meatSupply = meatSupply;
+        this.meatSupplyFactor = meatSupplyFactor;
         this.color = color;
     }
 
@@ -29,18 +34,22 @@ public class Biome
         meatSupply = baseMeatSupply;
     }
 
-    // returns the unfed population count
-    public int ForageAttempt(int population, int vegConsumRate)
+    // returns the energy foraged
+    public int ForageAttempt()
     {
-        int hunger = population * vegConsumRate;
-        int deltaHerb = herbSupply - hunger;
-        if(deltaHerb > 0)
+        float roll = Random.value * 3;
+        int herbSupplyForaged = (int)roll * herbSupplyFactor;
+        int deltaHerbSupply = herbSupply - herbSupplyForaged;
+        if(deltaHerbSupply < 0)
         {
-            herbSupply = deltaHerb;
-            return 0;
+            herbSupplyForaged += deltaHerbSupply;
         }
-        // more hunger than supply
-        herbSupply = 0;
-        return Mathf.Abs(deltaHerb) / vegConsumRate;
+        herbSupply = Mathf.Max(deltaHerbSupply, 0);
+        return herbSupplyForaged;
+    }
+
+    public int HuntAttempt()
+    {
+        return 0;
     }
 }

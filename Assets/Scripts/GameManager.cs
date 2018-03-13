@@ -1,14 +1,21 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
     public HexGrid hexGrid;
     HexCell selectedCell;
 
-    public GameObject UI;
+    public UIManager UI;
 
     int generationNum;
+    int turn;
+
+    bool initialPhase;
+
+    bool huntIsActive;
+    float huntTimeLeft;
 
     Phase phase;
     enum Phase { Reproduce, Evolve, Feed, Migrate, COUNT }
@@ -16,18 +23,19 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         generationNum = 0;
-        phase = Phase.Reproduce;
+        initialPhase = true;
         CreateCreatures();
     }
 
     // Use this for initialization
     void Start ()
     {
-        selectedCell = hexGrid.cells[0];
-        foreach (Creature creature in Creature.creatures.Values)
+        foreach (Creature creature in Creature.creatures)
         {
             Debug.Log("Start Gen: " + generationNum + "[" + creature.ToString() + "]");
         }
+
+        UI.SetupUI();
     }
 	
 	// Update is called once per frame
@@ -38,6 +46,21 @@ public class GameManager : MonoBehaviour
         {
             HandleInput();
         }
+
+        if (huntIsActive)
+        {
+            huntTimeLeft -= Time.deltaTime;
+            if(huntTimeLeft < 0)
+            {
+                EndFeedingPhase();
+            }
+            else
+            {
+                ForageAndHunt();
+            }
+        }
+
+        UI.UpdateUI(selectedCell);
     }
 
     void HandleInput()
@@ -46,14 +69,56 @@ public class GameManager : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(inputRay, out hit))
         {
-            selectedCell = hexGrid.GetCell(hit.point);
+            HexCell newSelection = hexGrid.GetCell(hit.point);
+            if (selectedCell != newSelection)
+            {
+                SelectCell(newSelection);
+            }
         }
     }
 
+    void SelectCell(HexCell newSelection)
+    {
+        if (selectedCell != null)
+        {
+            selectedCell.IsSelected = false;
+        }
+        newSelection.IsSelected = true;
+        selectedCell = newSelection;
+    }
 
+    public void InitialPhase()
+    {
+        if(turn < Creature.creatures.Count)
+        {
+            Creature activeCreature = Creature.creatures[turn];
+            selectedCell.tile.AddCreature(activeCreature.name, activeCreature.population);
+
+            turn++;
+        }
+        else
+        {
+            initialPhase = false;
+            turn = 0;
+            phase = Phase.Evolve;
+        }
+    }
 
     public void NextPhase()
     {
+        // remove this and handle no press next phase
+        if (huntIsActive)
+        {
+            Debug.Log(huntTimeLeft);
+            return;
+        }
+
+        if(initialPhase)
+        {
+            InitialPhase();
+            return;
+        }
+
         phase = phase == Phase.Migrate ? Phase.Reproduce : (Phase)(((int)phase)+1);
         switch (phase)
         {
@@ -76,22 +141,29 @@ public class GameManager : MonoBehaviour
     {
         Stats rabStats = new Stats(0, 0, 5, 0, 1, 0, 2, 1, 4);
         Creature rabbit = new Creature("rabbit", 1000, rabStats);
-        Creature.creatures[rabbit.name] = rabbit;
+        Creature.creatures.Add(rabbit);
 
         Stats wolfStats = new Stats(15, 10, 10, 30, 0, 5, 10, 3, 1);
         Creature wolf = new Creature("wolf", 200, wolfStats);
-        Creature.creatures[wolf.name] = wolf;
+        Creature.creatures.Add(wolf);
+
+        turn = 0;
     }
 
     void ReproductionPhase()
     {
         generationNum++;
         // reproduce all creatures in tiles
-        foreach (Creature creature in Creature.creatures.Values)
+        foreach (HexCell cell in hexGrid.cells)
         {
-            creature.IncreaseGeneration();
-            Debug.Log("Reprod Gen: " + generationNum + "[" + creature.ToString() + "]");
+            Tile tile = cell.tile;
+            foreach (Creature creature in Creature.creatures)
+            {
+                creature.IncreaseGeneration(tile);
+                Debug.Log("Reprod Gen: " + generationNum + "[" + creature.ToString() + "]");
+            }
         }
+            
     }
 
     void EvolutionPhase()
@@ -101,28 +173,56 @@ public class GameManager : MonoBehaviour
 
     void FeedingPhase()
     {
-        Creature wolf = Creature.creatures["wolf"];
-        Creature rabbit = Creature.creatures["rabbit"];
+        huntIsActive = true;
+        huntTimeLeft = 10f;
 
-        wolf.Hunt(rabbit);
+        foreach (HexCell cell in hexGrid.cells)
+        {
+            Tile tile = cell.tile;
 
-        wolf.KillUnfed();
+            foreach (Creature creature in Creature.creatures)
+            {
+                int tilePop = tile.GetCreatureCount(name);
+                if (tilePop > 0)
+                {
+                    tile.energyRequiredCounts[creature.name] = tilePop * (int)creature.size;
+                }
+            }
+        }
+    }
 
-        Debug.Log("Feed Gen: " + generationNum + "[" + rabbit.ToString() + "]");
-        Debug.Log("Feed Gen: " + generationNum + "[" + wolf.ToString() + "]");
+    void ForageAndHunt()
+    {
 
-        //foreach (HexCell cell in hexGrid.cells)
-        //{
-        //    // feed off resources
-        //    // TODO: potentially feed by turn order
-        //    foreach (KeyValuePair<string, int> creatureCount in cell.tile.creatureCounts)
-        //    {
-        //        Creature creature = Creature.creatures[creatureCount.Key];
-        //        creature.Forage(cell.tile);
-        //    }
+        foreach (HexCell cell in hexGrid.cells)
+        {
+            Tile tile = cell.tile;
+            foreach (Creature creature in Creature.creatures)
+            {
+                creature.ForageAndHunt(tile);
+            }
+        }
+        //Creature wolf = Creature.creatures[1];
+        //Creature rabbit = Creature.creatures[0];
 
-        //    // hunt for creatures
-        //}
+        //wolf.Hunt(rabbit);
+
+        //wolf.KillUnfed();
+
+        //Debug.Log("Feed Gen: " + generationNum + "[" + rabbit.ToString() + "]");
+        //Debug.Log("Feed Gen: " + generationNum + "[" + wolf.ToString() + "]");
+    }
+
+    void EndFeedingPhase()
+    {
+        foreach (HexCell cell in hexGrid.cells)
+        {
+            Tile tile = cell.tile;
+            tile.KillUnfedCreatrues();
+        }
+
+        huntIsActive = false;
+        NextPhase();
     }
 
     void MigrationPhase()
