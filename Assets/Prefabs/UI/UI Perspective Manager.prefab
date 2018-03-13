@@ -41,7 +41,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7855b43947b218e4a8cffa095b0d3934, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  game: {fileID: 0}
+  migrationMenu: {fileID: 0}
   arrowPrefab: {fileID: 114301772907523904, guid: 1c36e6dcf252e304bb40c92fbfd99de8,
     type: 2}
 --- !u!114 &114791908359452368

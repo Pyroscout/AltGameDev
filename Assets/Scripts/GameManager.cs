@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     public UIPerspectiveManager uiPerspective;
 
     int generationNum;
-    int turn;
+    public static int turn;
 
     bool initialPhase;
 
@@ -76,19 +76,16 @@ public class GameManager : MonoBehaviour
 
     void SelectCell(HexCell newSelection)
     {
-        if(newSelection != selectedCell)
+        if (selectedCell != null)
         {
-            if (selectedCell != null)
-            {
-                selectedCell.IsSelected = false;
-            }
-            newSelection.IsSelected = true;
-            selectedCell = newSelection;
+            selectedCell.IsSelected = false;
+        }
+        newSelection.IsSelected = true;
+        selectedCell = newSelection;
 
-            if(phase == Phase.Migrate)
-            {
-                PlaceMigrationArrows();
-            }
+        if (phase == Phase.Migrate)
+        {
+            PlaceMigrationArrows();
         }
     }
 
@@ -110,6 +107,11 @@ public class GameManager : MonoBehaviour
 
     public void NextPhase()
     {
+        if(selectedCell == null)
+        {
+            return;
+        }
+
         if(phase == Phase.Migrate)
         {
             uiPerspective.ClearArrows();
@@ -241,11 +243,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void MoveInDirection(HexCell neighbor, HexCell cell)
+    public void MoveInDirection(HexCell neighbor, HexCell cell, int amount)
     {
         Creature creature = Creature.creatures[turn];
-        int pop = cell.tile.GetCreatureCount(creature.name);
-        cell.RemoveCreature(creature.name, pop);
-        neighbor.AddCreature(creature.name, pop);
+        cell.RemoveCreature(creature.name, amount);
+        neighbor.AddCreature(creature.name, amount);
     }
 }
