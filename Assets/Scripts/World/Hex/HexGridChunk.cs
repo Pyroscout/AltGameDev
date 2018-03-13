@@ -73,7 +73,7 @@ public class HexGridChunk : MonoBehaviour
         }
         if (!cell.IsUnderwater && !cell.HasRiver)
         {
-            creatures.AddCreature(cell.Position);
+            creatures.AddCreature(cell, cell.Position);
         }
     }
 

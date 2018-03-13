@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class CreatureManager : MonoBehaviour
 {
@@ -21,11 +22,18 @@ public class CreatureManager : MonoBehaviour
         
     }
 
-    public void AddCreature(Vector3 position)
+    public void AddCreature(HexCell cell, Vector3 center)
     {
-        Transform instance = Instantiate(creaturePrefab);
-        position.y += instance.localScale.y * 0.5f;
-        instance.localPosition = HexMetrics.Perturb(position);
-        instance.SetParent(container, false);
+        int count = 0;
+        foreach (KeyValuePair<string, int> creature in cell.tile.creatureCounts)
+        {
+            Transform instance = Instantiate(creaturePrefab);
+            Vector3 newCenter = center;
+            newCenter.y += instance.localScale.y * 0.5f;
+            newCenter.x = newCenter.x - (int)(cell.tile.creatureCounts.Count / 2) + count;
+            instance.localPosition = HexMetrics.Perturb(center);
+            instance.SetParent(container, false);
+            count++;
+        }
     }
 }

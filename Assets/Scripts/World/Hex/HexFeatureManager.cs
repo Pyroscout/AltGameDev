@@ -15,13 +15,16 @@ public class HexFeatureManager : MonoBehaviour
         container.SetParent(transform, false);
     }
 
-    public void Apply() { }
+    public void Apply()
+    {
+
+    }
 
     public void AddFeature(HexCell cell, Vector3 position)
     {
         HexHash hash = HexMetrics.SampleHashGrid(position);
         Transform prefab = PickPrefab(
-            urbanCollections, cell.UrbanLevel,hash.a, hash.d);
+            urbanCollections, cell.UrbanLevel, hash.a, hash.d);
         Transform otherPrefab = PickPrefab(
             farmCollections, cell.FarmLevel, hash.b, hash.d);
         float usedHash = hash.a;

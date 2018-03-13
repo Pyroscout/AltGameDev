@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class Creature
 {
-    public static Dictionary<string, Creature> creatures = new Dictionary<string, Creature>();
+    public static List<Creature> creatures = new List<Creature>();
 
     public string name;
     Stats stats;
-    Size size;
+    public Size size;
 
-    int population; //added population counter
+    public int population; //added population counter
     int unfedPop;
-    Queue<int> deathQueue = new Queue<int>();
+    //Queue<int> deathQueue = new Queue<int>();
 
-    bool carnivore;
-    bool herbavore;
+    bool isCarnivore;
+    bool isHerbavore;
 
     // movement method
     // hunting method
@@ -26,7 +26,7 @@ public class Creature
     // traits
 
 
-    enum Size { small, med, large };
+    public enum Size { small = 1, med, large };
 
     public Creature(string name, int population) : this(name, population, new Stats())
     {
@@ -38,29 +38,81 @@ public class Creature
         this.name = name;
         this.stats = stats;
         this.population = population;
-        deathQueue.Enqueue(population);
+        size = Size.small;
+        isHerbavore = true;
+        //deathQueue.Enqueue(population);
     }
 
-    public void IncreaseGeneration()
+    public void IncreaseGeneration(Tile tile)
     {
-        int newBornCount = population * stats.fert;
+        int tilePop = tile.GetCreatureCount(name);
+        if(tilePop > 0)
+        {
+            int newBornCount = tilePop * stats.fert;
+            tile.AddCreature(name, newBornCount);
+            population += newBornCount;
+        }
+
+
         //int deathToll = deathQueue.Count == stats.lSpn ? deathQueue.Dequeue() : 0;
         //deathQueue.Enqueue(newBornCount);
         //population = population + newBornCount - deathToll;
 
         // TODO: implement lifespan ^
-        population = newBornCount;
     }
 
-    public void Forage(Tile tile)
+    public void ForageAndHunt(Tile tile)
     {
-        // check if tile can feed creatures
-        unfedPop = tile.biome.ForageAttempt(population, stats.vegCon);
 
-        // TODO: do something with unfedPop
+        int tilePop = tile.GetCreatureCount(name);
+        if (tilePop <= 0)
+        {
+            return;
+        }
+
+        int energyRequired = tile.GetEnergyRequiredCount(name);
+        if(energyRequired <= 0)
+        {
+            return;
+        }
+
+        if (isHerbavore)
+        {
+            energyRequired = Forage(tile, energyRequired);
+        }
+
+        if (energyRequired <= 0)
+        {
+            return;
+        }
+
+        if (isCarnivore)
+        {
+            energyRequired = Hunt(tile, energyRequired);
+        }
+
+        tile.SetEnergyRequiredCount(name, energyRequired);
     }
 
-    public void Hunt(Creature prey)
+    int Forage(Tile tile, int energyRequired)
+    {
+        float forageSuccessRate = 0.01f;
+        float roll = Random.value;
+        int energyForaged = 0;
+        
+        if(forageSuccessRate < roll)
+        {
+            energyForaged = tile.biome.ForageAttempt();
+        }
+        return Mathf.Max(0, energyRequired - energyForaged);
+    }
+
+    int Hunt(Tile tile, int energyRequired)
+    {
+        return energyRequired;
+    }
+
+    void Hunt(Creature prey)
     {
         int hunger = population * stats.meatCon;
         int meatSup = prey.population * prey.stats.meatVal;
@@ -72,12 +124,7 @@ public class Creature
         }
         // more hunger than supply
         prey.population = 0;
-        unfedPop =  Mathf.Abs(deltaMeat) / stats.meatCon;
-    }
-
-    public void Hunt(Tile tile)
-    {
-        // TODO: Hunt phase
+        unfedPop = Mathf.Abs(deltaMeat) / stats.meatCon;
     }
 
     public void KillUnfed()
