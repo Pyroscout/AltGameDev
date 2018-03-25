@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CreatureManager : MonoBehaviour
 {
-    public Transform creaturePrefab;
+    public Transform[] creaturePrefabs;
 
     Transform container;
 
@@ -24,16 +24,18 @@ public class CreatureManager : MonoBehaviour
 
     public void AddCreature(HexCell cell, Vector3 center)
     {
-        int count = 0;
-        foreach (KeyValuePair<string, int> creature in cell.tile.creatureCounts)
+        for(int i = 0; i < Creature.creatures.Count; i++)
         {
-            Transform instance = Instantiate(creaturePrefab);
-            Vector3 newCenter = center;
-            newCenter.y += instance.localScale.y * 0.5f;
-            newCenter.x = newCenter.x - (int)(cell.tile.creatureCounts.Count / 2) + count;
-            instance.localPosition = HexMetrics.Perturb(center);
-            instance.SetParent(container, false);
-            count++;
+            Creature creature = Creature.creatures[i];
+            if (cell.HasCreature(creature.name))
+            {
+                Transform instance = Instantiate(creaturePrefabs[i]);
+                Vector3 newCenter = center;
+                newCenter.y += instance.localScale.y * 0.5f;
+                //newCenter.x = newCenter.x - (int)(cell.tile.creatureCounts.Count / 2) + count;
+                instance.localPosition = HexMetrics.Perturb(center);
+                instance.SetParent(container, false);
+            }
         }
     }
 }

@@ -659,8 +659,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ea508073cf925844bbd18874eefbead, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  creaturePrefab: {fileID: 4968165025078750, guid: 67d2549f4a4c7d34f9ce4f0f03b46663,
-    type: 2}
+  creaturePrefabs:
+  - {fileID: 4968165025078750, guid: 67d2549f4a4c7d34f9ce4f0f03b46663, type: 2}
+  - {fileID: 4968165025078750, guid: 78d4949280725d14d9332c448de7264d, type: 2}
 --- !u!223 &223608780645857500
 Canvas:
   m_ObjectHideFlags: 1
