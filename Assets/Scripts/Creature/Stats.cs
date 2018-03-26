@@ -14,6 +14,9 @@ public class Stats
     public int lSpn; // lifespan
     public int fert; // birth rate
 
+    public Size size;
+    public enum Size { small = 1, med, large };
+
     public Stats()
     {
         atk = 1;
@@ -25,19 +28,10 @@ public class Stats
         meatVal = 1;
         lSpn = 1;
         fert = 1;
+
+        size = Size.small;
     }
 
-    public Stats(int attack, int defense, int evasion, int hunt, int vegCon, int meatCon, int meatVal, int lifeSpan, int fertility)
-    {
-        this.atk = attack;
-        this.def = defense;
-        this.evs = evasion;
-        this.hunt = hunt;
-        this.vegCon = vegCon;
-        this.meatCon = meatCon;
-        this.meatVal = meatVal;
-        this.lSpn = lifeSpan;
-        this.fert = fertility;
-    }
+
 
 }

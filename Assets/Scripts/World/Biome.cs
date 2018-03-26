@@ -38,7 +38,7 @@ public class Biome
     public int ForageAttempt()
     {
         float roll = Random.value * 2;
-        int herbSupplyForaged = ((int)roll+1) * herbSupplyFactor;
+        int herbSupplyForaged = (int)(roll+1) * herbSupplyFactor;
         int deltaHerbSupply = herbSupply - herbSupplyForaged;
         if(deltaHerbSupply < 0)
         {

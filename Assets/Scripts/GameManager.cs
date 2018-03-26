@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     public UIManager ui;
     public UIPerspectiveManager uiPerspective;
 
+    public ChooseEvolutionMenu chooseEvoMenu;
+
     int generationNum;
     public static int turn;
 
@@ -150,12 +152,10 @@ public class GameManager : MonoBehaviour
 
     void CreateCreatures()
     {
-        Stats rabStats = new Stats(0, 0, 5, 0, 1, 0, 2, 1, 4);
-        Creature rabbit = new Creature("rabbit", 1000, rabStats);
+        Creature rabbit = new Creature("rabbit", 200, true);
         Creature.creatures.Add(rabbit);
-
-        Stats wolfStats = new Stats(15, 10, 10, 30, 0, 5, 10, 3, 1);
-        Creature wolf = new Creature("wolf", 200, wolfStats);
+        
+        Creature wolf = new Creature("wolf", 200);
         Creature.creatures.Add(wolf);
 
         turn = 0;
@@ -178,7 +178,29 @@ public class GameManager : MonoBehaviour
 
     void EvolutionPhase()
     {
-        // evolve creatures
+        int numTraits = 2;
+        foreach(Creature creature in Creature.creatures)
+        {
+            Trait[] newTraits = creature.RollNewTraits(numTraits);
+            if (creature.isPlayer)
+            {
+                chooseEvoMenu.Open(creature, newTraits);
+            }
+            else
+            {
+                int newTraitRoll = (int)Random.value * numTraits;
+                Trait newTrait = newTraits[newTraitRoll];
+                if (creature.traits.Count == Creature.MAX_TRAIT_COUNT)
+                {
+                    int oldTraitRoll = (int)Random.value * Creature.MAX_TRAIT_COUNT;
+                    creature.ReplaceTraitAtIndex(oldTraitRoll, newTrait);
+                }
+                else
+                {
+                    creature.AddTrait(newTrait);
+                }
+            }
+        }
     }
 
     void FeedPhase()
@@ -197,7 +219,7 @@ public class GameManager : MonoBehaviour
                 if (tile.HasCreature(creature.name))
                 {
                     int tilePop = tile.GetCreatureCount(creature.name);
-                    tile.SetEnergyRequiredCount(creature.name, tilePop * (int)creature.size);
+                    tile.SetEnergyRequiredCount(creature.name, tilePop * (int)creature.stats.size);
                 }
             }
         }
