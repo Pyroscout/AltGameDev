@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
 
     bool huntIsActive;
     float huntTimeLeft;
+    float timeSinceHunt = 0;
 
     Phase phase;
 
@@ -50,13 +51,17 @@ public class GameManager : MonoBehaviour
 
         if (huntIsActive)
         {
-            huntTimeLeft -= Time.deltaTime;
-            if(huntTimeLeft < 0)
+            float dt = Time.deltaTime;
+            huntTimeLeft -= dt;
+            timeSinceHunt += dt;
+
+            if (huntTimeLeft < 0)
             {
                 EndFeedingPhase();
             }
-            else
+            else if (timeSinceHunt > 0.2)
             {
+                timeSinceHunt = 0;
                 ForageAndHunt();
             }
         }
@@ -166,6 +171,7 @@ public class GameManager : MonoBehaviour
     void ReproductionPhase()
     {
         generationNum++;
+        ui.UpdateGeneration(generationNum);
         // reproduce all creatures in tiles
         foreach (HexCell cell in hexGrid.cells)
         {

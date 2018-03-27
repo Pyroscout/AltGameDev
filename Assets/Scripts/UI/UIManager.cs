@@ -3,8 +3,14 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    public Text genLabel;
     public Text phaseLabel;
     public Text timerLabel;
+
+    public Text biomeLabel;
+    public Text herbCountLabel;
+    public Text meatCountLabel;
+
 
     public Text[] creatureCountLabels;
     
@@ -20,6 +26,9 @@ public class UIManager : MonoBehaviour
         if (selectedCell != null)
         {
             Tile tile = selectedCell.tile;
+            biomeLabel.text = tile.biome.name;
+            herbCountLabel.text = tile.biome.herbSupply.ToString();
+            meatCountLabel.text = tile.biome.meatSupply.ToString();
             for(int i = 0; i < Creature.creatures.Count; i++)
             {
                 Creature creature = Creature.creatures[i];
@@ -27,6 +36,11 @@ public class UIManager : MonoBehaviour
                 creatureCountLabels[i].text = tile.GetCreatureCount(creature.name).ToString();
             }
         }
+    }
+
+    public void UpdateGeneration(int genNum)
+    {
+        genLabel.text = "Generation " + genNum;
     }
 
     public void UpdatePhase(Phase phase)

@@ -6,10 +6,10 @@ public class Biome
 {
     public string name;
     int baseHerbSupply;
-    int herbSupply;
+    public int herbSupply;
     int herbSupplyFactor;
     int baseMeatSupply;
-    int meatSupply;
+    public int meatSupply;
     int meatSupplyFactor;
 
     public Color color;
