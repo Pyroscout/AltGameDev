@@ -112,6 +112,14 @@ public class Creature
     // returns new energy required
     int Hunt(Tile tile, int energyRequired)
     {
+        float huntSuccessRate = 0.1f;
+        float roll = Random.value;
+        int energyForaged = 0;
+
+        if (huntSuccessRate < roll)
+        {
+            energyForaged = tile.biome.HuntAttempt();
+        }
         return energyRequired;
     }
 

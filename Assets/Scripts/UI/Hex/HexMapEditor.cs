@@ -217,7 +217,7 @@ public class HexMapEditor : MonoBehaviour
         hexGrid.ShowUI(visible);
     }
 
-    int mapVersion = 1;
+    public static int mapVersion = 1;
 
     public void Save()
     {
@@ -234,7 +234,8 @@ public class HexMapEditor : MonoBehaviour
 
     public void Load()
     {
-        string path = Path.Combine(Application.persistentDataPath, "test.map");
+        DirectoryInfo info = new DirectoryInfo(Application.dataPath);
+        string path = Path.Combine(info.ToString()+"/Maps", "test.map");
         using (BinaryReader reader = new BinaryReader(File.OpenRead(path)))
         {
             int header = reader.ReadInt32();

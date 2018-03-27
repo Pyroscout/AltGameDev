@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
+using System.IO;
 
 public enum Phase { Reproduce, Evolve, Feed, Migrate, COUNT }
 
@@ -33,6 +34,7 @@ public class GameManager : MonoBehaviour
     void Start ()
     {
         ui.SetupUI();
+        Load();
     }
 	
 	// Update is called once per frame
@@ -248,5 +250,25 @@ public class GameManager : MonoBehaviour
         Creature creature = Creature.creatures[turn];
         cell.RemoveCreature(creature.name, amount);
         neighbor.AddCreature(creature.name, amount);
+    }
+
+
+    public void Load()
+    {
+        DirectoryInfo info = new DirectoryInfo(Application.dataPath);
+        string path = Path.Combine(info.ToString() + "/Maps", "test.map");
+        using (BinaryReader reader = new BinaryReader(File.OpenRead(path)))
+        {
+            int header = reader.ReadInt32();
+            if (header <= HexMapEditor.mapVersion)
+            {
+                hexGrid.Load(reader, header);
+                HexMapCamera.ValidatePosition();
+            }
+            else
+            {
+                Debug.LogWarning("Unknown map format " + header);
+            }
+        }
     }
 }

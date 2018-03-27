@@ -50,6 +50,14 @@ public class Biome
 
     public int HuntAttempt()
     {
-        return 0;
+        float roll = Random.value * 2;
+        int meatSupplyForaged = ((int)roll + 1) * herbSupplyFactor;
+        int deltaMeatSupply = meatSupply - meatSupplyForaged;
+        if (deltaMeatSupply < 0)
+        {
+            meatSupplyForaged += deltaMeatSupply;
+        }
+        meatSupply = Mathf.Max(deltaMeatSupply, 0);
+        return meatSupplyForaged;
     }
 }
