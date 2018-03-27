@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        generationNum = 0;
+        generationNum = 1;
         initialPhase = true;
         CreateCreatures();
     }
