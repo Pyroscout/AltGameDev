@@ -6,9 +6,14 @@ public class Creature
 {
     public static List<Creature> creatures = new List<Creature>();
 
+    public static int MAX_TRAIT_COUNT = 4;
+
     public string name;
-    Stats stats;
-    public Size size;
+    public Stats stats;
+
+    public bool isPlayer;
+
+    public List<Trait> traits = new List<Trait>();
 
     public int population; //added population counter
     int unfedPop;
@@ -25,22 +30,60 @@ public class Creature
 
     // traits
 
+    
 
-    public enum Size { small = 1, med, large };
-
-    public Creature(string name, int population) : this(name, population, new Stats())
-    {
-
-    }
-
-    public Creature(string name, int population, Stats stats) 
+    public Creature(string name, int population, bool isPlayer = false) 
     {
         this.name = name;
-        this.stats = stats;
+        this.stats = new Stats();
         this.population = population;
-        size = Size.small;
+        this.isPlayer = isPlayer;
         isHerbavore = true;
         //deathQueue.Enqueue(population);
+    }
+
+    public void AddTrait(Trait trait)
+    {
+        trait.OnAdd(stats);
+        traits.Add(trait);
+    }
+
+    public void ReplaceTraitAtIndex(int index, Trait newTrait)
+    {
+        Trait oldTrait = traits[index];
+        oldTrait.OnRemove(stats);
+        newTrait.OnAdd(stats);
+        traits[index] = newTrait;
+    }
+
+    public void RemoveTraitAtIndex(int index)
+    {
+        Trait trait = traits[index];
+        trait.OnRemove(stats);
+    }
+
+    public Trait[] RollNewTraits(int count)
+    {
+        Trait[] traits = new Trait[count];
+        List<Trait> potentialTraits = GenerateTraitList();
+        for(int i = 0; i < count; i++)
+        {
+            int roll = (int)(Random.value * potentialTraits.Count * 0.999f);
+            traits[i] = potentialTraits[roll];
+            potentialTraits.RemoveAt(roll);
+            Debug.Log(traits[i]);
+        }
+
+        return traits;
+    }
+
+    public List<Trait> GenerateTraitList()
+    {
+        List<Trait> traits = new List<Trait>();
+        traits.Add(new IncreaseAttackTrait());
+        traits.Add(new IncreaseDefenseTrait());
+        traits.Add(new IncreaseSizeTrait());
+        return traits;
     }
 
     public void IncreaseGeneration(Tile tile)
