@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class IncreaseAttackTrait : Trait
+public class VenomTrait : Trait
 {
-    public IncreaseAttackTrait()
+    public VenomTrait()
     {
-        name = "Increase Attack";
-        description = "Increases the creatures attack by 1";
-        eduInfo = "Oh wow! You can hit harder!";
+        name = "Venom";
+        description = "Increase attack power by 1";
+        eduInfo = "";
     }
 
     public override void OnAdd(Stats stats)

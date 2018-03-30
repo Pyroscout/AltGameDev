@@ -8,11 +8,11 @@ public class Stats
     public int def; // defense, formerly aggro
     public int evs; // evasion, formerly mobility
     public int hunt; // hunt
-    public int vegCon; // vegitable consumption required
+    public int vegCon; // vegetable consumption required
     public int meatCon; // meat consumption required
     public int meatVal; // meat value of creature
     public int lSpn; // lifespan
-    public int fert; // birth rate
+    public int fert; // birth rate, survivability
 
     public Size size;
     public enum Size { small = 1, med, large };

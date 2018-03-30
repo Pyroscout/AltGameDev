@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class IncreaseDefenseTrait : Trait
+public class ShellTrait : Trait
 {
-    public IncreaseDefenseTrait()
+    public ShellTrait()
     {
-        name = "Increase Defense";
-        description = "Increases the creatures defense by 1";
-        eduInfo = "Turtle power!";
+        name = "Shell";
+        description = "Increase strength by 1";
+        eduInfo = "A sturdy shell can save a species from deadly attacks";
     }
 
     public override void OnAdd(Stats stats)
