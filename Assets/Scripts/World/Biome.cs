@@ -6,10 +6,10 @@ public class Biome
 {
     public string name;
     int baseHerbSupply;
-    int herbSupply;
+    public int herbSupply;
     int herbSupplyFactor;
     int baseMeatSupply;
-    int meatSupply;
+    public int meatSupply;
     int meatSupplyFactor;
 
     public Color color;
@@ -38,7 +38,7 @@ public class Biome
     public int ForageAttempt()
     {
         float roll = Random.value * 2;
-        int herbSupplyForaged = ((int)roll+1) * herbSupplyFactor;
+        int herbSupplyForaged = (int)(roll+1) * herbSupplyFactor;
         int deltaHerbSupply = herbSupply - herbSupplyForaged;
         if(deltaHerbSupply < 0)
         {
@@ -50,6 +50,14 @@ public class Biome
 
     public int HuntAttempt()
     {
-        return 0;
+        float roll = Random.value * 2;
+        int meatSupplyForaged = ((int)roll + 1) * herbSupplyFactor;
+        int deltaMeatSupply = meatSupply - meatSupplyForaged;
+        if (deltaMeatSupply < 0)
+        {
+            meatSupplyForaged += deltaMeatSupply;
+        }
+        meatSupply = Mathf.Max(deltaMeatSupply, 0);
+        return meatSupplyForaged;
     }
 }

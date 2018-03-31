@@ -81,7 +81,7 @@ public class Tile
         foreach(Creature creature in Creature.creatures)
         {
             int unfedEnergy = GetEnergyRequiredCount(creature.name);
-            int deathCount = unfedEnergy / (int)creature.size;
+            int deathCount = unfedEnergy / (int)creature.stats.size;
             RemoveCreature(creature.name, deathCount);
         }
     }

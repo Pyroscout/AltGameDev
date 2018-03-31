@@ -38,6 +38,7 @@ public class MigrationMenu : MonoBehaviour
         if (int.TryParse(field.text, out currentNum))
         {
             game.MoveInDirection(neighbor, activeCell, currentNum);
+            game.NextPhase();
             Close();
         }
     }

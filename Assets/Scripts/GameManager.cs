@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
+using System.IO;
 
 public enum Phase { Reproduce, Evolve, Feed, Migrate, COUNT }
 
@@ -12,6 +13,8 @@ public class GameManager : MonoBehaviour
     public UIManager ui;
     public UIPerspectiveManager uiPerspective;
 
+    public ChooseEvolutionMenu chooseEvoMenu;
+
     int generationNum;
     public static int turn;
 
@@ -19,12 +22,13 @@ public class GameManager : MonoBehaviour
 
     bool huntIsActive;
     float huntTimeLeft;
+    float timeSinceHunt = 0;
 
     Phase phase;
 
     void Awake()
     {
-        generationNum = 0;
+        generationNum = 1;
         initialPhase = true;
         CreateCreatures();
     }
@@ -33,6 +37,7 @@ public class GameManager : MonoBehaviour
     void Start ()
     {
         ui.SetupUI();
+        Load();
     }
 	
 	// Update is called once per frame
@@ -46,13 +51,17 @@ public class GameManager : MonoBehaviour
 
         if (huntIsActive)
         {
-            huntTimeLeft -= Time.deltaTime;
-            if(huntTimeLeft < 0)
+            float dt = Time.deltaTime;
+            huntTimeLeft -= dt;
+            timeSinceHunt += dt;
+
+            if (huntTimeLeft < 0)
             {
                 EndFeedingPhase();
             }
-            else
+            else if (timeSinceHunt > 0.2)
             {
+                timeSinceHunt = 0;
                 ForageAndHunt();
             }
         }
@@ -150,12 +159,10 @@ public class GameManager : MonoBehaviour
 
     void CreateCreatures()
     {
-        Stats rabStats = new Stats(0, 0, 5, 0, 1, 0, 2, 1, 4);
-        Creature rabbit = new Creature("rabbit", 1000, rabStats);
+        Creature rabbit = new Creature("rabbit", 200, true);
         Creature.creatures.Add(rabbit);
-
-        Stats wolfStats = new Stats(15, 10, 10, 30, 0, 5, 10, 3, 1);
-        Creature wolf = new Creature("wolf", 200, wolfStats);
+        
+        Creature wolf = new Creature("wolf", 200);
         Creature.creatures.Add(wolf);
 
         turn = 0;
@@ -164,6 +171,7 @@ public class GameManager : MonoBehaviour
     void ReproductionPhase()
     {
         generationNum++;
+        ui.UpdateGeneration(generationNum);
         // reproduce all creatures in tiles
         foreach (HexCell cell in hexGrid.cells)
         {
@@ -178,7 +186,29 @@ public class GameManager : MonoBehaviour
 
     void EvolutionPhase()
     {
-        // evolve creatures
+        int numTraits = 2;
+        foreach(Creature creature in Creature.creatures)
+        {
+            Trait[] newTraits = creature.RollNewTraits(numTraits);
+            if (creature.isPlayer)
+            {
+                chooseEvoMenu.Open(creature, newTraits);
+            }
+            else
+            {
+                int newTraitRoll = (int)Random.value * numTraits;
+                Trait newTrait = newTraits[newTraitRoll];
+                if (creature.traits.Count == Creature.MAX_TRAIT_COUNT)
+                {
+                    int oldTraitRoll = (int)Random.value * Creature.MAX_TRAIT_COUNT;
+                    creature.ReplaceTraitAtIndex(oldTraitRoll, newTrait);
+                }
+                else
+                {
+                    creature.AddTrait(newTrait);
+                }
+            }
+        }
     }
 
     void FeedPhase()
@@ -197,7 +227,7 @@ public class GameManager : MonoBehaviour
                 if (tile.HasCreature(creature.name))
                 {
                     int tilePop = tile.GetCreatureCount(creature.name);
-                    tile.SetEnergyRequiredCount(creature.name, tilePop * (int)creature.size);
+                    tile.SetEnergyRequiredCount(creature.name, tilePop * (int)creature.stats.size);
                 }
             }
         }
@@ -248,5 +278,25 @@ public class GameManager : MonoBehaviour
         Creature creature = Creature.creatures[turn];
         cell.RemoveCreature(creature.name, amount);
         neighbor.AddCreature(creature.name, amount);
+    }
+
+
+    public void Load()
+    {
+        DirectoryInfo info = new DirectoryInfo(Application.dataPath);
+        string path = Path.Combine(info.ToString() + "/Maps", "test.map");
+        using (BinaryReader reader = new BinaryReader(File.OpenRead(path)))
+        {
+            int header = reader.ReadInt32();
+            if (header <= HexMapEditor.mapVersion)
+            {
+                hexGrid.Load(reader, header);
+                HexMapCamera.ValidatePosition();
+            }
+            else
+            {
+                Debug.LogWarning("Unknown map format " + header);
+            }
+        }
     }
 }
