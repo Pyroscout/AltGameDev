@@ -1,7 +1,6 @@
-﻿using UnityEngine;
+﻿using System.IO;
+using UnityEngine;
 using UnityEngine.EventSystems;
-using System.Collections.Generic;
-using System.IO;
 
 public enum Phase { Reproduce, Evolve, Feed, Migrate, COUNT }
 
@@ -57,7 +56,7 @@ public class GameManager : MonoBehaviour
 
             if (huntTimeLeft < 0)
             {
-                EndFeedingPhase();
+                EndFeedPhase();
             }
             else if (timeSinceHunt > 0.2)
             {
@@ -143,16 +142,16 @@ public class GameManager : MonoBehaviour
         switch (phase)
         {
             case Phase.Migrate:
-                MigrationPhase();
+                BeginMigrationPhase();
                 break;
             case Phase.Reproduce:
-                ReproductionPhase();
+                BeginReproductionPhase();
                 break;
             case Phase.Evolve:
-                EvolutionPhase();
+                BeginEvolutionPhase();
                 break;
             case Phase.Feed:
-                FeedPhase();
+                BeginFeedPhase();
                 break;
         }
     }
@@ -168,7 +167,7 @@ public class GameManager : MonoBehaviour
         turn = 0;
     }
 
-    void ReproductionPhase()
+    void BeginReproductionPhase()
     {
         generationNum++;
         ui.UpdateGeneration(generationNum);
@@ -184,7 +183,7 @@ public class GameManager : MonoBehaviour
             
     }
 
-    void EvolutionPhase()
+    void BeginEvolutionPhase()
     {
         int numTraits = 2;
         foreach(Creature creature in Creature.creatures)
@@ -211,7 +210,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void FeedPhase()
+    void BeginFeedPhase()
     {
         ui.ShowTimer();
         huntIsActive = true;
@@ -246,7 +245,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void EndFeedingPhase()
+    void EndFeedPhase()
     {
         foreach (HexCell cell in hexGrid.cells)
         {
@@ -258,7 +257,7 @@ public class GameManager : MonoBehaviour
         NextPhase();
     }
 
-    void MigrationPhase()
+    void BeginMigrationPhase()
     {
         PlaceMigrationArrows();
     }

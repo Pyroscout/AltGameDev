@@ -8,6 +8,8 @@ public class DeadlyTalonsTrait : Trait
         name = "Deadly Talons";
         description = "Increase attack power by 1";
         eduInfo = "";
+
+        imagePath = "Images/Evolutions/Aggression/Talon";
     }
 
     public override void OnAdd(Stats stats)
