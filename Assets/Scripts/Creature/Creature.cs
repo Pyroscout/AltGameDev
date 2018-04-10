@@ -80,35 +80,66 @@ public class Creature
     public List<Trait> GenerateTraitList()
     {
         List<Trait> traits = new List<Trait>();
-        traits.Add(new IncreaseSizeTrait());
 
-        traits.Add(new DeadlyTalonsTrait()); // attack up 1
-        traits.Add(new FangsTrait()); // attack up 1
-        traits.Add(new VenomTrait()); // attack up 1
-        traits.Add(new ParalysisTrait()); // attack up 1
-        traits.Add(new GnashingTeethTrait()); // attack up 1
-        traits.Add(new ConstrictingTentaclesTrait()); //attack up 1
+        if (stats.size == stats.sizeOne)
+        {
+            traits.Add(new SizeTwoTrait()); // makes size 2
 
-        traits.Add(new FurCoatTrait()); // survivability up 1
-        traits.Add(new TemperatureRegulationTrait()); // survivability up 1 -- Unique to deserts and tundras?
-        traits.Add(new TolerantLungsTrait()); // survivability up 1 -- benefits related to water tiles?
-        traits.Add(new PheromonesTrait()); // survivability up 1
-        traits.Add(new EggLayingTrait()); // survivability up 1
-        traits.Add(new CamouflageTrait()); // survivability up 1
+            traits.Add(new DeadlyTalonsTrait()); // attack up 1
+            traits.Add(new FangsTrait()); // attack up 1
 
-        traits.Add(new WingsTrait()); // Mobility up 1
-        traits.Add(new AppendagesTrait()); // Mobility up 1
-        traits.Add(new ThumbsTrait()); // Mobility up 1
-        traits.Add(new FinsTrait()); // Mobility up 1 -- benefit related to water tiles?
-        traits.Add(new SmoothSkinTrait()); // Mobility up 1 -- desert or tundra?
-        traits.Add(new PaddedFeetTrait()); // Mobility up 1
+            traits.Add(new FurCoatTrait()); // survivability up 1
+            traits.Add(new TemperatureRegulationTrait()); // survivability up 1 -- Unique to deserts and tundras?
 
-        traits.Add(new ShellTrait()); // strength up 1
-        traits.Add(new ThickHideTrait()); // strength up 1
-        traits.Add(new HornsTrait()); // strength up 1
-        traits.Add(new PoisonTrait()); // strength up 1
-        traits.Add(new RepuliveOdorTrait()); // strength up 1
-        traits.Add(new ThornedBodyTrait()); // strength up 1
+            traits.Add(new WingsTrait()); // Mobility up 1
+            traits.Add(new AppendagesTrait()); // Mobility up 1
+
+            traits.Add(new ShellTrait()); // strength up 1
+            traits.Add(new ThickHideTrait()); // strength up 1
+        }  // tier 1 evolutions
+        if (stats.size == stats.sizeTwo)
+        {
+            traits.Add(new SizeOneTrait()); // makes size 1
+            traits.Add(new SizeThreeTrait()); // makes size 3
+
+            traits.Add(new VenomTrait()); // attack up 1
+            traits.Add(new ParalysisTrait()); // attack up 1
+
+            traits.Add(new TolerantLungsTrait()); // survivability up 1 -- benefits related to water tiles?
+            traits.Add(new PheromonesTrait()); // survivability up 1
+
+            traits.Add(new ThumbsTrait()); // Mobility up 1
+            traits.Add(new FinsTrait()); // Mobility up 1 -- benefit related to water tiles?
+
+            traits.Add(new HornsTrait()); // strength up 1
+            traits.Add(new PoisonTrait()); // strength up 1
+
+        } // tier 2 evolutions
+        if (stats.size == stats.sizeThree)
+        {
+            traits.Add(new SizeTwoTrait()); // makes size 2
+            traits.Add(new SizeOneTrait()); // makes size 1
+
+            traits.Add(new GnashingTeethTrait()); // attack up 1
+            traits.Add(new ConstrictingTentaclesTrait()); //attack up 1
+
+            traits.Add(new EggLayingTrait()); // survivability up 1
+            traits.Add(new CamouflageTrait()); // survivability up 1
+
+
+            traits.Add(new SmoothSkinTrait()); // Mobility up 1 -- desert or tundra?
+            traits.Add(new PaddedFeetTrait()); // Mobility up 1
+
+
+
+            traits.Add(new RepuliveOdorTrait()); // strength up 1
+            traits.Add(new ThornedBodyTrait()); // strength up 1
+
+        } // tier 3 evolutions
+
+        //List<Trait> traits = new List<Trait>();
+        //traits.Add(new IncreaseSizeTrait());
+
         return traits;
     }
 
