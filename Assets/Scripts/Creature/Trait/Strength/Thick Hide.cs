@@ -8,6 +8,8 @@ public class ThickHideTrait : Trait
         name = "Tough Hide";
         description = "Increase strength by 1";
         eduInfo = "Tough hides can protect species from various hazards";
+
+        imagePath = "Images/Evolutions/Hide";
     }
 
     public override void OnAdd(Stats stats)

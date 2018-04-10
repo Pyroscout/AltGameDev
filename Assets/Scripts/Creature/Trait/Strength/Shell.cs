@@ -8,6 +8,8 @@ public class ShellTrait : Trait
         name = "Shell";
         description = "Increase strength by 1";
         eduInfo = "A sturdy shell can save a species from deadly attacks";
+
+        imagePath = "Images/Evolutions/Shell";
     }
 
     public override void OnAdd(Stats stats)

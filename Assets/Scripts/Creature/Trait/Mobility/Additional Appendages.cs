@@ -8,6 +8,8 @@ public class AppendagesTrait : Trait
         name = "Additional Appendages";
         description = "Increase mobility by 1";
         eduInfo = "Additional appendages can help a species maneuver their environment";
+
+        imagePath = "Images/Evolutions/Extra Appendages";
     }
 
     public override void OnAdd(Stats stats)

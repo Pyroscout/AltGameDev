@@ -8,6 +8,8 @@ public class TemperatureRegulationTrait : Trait
         name = "Temperature Regulation";
         description = "Increase survivability by 1";
         eduInfo = "";
+
+        imagePath = "Images/Evolutions/Fertility/Temperature";
     }
 
     public override void OnAdd(Stats stats)

@@ -8,6 +8,8 @@ public class EggLayingTrait : Trait
         name = "Egg Laying";
         description = "Increase survivability by 1";
         eduInfo = "Some creatures are capable of laying eggs as a method of reproduction";
+
+        imagePath = "Images/Evolutions/Fertility/Egg";
     }
 
     public override void OnAdd(Stats stats)

@@ -8,6 +8,8 @@ public class ThumbsTrait : Trait
         name = "Opposable Thumbs";
         description = "Increase mobility by 1";
         eduInfo = "Opposable thumbs can give a species expert climbing ability";
+
+        imagePath = "Images/Evolutions/Thumbs";
     }
 
     public override void OnAdd(Stats stats)

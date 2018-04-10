@@ -8,6 +8,8 @@ public class FinsTrait : Trait
         name = "Fins";
         description = "Increase mobility by 1";
         eduInfo = "Allows a species to propel themselves through bodies of water";
+
+        imagePath = "Images/Evolutions/Fins";
     }
 
     public override void OnAdd(Stats stats)

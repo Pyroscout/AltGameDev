@@ -8,6 +8,8 @@ public class PheromonesTrait : Trait
         name = "Pheromones";
         description = "Increase survivability by 1";
         eduInfo = "Some mamals can produce a chemical substance capable of attracting others of the same species";
+
+        imagePath = "Images/Evolutions/Fertility/Pheromones";
     }
 
     public override void OnAdd(Stats stats)
