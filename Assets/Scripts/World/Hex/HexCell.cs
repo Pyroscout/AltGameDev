@@ -100,6 +100,10 @@ public class HexCell : MonoBehaviour
     {
         get
         {
+            if (isSelected)
+            {
+                return CombineColors(tile.Color, new Color(1, 0, 1));
+            }
             return tile.Color;
         }
     }
@@ -380,15 +384,15 @@ public class HexCell : MonoBehaviour
         neighbor.RefreshSelfOnly();
     }
 
-    public void AddCreature(string creatureName, int creatureCount)
+    public void AddCreature(Creature creature)
     {
-        tile.AddCreature(creatureName, creatureCount);
+        tile.AddCreature(creature, creature.population);
         RefreshSelfOnly();
     }
 
-    public void RemoveCreature(string creatureName, int creatureCount)
+    public void RemoveCreature(Creature creature, int creatureCount)
     {
-        tile.RemoveCreature(creatureName, creatureCount);
+        tile.RemoveCreature(creature, creatureCount);
         RefreshSelfOnly();
     }
 
@@ -405,7 +409,7 @@ public class HexCell : MonoBehaviour
 
     public void DefaultTileSetup()
     {
-        Tile tile = new Tile();
+        Tile tile = new Tile(this);
         //if(isOcean())
         //{
         //    this.waterLevel = 1;
@@ -490,5 +494,22 @@ public class HexCell : MonoBehaviour
         {
             hasOutgoingRiver = false;
         }
+    }
+
+    public HexCell GetRandomNeighborCell()
+    {
+        int roll = (int)(Random.value * neighbors.Length * 0.999f);
+        return neighbors[roll];
+    }
+
+    static Color CombineColors(params Color[] aColors)
+    {
+        Color result = new Color(0, 0, 0, 0);
+        foreach (Color c in aColors)
+        {
+            result += c;
+        }
+        result /= aColors.Length;
+        return result;
     }
 }

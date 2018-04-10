@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Creature
@@ -21,6 +22,8 @@ public class Creature
 
     bool isCarnivore;
     bool isHerbavore;
+
+    public Dictionary<string, Tile> tilesOccupied = new Dictionary<string, Tile>();
 
     // movement method
     // hunting method
@@ -71,7 +74,6 @@ public class Creature
             int roll = (int)(Random.value * potentialTraits.Count * 0.999f);
             traits[i] = potentialTraits[roll];
             potentialTraits.RemoveAt(roll);
-            Debug.Log(traits[i]);
         }
 
         return traits;
@@ -149,7 +151,7 @@ public class Creature
         if(tilePop > 0)
         {
             int newBornCount = tilePop * stats.fert;
-            tile.AddCreature(name, newBornCount);
+            tile.AddCreature(this, newBornCount);
             population += newBornCount;
         }
 
@@ -246,6 +248,23 @@ public class Creature
     public override string ToString()
     {
         return name + ", population: " + population;
+    }
+
+    public Tile GetRandomOccupiedTile()
+    {
+        int roll = (int)(Random.value * tilesOccupied.Count * 0.999f);
+        return tilesOccupied.ElementAt(roll).Value;
+    }
+
+    public void RandomMigration()
+    {
+        Tile fromTile = GetRandomOccupiedTile();
+        Tile toTile = fromTile.cell.GetRandomNeighborCell().tile;
+        int creatureCount = fromTile.creatureCounts[name];
+        float percent = Mathf.Round(Random.value * 4);
+        int moveCount = (int)(creatureCount * (percent / 4f));
+        fromTile.RemoveCreature(this, moveCount);
+        toTile.AddCreature(this, moveCount);
     }
 }
 

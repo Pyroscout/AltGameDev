@@ -42,7 +42,7 @@ public class ReplaceEvolutionMenu : MonoBehaviour
     public void ConfirmTrait()
     {
         creature.ReplaceTraitAtIndex(activeTraitIndex, newTrait);
-
+        game.NextPhase();
         Close();
     }
 

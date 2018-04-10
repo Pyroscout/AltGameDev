@@ -54,6 +54,7 @@ public class ChooseEvolutionMenu : MonoBehaviour
         else
         {
             creature.AddTrait(newTrait);
+            game.NextPhase();
         }
         Close();
     }

@@ -5,7 +5,7 @@ public class HexGridChunk : MonoBehaviour
 {
     HexCell[] cells;
 
-    public HexMesh terrain, rivers, water, waterShore, selectedOutline;
+    public HexMesh terrain, rivers, water, waterShore;
     Canvas gridCanvas;
 
     public HexFeatureManager features;
@@ -45,7 +45,6 @@ public class HexGridChunk : MonoBehaviour
         rivers.Clear();
         water.Clear();
         waterShore.Clear();
-        selectedOutline.Clear();
         features.Clear();
         creatures.Clear();
         for (int i = 0; i < cells.Length; i++)
@@ -56,7 +55,6 @@ public class HexGridChunk : MonoBehaviour
         rivers.Apply();
         water.Apply();
         waterShore.Apply();
-        selectedOutline.Apply();
         features.Apply();
         creatures.Apply();
     }
@@ -121,11 +119,6 @@ public class HexGridChunk : MonoBehaviour
         if (cell.IsUnderwater)
         {
             TriangulateWater(direction, cell, center);
-        }
-
-        if (cell.IsSelected)
-        {
-            TriangulateSelectedOutline(direction, cell, center);
         }
     }
 
@@ -675,57 +668,6 @@ public class HexGridChunk : MonoBehaviour
 
         terrain.AddTriangleUnperturbed(v2, HexMetrics.Perturb(left), boundary);
         terrain.AddTriangleColor(c2, leftCell.Color, boundaryColor);
-    }
-
-    void TriangulateSelectedOutline(HexDirection direction, HexCell cell, Vector3 center)
-    {
-        center.y = center.y + 0.2f;
-        HexCell neighbor = cell.GetNeighbor(direction);
-        Vector3 bridge = HexMetrics.GetOutlineBridge(direction);
-        if(neighbor != null)
-        {
-            bridge.y = neighbor.Position.y - cell.Position.y;
-        }
-
-        EdgeVertices e1 = new EdgeVertices(
-            center + HexMetrics.GetFirstOutlineCorner(direction),
-            center + HexMetrics.GetSecondOutlineCorner(direction));
-        EdgeVertices e2 = new EdgeVertices(e1.v1 + bridge, e1.v5 + bridge);
-        TriangulateEdgeStripVertices(e1, e2, selectedOutline);
-        selectedOutline.AddQuadUV(0f, 0f, 0f, 1f);
-        selectedOutline.AddQuadUV(0f, 0f, 0f, 1f);
-        selectedOutline.AddQuadUV(0f, 0f, 0f, 1f);
-        selectedOutline.AddQuadUV(0f, 0f, 0f, 1f);
-
-        HexCell nextNeighbor = cell.GetNeighbor(direction.Next());
-        Vector3 v5 = e1.v5 + HexMetrics.GetOutlineBridge(direction.Next());
-        if( neighbor != null && nextNeighbor != null)
-        {
-            v5.y = nextNeighbor.Position.y;
-            if (cell.Elevation <= neighbor.Elevation)
-            {
-                if (cell.Elevation <= nextNeighbor.Elevation)
-                {
-                    selectedOutline.AddTriangle(e1.v5, e2.v5, v5);
-                }
-                else
-                {
-                    selectedOutline.AddTriangle(v5, e1.v5, e2.v5);
-                }
-            }
-            else if (neighbor.Elevation <= nextNeighbor.Elevation)
-            {
-                selectedOutline.AddTriangle(e2.v5, v5, e1.v5);
-            }
-        }
-        else
-        {
-            selectedOutline.AddTriangle(v5, e1.v5, e2.v5);
-        }
-        selectedOutline.AddTriangleUV(
-                new Vector2(0f, 0f),
-                new Vector2(0f, 1f),
-                new Vector2(0f, 1f));
     }
 
     public void ShowUI(bool visible)

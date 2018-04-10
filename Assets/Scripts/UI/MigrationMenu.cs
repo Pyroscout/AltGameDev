@@ -16,7 +16,20 @@ public class MigrationMenu : MonoBehaviour
         field.onValueChanged.AddListener(delegate { FieldValueChanged(); });
     }
 
-    public void FieldValueChanged()
+    void Update()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            HandleInput();
+        }
+    }
+
+    void HandleInput()
+    {
+        Close();
+    }
+
+        public void FieldValueChanged()
     {
         int currentNum = 0;
         if(!int.TryParse(field.text, out currentNum))
@@ -24,7 +37,7 @@ public class MigrationMenu : MonoBehaviour
             return;
         }
 
-        Creature creature = Creature.creatures[GameManager.turn];
+        Creature creature = Creature.creatures[0];
         int creatureCount = activeCell.tile.GetCreatureCount(creature.name);
         if (currentNum > creatureCount)
         {

@@ -15,7 +15,6 @@ public class GameManager : MonoBehaviour
     public ChooseEvolutionMenu chooseEvoMenu;
 
     int generationNum;
-    public static int turn;
 
     bool initialPhase;
 
@@ -37,6 +36,7 @@ public class GameManager : MonoBehaviour
     {
         ui.SetupUI();
         Load();
+        PlaceEnemyCreatures();
     }
 	
 	// Update is called once per frame
@@ -97,19 +97,28 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void PlaceEnemyCreatures()
+    {
+        foreach (Creature creature in Creature.creatures)
+        {
+            if (!creature.isPlayer)
+            {
+                HexCell cell = hexGrid.GetRandomCell();
+                cell.AddCreature(creature);
+            }
+        }
+    }
+
     public void InitialPhase()
     {
-        if(turn < Creature.creatures.Count)
+        foreach (Creature creature in Creature.creatures)
         {
-            Creature activeCreature = Creature.creatures[turn];
-            selectedCell.AddCreature(activeCreature.name, activeCreature.population);
-            turn++;
-        }
-        else
-        {
-            initialPhase = false;
-            turn = 0;
-            NextPhase();
+            if (creature.isPlayer)
+            {
+                selectedCell.AddCreature(creature);
+                initialPhase = false;
+                NextPhase();
+            }
         }
     }
 
@@ -163,8 +172,6 @@ public class GameManager : MonoBehaviour
         
         Creature wolf = new Creature("wolf", 200);
         Creature.creatures.Add(wolf);
-
-        turn = 0;
     }
 
     void BeginReproductionPhase()
@@ -259,13 +266,26 @@ public class GameManager : MonoBehaviour
 
     void BeginMigrationPhase()
     {
+        foreach (Creature creature in Creature.creatures)
+        {
+            MigrateCreature(creature);
+        }
         PlaceMigrationArrows();
+    }
+
+    void MigrateCreature(Creature creature)
+    {
+        if (!creature.isPlayer)
+        {
+            creature.RandomMigration();
+        }
     }
 
     void PlaceMigrationArrows()
     {
         uiPerspective.ClearArrows();
-        Creature creature = Creature.creatures[turn];
+        // TODO: change 0 to player creature
+        Creature creature = Creature.creatures[0];
         if (selectedCell.HasCreature(creature.name))
         {
             uiPerspective.PlaceArrows(selectedCell);
@@ -274,9 +294,10 @@ public class GameManager : MonoBehaviour
 
     public void MoveInDirection(HexCell neighbor, HexCell cell, int amount)
     {
-        Creature creature = Creature.creatures[turn];
-        cell.RemoveCreature(creature.name, amount);
-        neighbor.AddCreature(creature.name, amount);
+        // TODO: change 0 to player creature
+        Creature creature = Creature.creatures[0];
+        cell.RemoveCreature(creature, amount);
+        neighbor.AddCreature(creature);
     }
 
 
