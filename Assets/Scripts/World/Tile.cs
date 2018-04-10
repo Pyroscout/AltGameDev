@@ -8,6 +8,8 @@ public class Tile
     public Dictionary<string, int> creatureCounts = new Dictionary<string, int>();
     public Dictionary<string, int> energyRequiredCounts = new Dictionary<string, int>();
 
+    public HexCell cell;
+
     public Biome biome;
     BiomeType biomeType;
     public BiomeType BiomeType
@@ -26,28 +28,35 @@ public class Tile
         }
     }
 
+    public Tile(HexCell cell)
+    {
+        this.cell = cell;
+    }
+
     public void Update()
     {
         
     }
 
-    public void AddCreature(string creatureName, int creatureCount)
+    public void AddCreature(Creature creature, int count)
     {
-        int prevCreatureCount = GetCreatureCount(creatureName);
-        creatureCounts[creatureName] = prevCreatureCount + creatureCount;
+        int prevCreatureCount = GetCreatureCount(creature.name);
+        creatureCounts[creature.name] = prevCreatureCount + count;
+        creature.tilesOccupied[this.ToString()] = this;
     }
     
-    public void RemoveCreature(string creatureName, int creatureCount)
+    public void RemoveCreature(Creature creature, int creatureCount)
     {
-        int prevCreatureCount = GetCreatureCount(creatureName);
+        int prevCreatureCount = GetCreatureCount(creature.name);
         int deltaCreatureCount = prevCreatureCount - creatureCount;
         if(deltaCreatureCount <= 0)
         {
-            creatureCounts.Remove(creatureName);
+            creatureCounts.Remove(creature.name);
+            creature.tilesOccupied.Remove(this.ToString());
         }
         else
         {
-            creatureCounts[creatureName] = deltaCreatureCount;
+            creatureCounts[creature.name] = deltaCreatureCount;
         }
     }
 
@@ -78,11 +87,11 @@ public class Tile
 
     public void KillUnfedCreatrues()
     {
-        foreach(Creature creature in Creature.creatures)
+        foreach(Creature creature in Creature.creatures.Values)
         {
             int unfedEnergy = GetEnergyRequiredCount(creature.name);
             int deathCount = unfedEnergy / (int)creature.stats.size;
-            RemoveCreature(creature.name, deathCount);
+            RemoveCreature(creature, deathCount);
         }
     }
 
@@ -145,5 +154,10 @@ public class Tile
     {
         BiomeType biome = (BiomeType)(Calculator.rand.Next((int)BiomeType.COUNT-1)+1);
         this.SetBiomeType(biome);
+    }
+
+    public override string ToString()
+    {
+        return cell.coordinates.ToString();
     }
 }

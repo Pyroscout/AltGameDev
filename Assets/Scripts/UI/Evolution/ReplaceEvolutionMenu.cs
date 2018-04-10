@@ -11,30 +11,11 @@ public class ReplaceEvolutionMenu : MonoBehaviour
     Trait newTrait;
     int activeTraitIndex;
 
-    public void SelectTrait(int index)
-    {
-        activeTraitIndex = index;
-
-        UpdateTraitInfo(creature.traits[activeTraitIndex]);
-    }
-
-    public void ConfirmTrait()
-    {
-        creature.ReplaceTraitAtIndex(activeTraitIndex, newTrait);
-
-        Close();
-    }
-
-    public void UpdateTraitInfo(Trait trait)
-    {
-        traitNameLabel.text = trait.name;
-        traitDescLabel.text = trait.description;
-    }
-
     public void Open(Creature creature, Trait newTrait)
     {
         this.creature = creature;
         this.newTrait = newTrait;
+
 
         UpdateTraitInfo(creature.traits[activeTraitIndex]);
 
@@ -49,5 +30,25 @@ public class ReplaceEvolutionMenu : MonoBehaviour
 
         gameObject.SetActive(false);
         HexMapCamera.Locked = false;
+    }
+
+    public void SelectTrait(int index)
+    {
+        activeTraitIndex = index;
+
+        UpdateTraitInfo(creature.traits[activeTraitIndex]);
+    }
+
+    public void ConfirmTrait()
+    {
+        creature.ReplaceTraitAtIndex(activeTraitIndex, newTrait);
+        game.NextPhase();
+        Close();
+    }
+
+    public void UpdateTraitInfo(Trait trait)
+    {
+        traitNameLabel.text = trait.name;
+        traitDescLabel.text = trait.description;
     }
 }

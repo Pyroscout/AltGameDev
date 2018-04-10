@@ -110,7 +110,7 @@ public class HexGrid : MonoBehaviour
         HexCell cell = cells[i] = Instantiate<HexCell>(cellPrefab);
         cell.transform.localPosition = position;
         cell.coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
-        cell.tile = new Tile();
+        cell.tile = new Tile(cell);
         cell.tile.SetBiomeType(0);
 
         if (x > 0)
@@ -226,5 +226,16 @@ public class HexGrid : MonoBehaviour
         {
             chunks[i].Refresh();
         }
+    }
+
+    public HexCell GetRandomCellAboveWater()
+    {
+        int roll = (int)(Random.value * cells.Length * 0.999f);
+        HexCell cell = cells[roll];
+        while (cell.IsUnderwater)
+        {
+            cell = cell.GetRandomNeighborCell();
+        }
+        return cell;
     }
 }

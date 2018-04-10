@@ -34,8 +34,8 @@ public class UIPerspectiveManager : MonoBehaviour
             return;
         }
         EdgeVertices e = new EdgeVertices(
-            cell.Position + HexMetrics.GetFirstSolidCorner(direction),
-            cell.Position + HexMetrics.GetSecondSolidCorner(direction));
+            neighbor.Position + HexMetrics.GetFirstArrowCorner(direction.Opposite()),
+            neighbor.Position + HexMetrics.GetSecondArrowCorner(direction.Opposite()));
 
         Vector3 center = new Vector3(e.v3.x, e.v3.z, -e.v3.y - 0.1f);
 

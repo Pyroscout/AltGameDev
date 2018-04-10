@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class MigrationMenu : MonoBehaviour
+public class MigrationMenu : MenuVisibilityCtrl
 {
     public GameManager game;
 
     public InputField field;
-    public Button confirm;
+    public Button confirmButton;
 
     HexCell activeCell;
     HexCell neighbor;
@@ -16,16 +16,27 @@ public class MigrationMenu : MonoBehaviour
         field.onValueChanged.AddListener(delegate { FieldValueChanged(); });
     }
 
+    private void Update()
+    {
+        if (!field.isFocused)
+        {
+            field.ActivateInputField();
+        }
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            Confirm();
+        }
+    }
+
     public void FieldValueChanged()
     {
         int currentNum = 0;
-        if(!int.TryParse(field.text, out currentNum))
+        if (!int.TryParse(field.text, out currentNum))
         {
             return;
         }
 
-        Creature creature = Creature.creatures[GameManager.turn];
-        int creatureCount = activeCell.tile.GetCreatureCount(creature.name);
+        int creatureCount = activeCell.tile.GetCreatureCount(Creature.player.name);
         if (currentNum > creatureCount)
         {
             field.text = creatureCount.ToString();
@@ -38,13 +49,15 @@ public class MigrationMenu : MonoBehaviour
         if (int.TryParse(field.text, out currentNum))
         {
             game.MoveInDirection(neighbor, activeCell, currentNum);
-            game.NextPhase();
+            //game.NextPhase();
             Close();
         }
     }
 
     public void Open(HexCell neighbor, HexCell cell)
     {
+        field.text = "";
+
         gameObject.SetActive(true);
         HexMapCamera.Locked = true;
 
@@ -54,7 +67,7 @@ public class MigrationMenu : MonoBehaviour
 
     public void Close()
     {
-        gameObject.SetActive(false);
+        hide();
         HexMapCamera.Locked = false;
     }
 }

@@ -24,12 +24,21 @@ public class CreatureManager : MonoBehaviour
 
     public void AddCreature(HexCell cell, Vector3 center)
     {
-        for(int i = 0; i < Creature.creatures.Count; i++)
+        int index = 1;
+        foreach (Creature creature in Creature.creatures.Values)
         {
-            Creature creature = Creature.creatures[i];
             if (cell.HasCreature(creature.name))
             {
-                Transform instance = Instantiate(creaturePrefabs[i]);
+                Transform instance = null;
+                if(creature.name == Creature.player.name)
+                {
+                    instance = Instantiate(creaturePrefabs[0]);
+                }
+                else
+                {
+                    instance = Instantiate(creaturePrefabs[index]);
+                    index++;
+                }
                 Vector3 newCenter = center;
                 newCenter.y += instance.localScale.y * 0.5f;
                 //newCenter.x = newCenter.x - (int)(cell.tile.creatureCounts.Count / 2) + count;

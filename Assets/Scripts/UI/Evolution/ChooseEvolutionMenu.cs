@@ -8,10 +8,35 @@ public class ChooseEvolutionMenu : MonoBehaviour
     public Text traitNameLabel;
     public Text traitDescLabel;
 
+    public GameObject trait1Image;
+    public GameObject trait2Image;
 
     Creature creature;
     Trait[] traits;
     int activeTraitIndex;
+
+    public void Open(Creature creature, Trait[] traits)
+    {
+        this.creature = creature;
+        this.traits = traits;
+        
+        trait1Image.GetComponent<Image>().sprite = Resources.Load<Sprite>(traits[0].imagePath);
+        trait2Image.GetComponent<Image>().sprite = Resources.Load<Sprite>(traits[1].imagePath);
+
+        UpdateTraitInfo(traits[activeTraitIndex]);
+
+        gameObject.SetActive(true);
+        HexMapCamera.Locked = true;
+    }
+
+    public void Close()
+    {
+        creature = null;
+        traits = null;
+
+        gameObject.SetActive(false);
+        HexMapCamera.Locked = false;
+    }
 
     public void SelectTrait(int index)
     {
@@ -29,6 +54,7 @@ public class ChooseEvolutionMenu : MonoBehaviour
         else
         {
             creature.AddTrait(newTrait);
+            game.NextPhase();
         }
         Close();
     }
@@ -37,25 +63,5 @@ public class ChooseEvolutionMenu : MonoBehaviour
     {
         traitNameLabel.text = trait.name;
         traitDescLabel.text = trait.description;
-    }
-
-    public void Open(Creature creature, Trait[] traits)
-    {
-        this.creature = creature;
-        this.traits = traits;
-
-        UpdateTraitInfo(traits[activeTraitIndex]);
-
-        gameObject.SetActive(true);
-        HexMapCamera.Locked = true;
-    }
-
-    public void Close()
-    {
-        creature = null;
-        traits = null;
-
-        gameObject.SetActive(false);
-        HexMapCamera.Locked = false;
     }
 }

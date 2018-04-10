@@ -1,7 +1,6 @@
-﻿using UnityEngine;
+﻿using System.IO;
+using UnityEngine;
 using UnityEngine.EventSystems;
-using System.Collections.Generic;
-using System.IO;
 
 public enum Phase { Reproduce, Evolve, Feed, Migrate, COUNT }
 
@@ -16,7 +15,6 @@ public class GameManager : MonoBehaviour
     public ChooseEvolutionMenu chooseEvoMenu;
 
     int generationNum;
-    public static int turn;
 
     bool initialPhase;
 
@@ -38,6 +36,7 @@ public class GameManager : MonoBehaviour
     {
         ui.SetupUI();
         Load();
+        PlaceEnemyCreatures();
     }
 	
 	// Update is called once per frame
@@ -57,7 +56,7 @@ public class GameManager : MonoBehaviour
 
             if (huntTimeLeft < 0)
             {
-                EndFeedingPhase();
+                EndFeedPhase();
             }
             else if (timeSinceHunt > 0.2)
             {
@@ -98,19 +97,28 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void PlaceEnemyCreatures()
+    {
+        foreach (Creature creature in Creature.creatures.Values)
+        {
+            if (!creature.isPlayer)
+            {
+                HexCell cell = hexGrid.GetRandomCellAboveWater();
+                cell.AddCreature(creature);
+            }
+        }
+    }
+
     public void InitialPhase()
     {
-        if(turn < Creature.creatures.Count)
+        foreach (Creature creature in Creature.creatures.Values)
         {
-            Creature activeCreature = Creature.creatures[turn];
-            selectedCell.AddCreature(activeCreature.name, activeCreature.population);
-            turn++;
-        }
-        else
-        {
-            initialPhase = false;
-            turn = 0;
-            NextPhase();
+            if (creature.isPlayer)
+            {
+                selectedCell.AddCreature(creature);
+                initialPhase = false;
+                NextPhase();
+            }
         }
     }
 
@@ -143,16 +151,16 @@ public class GameManager : MonoBehaviour
         switch (phase)
         {
             case Phase.Migrate:
-                MigrationPhase();
+                BeginMigrationPhase();
                 break;
             case Phase.Reproduce:
-                ReproductionPhase();
+                BeginReproductionPhase();
                 break;
             case Phase.Evolve:
-                EvolutionPhase();
+                BeginEvolutionPhase();
                 break;
             case Phase.Feed:
-                FeedPhase();
+                BeginFeedPhase();
                 break;
         }
     }
@@ -160,15 +168,14 @@ public class GameManager : MonoBehaviour
     void CreateCreatures()
     {
         Creature rabbit = new Creature("rabbit", 200, true);
-        Creature.creatures.Add(rabbit);
+        Creature.creatures[rabbit.name] = rabbit;
+        Creature.player = rabbit;
         
         Creature wolf = new Creature("wolf", 200);
-        Creature.creatures.Add(wolf);
-
-        turn = 0;
+        Creature.creatures[wolf.name] = wolf;
     }
 
-    void ReproductionPhase()
+    void BeginReproductionPhase()
     {
         generationNum++;
         ui.UpdateGeneration(generationNum);
@@ -176,7 +183,7 @@ public class GameManager : MonoBehaviour
         foreach (HexCell cell in hexGrid.cells)
         {
             Tile tile = cell.tile;
-            foreach (Creature creature in Creature.creatures)
+            foreach (Creature creature in Creature.creatures.Values)
             {
                 creature.IncreaseGeneration(tile);
             }
@@ -184,10 +191,10 @@ public class GameManager : MonoBehaviour
             
     }
 
-    void EvolutionPhase()
+    void BeginEvolutionPhase()
     {
         int numTraits = 2;
-        foreach(Creature creature in Creature.creatures)
+        foreach(Creature creature in Creature.creatures.Values)
         {
             Trait[] newTraits = creature.RollNewTraits(numTraits);
             if (creature.isPlayer)
@@ -211,7 +218,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void FeedPhase()
+    void BeginFeedPhase()
     {
         ui.ShowTimer();
         huntIsActive = true;
@@ -222,7 +229,7 @@ public class GameManager : MonoBehaviour
             Tile tile = cell.tile;
             tile.biome.ResetResources();
 
-            foreach (Creature creature in Creature.creatures)
+            foreach (Creature creature in Creature.creatures.Values)
             {
                 if (tile.HasCreature(creature.name))
                 {
@@ -239,14 +246,14 @@ public class GameManager : MonoBehaviour
         foreach (HexCell cell in hexGrid.cells)
         {
             Tile tile = cell.tile;
-            foreach (Creature creature in Creature.creatures)
+            foreach (Creature creature in Creature.creatures.Values)
             {
                 creature.ForageAndHunt(tile);
             }
         }
     }
 
-    void EndFeedingPhase()
+    void EndFeedPhase()
     {
         foreach (HexCell cell in hexGrid.cells)
         {
@@ -258,16 +265,27 @@ public class GameManager : MonoBehaviour
         NextPhase();
     }
 
-    void MigrationPhase()
+    void BeginMigrationPhase()
     {
+        foreach (Creature creature in Creature.creatures.Values)
+        {
+            MigrateCreature(creature);
+        }
         PlaceMigrationArrows();
+    }
+
+    void MigrateCreature(Creature creature)
+    {
+        if (!creature.isPlayer)
+        {
+            creature.RandomMigration();
+        }
     }
 
     void PlaceMigrationArrows()
     {
         uiPerspective.ClearArrows();
-        Creature creature = Creature.creatures[turn];
-        if (selectedCell.HasCreature(creature.name))
+        if (selectedCell.HasCreature(Creature.player.name))
         {
             uiPerspective.PlaceArrows(selectedCell);
         }
@@ -275,9 +293,8 @@ public class GameManager : MonoBehaviour
 
     public void MoveInDirection(HexCell neighbor, HexCell cell, int amount)
     {
-        Creature creature = Creature.creatures[turn];
-        cell.RemoveCreature(creature.name, amount);
-        neighbor.AddCreature(creature.name, amount);
+        cell.RemoveCreature(Creature.player, amount);
+        neighbor.AddCreature(Creature.player);
     }
 
 
