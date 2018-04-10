@@ -220,7 +220,7 @@ public class Creature
         if (isHuntingCreature)
         {
             Creature prey = ChooseCreatureToHunt(tile);
-            
+            Hunt(prey);
         }
         else
         {
@@ -233,7 +233,6 @@ public class Creature
                 energyForaged = tile.biome.HuntAttempt();
             }
         }
-
         
         return energyRequired;
     }
@@ -255,6 +254,8 @@ public class Creature
 
     void Hunt(Creature prey)
     {
+        // TODO: make this meaningful with stat calc
+
         int hunger = population * stats.meatCon;
         int meatSup = prey.population * prey.stats.meatVal;
         int deltaMeat = meatSup - hunger;
