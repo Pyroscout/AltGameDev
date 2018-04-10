@@ -221,8 +221,8 @@ public class HexMapEditor : MonoBehaviour
 
     public void Save()
     {
-        string path =
-            Path.Combine(Application.persistentDataPath, "test.map");
+        DirectoryInfo info = new DirectoryInfo(Application.dataPath);
+        string path = Path.Combine(info.ToString() + "/Maps", "test.map");
         using (
             BinaryWriter writer =
                 new BinaryWriter(File.Open(path, FileMode.Create)))
