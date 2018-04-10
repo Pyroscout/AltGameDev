@@ -1,19 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SizeOneTrait : Trait
+public class LargeSizeTrait : Trait
 {
-    public SizeOneTrait()
+    public LargeSizeTrait()
     {
-        name = "Medium Size";
-        description = "Sets the size of your creatures to Medium";
+        name = "Large Size";
+        description = "Sets the size of your creatures to Large";
         eduInfo = "You big boi";
     }
 
     public override void OnAdd(Stats stats)
     {
-        stats.size = stats.sizeOne;
-   
+        stats.size = Stats.Size.large;
     }
 
     public override void OnRemove(Stats stats)

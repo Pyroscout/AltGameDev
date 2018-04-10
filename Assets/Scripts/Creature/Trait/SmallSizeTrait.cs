@@ -1,18 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SizeThreeTrait : Trait
+public class SmallSizeTrait : Trait
 {
-    public SizeThreeTrait()
+    public SmallSizeTrait()
     {
-        name = "Large Size";
-        description = "Sets the size of your creatures to Large";
+        name = "Small Size";
+        description = "Sets the size of your creatures to Small";
         eduInfo = "You big boi";
     }
 
     public override void OnAdd(Stats stats)
     {
-        stats.size = stats.sizeThree;
+        stats.size = Stats.Size.small;
+   
     }
 
     public override void OnRemove(Stats stats)
