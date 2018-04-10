@@ -14,8 +14,14 @@ public class Stats
     public int lSpn; // lifespan
     public int fert; // birth rate, survivability
 
-    public Size size;
-    public enum Size { small = 1, med, large };
+    public int size = 1;
+
+
+  
+    //public enum  Size { small = 1, med, large };
+    public int sizeOne = 1;
+    public int sizeTwo = 2;
+    public int sizeThree = 3;
 
     public Stats()
     {
@@ -29,7 +35,9 @@ public class Stats
         lSpn = 1;
         fert = 1;
 
-        size = Size.small;
+        //size = Size.small;
+       
+        
     }
 
 
