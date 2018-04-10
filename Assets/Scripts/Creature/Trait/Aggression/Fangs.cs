@@ -8,6 +8,8 @@ public class FangsTrait : Trait
         name = "Fangs";
         description = "Increase attack power by 1";
         eduInfo = "";
+
+        imagePath = "Images/Evolutions/Aggression/Fangs";
     }
 
     public override void OnAdd(Stats stats)

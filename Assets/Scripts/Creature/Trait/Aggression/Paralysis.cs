@@ -8,6 +8,8 @@ public class ParalysisTrait : Trait
         name = "Paralysis";
         description = "Increase attack power by 1";
         eduInfo = "";
+
+        imagePath = "Images/Evolutions/Aggression/Palarysis";
     }
 
     public override void OnAdd(Stats stats)

@@ -8,6 +8,8 @@ public class VenomTrait : Trait
         name = "Venom";
         description = "Increase attack power by 1";
         eduInfo = "";
+
+        imagePath = "Images/Evolutions/Aggression/Venom";
     }
 
     public override void OnAdd(Stats stats)

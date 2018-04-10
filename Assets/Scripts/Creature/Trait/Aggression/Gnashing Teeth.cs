@@ -8,6 +8,8 @@ public class GnashingTeethTrait : Trait
         name = "Gnashing Teeth";
         description = "Increase attack power by 1";
         eduInfo = "";
+
+        imagePath = "Images/Evolutions/Aggression/Teeth";
     }
 
     public override void OnAdd(Stats stats)
