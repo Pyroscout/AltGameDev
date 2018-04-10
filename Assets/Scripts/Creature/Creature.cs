@@ -31,9 +31,6 @@ public class Creature
     // reproduction method
     // energy to reproduce
 
-    // traits
-
-    
 
     public Creature(string name, int population, bool isPlayer = false) 
     {

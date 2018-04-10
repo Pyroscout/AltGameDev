@@ -6,7 +6,7 @@ public class MigrationMenu : MenuVisibilityCtrl
     public GameManager game;
 
     public InputField field;
-    public Button confirm;
+    public Button confirmButton;
 
     HexCell activeCell;
     HexCell neighbor;
@@ -14,6 +14,18 @@ public class MigrationMenu : MenuVisibilityCtrl
     void Start()
     {
         field.onValueChanged.AddListener(delegate { FieldValueChanged(); });
+    }
+
+    private void Update()
+    {
+        if (!field.isFocused)
+        {
+            field.ActivateInputField();
+        }
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            Confirm();
+        }
     }
 
     public void FieldValueChanged()
@@ -45,6 +57,8 @@ public class MigrationMenu : MenuVisibilityCtrl
 
     public void Open(HexCell neighbor, HexCell cell)
     {
+        field.text = "";
+
         gameObject.SetActive(true);
         HexMapCamera.Locked = true;
 
