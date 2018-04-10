@@ -228,7 +228,7 @@ public class HexGrid : MonoBehaviour
         }
     }
 
-    public HexCell GetRandomCell()
+    public HexCell GetRandomCellAboveWater()
     {
         int roll = (int)(Random.value * cells.Length * 0.999f);
         HexCell cell = cells[roll];

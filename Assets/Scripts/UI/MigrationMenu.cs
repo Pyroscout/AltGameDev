@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class MigrationMenu : MonoBehaviour
+public class MigrationMenu : MenuVisibilityCtrl
 {
     public GameManager game;
 
@@ -16,23 +16,10 @@ public class MigrationMenu : MonoBehaviour
         field.onValueChanged.AddListener(delegate { FieldValueChanged(); });
     }
 
-    void Update()
-    {
-        if (Input.GetMouseButton(0))
-        {
-            HandleInput();
-        }
-    }
-
-    void HandleInput()
-    {
-        Close();
-    }
-
-        public void FieldValueChanged()
+    public void FieldValueChanged()
     {
         int currentNum = 0;
-        if(!int.TryParse(field.text, out currentNum))
+        if (!int.TryParse(field.text, out currentNum))
         {
             return;
         }
@@ -51,7 +38,7 @@ public class MigrationMenu : MonoBehaviour
         if (int.TryParse(field.text, out currentNum))
         {
             game.MoveInDirection(neighbor, activeCell, currentNum);
-            game.NextPhase();
+            //game.NextPhase();
             Close();
         }
     }
@@ -67,7 +54,7 @@ public class MigrationMenu : MonoBehaviour
 
     public void Close()
     {
-        gameObject.SetActive(false);
+        hide();
         HexMapCamera.Locked = false;
     }
 }

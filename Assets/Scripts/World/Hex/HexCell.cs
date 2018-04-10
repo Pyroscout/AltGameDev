@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.IO;
+using System.Linq;
+using System.Collections.Generic;
 
 public class HexCell : MonoBehaviour
 {
@@ -259,7 +261,7 @@ public class HexCell : MonoBehaviour
             if(isSelected != value)
             {
                 isSelected = value;
-                RefreshSelfOnly();
+                Refresh();
             }
         }
     }
@@ -500,6 +502,21 @@ public class HexCell : MonoBehaviour
     {
         int roll = (int)(Random.value * neighbors.Length * 0.999f);
         return neighbors[roll];
+    }
+
+    public HexCell GetRandomNeighborCellAboveWater()
+    {
+        List<HexCell> possibilities = neighbors.OfType<HexCell>().ToList();
+        bool isUnderwater = true;
+        HexCell cell = null;
+        while (isUnderwater)
+        {
+            int roll = (int)(Random.value * possibilities.Count * 0.999f);
+            cell = possibilities[roll];
+            possibilities.RemoveAt(roll);
+            isUnderwater = cell.IsUnderwater;
+        }
+        return cell;
     }
 
     static Color CombineColors(params Color[] aColors)

@@ -259,7 +259,7 @@ public class Creature
     public void RandomMigration()
     {
         Tile fromTile = GetRandomOccupiedTile();
-        Tile toTile = fromTile.cell.GetRandomNeighborCell().tile;
+        Tile toTile = fromTile.cell.GetRandomNeighborCellAboveWater().tile;
         int creatureCount = fromTile.creatureCounts[name];
         float percent = Mathf.Round(Random.value * 4);
         int moveCount = (int)(creatureCount * (percent / 4f));

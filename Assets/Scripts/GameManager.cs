@@ -103,7 +103,7 @@ public class GameManager : MonoBehaviour
         {
             if (!creature.isPlayer)
             {
-                HexCell cell = hexGrid.GetRandomCell();
+                HexCell cell = hexGrid.GetRandomCellAboveWater();
                 cell.AddCreature(creature);
             }
         }
