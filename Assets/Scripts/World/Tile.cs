@@ -87,7 +87,7 @@ public class Tile
 
     public void KillUnfedCreatrues()
     {
-        foreach(Creature creature in Creature.creatures)
+        foreach(Creature creature in Creature.creatures.Values)
         {
             int unfedEnergy = GetEnergyRequiredCount(creature.name);
             int deathCount = unfedEnergy / (int)creature.stats.size;

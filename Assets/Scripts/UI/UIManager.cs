@@ -29,11 +29,18 @@ public class UIManager : MonoBehaviour
             biomeLabel.text = tile.biome.name;
             herbCountLabel.text = tile.biome.herbSupply.ToString();
             meatCountLabel.text = tile.biome.meatSupply.ToString();
-            for(int i = 0; i < Creature.creatures.Count; i++)
+            int index = 1;
+            foreach (Creature creature in Creature.creatures.Values)
             {
-                Creature creature = Creature.creatures[i];
-                
-                creatureCountLabels[i].text = tile.GetCreatureCount(creature.name).ToString();
+                if (creature.name == Creature.player.name)
+                {
+                    creatureCountLabels[0].text = tile.GetCreatureCount(creature.name).ToString();
+                }
+                else
+                {
+                    creatureCountLabels[index].text = tile.GetCreatureCount(creature.name).ToString();
+                    index++;
+                }
             }
         }
     }

@@ -36,8 +36,7 @@ public class MigrationMenu : MenuVisibilityCtrl
             return;
         }
 
-        Creature creature = Creature.creatures[0];
-        int creatureCount = activeCell.tile.GetCreatureCount(creature.name);
+        int creatureCount = activeCell.tile.GetCreatureCount(Creature.player.name);
         if (currentNum > creatureCount)
         {
             field.text = creatureCount.ToString();

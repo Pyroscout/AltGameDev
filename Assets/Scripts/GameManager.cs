@@ -99,7 +99,7 @@ public class GameManager : MonoBehaviour
 
     public void PlaceEnemyCreatures()
     {
-        foreach (Creature creature in Creature.creatures)
+        foreach (Creature creature in Creature.creatures.Values)
         {
             if (!creature.isPlayer)
             {
@@ -111,7 +111,7 @@ public class GameManager : MonoBehaviour
 
     public void InitialPhase()
     {
-        foreach (Creature creature in Creature.creatures)
+        foreach (Creature creature in Creature.creatures.Values)
         {
             if (creature.isPlayer)
             {
@@ -168,10 +168,11 @@ public class GameManager : MonoBehaviour
     void CreateCreatures()
     {
         Creature rabbit = new Creature("rabbit", 200, true);
-        Creature.creatures.Add(rabbit);
+        Creature.creatures[rabbit.name] = rabbit;
+        Creature.player = rabbit;
         
         Creature wolf = new Creature("wolf", 200);
-        Creature.creatures.Add(wolf);
+        Creature.creatures[wolf.name] = wolf;
     }
 
     void BeginReproductionPhase()
@@ -182,7 +183,7 @@ public class GameManager : MonoBehaviour
         foreach (HexCell cell in hexGrid.cells)
         {
             Tile tile = cell.tile;
-            foreach (Creature creature in Creature.creatures)
+            foreach (Creature creature in Creature.creatures.Values)
             {
                 creature.IncreaseGeneration(tile);
             }
@@ -193,7 +194,7 @@ public class GameManager : MonoBehaviour
     void BeginEvolutionPhase()
     {
         int numTraits = 2;
-        foreach(Creature creature in Creature.creatures)
+        foreach(Creature creature in Creature.creatures.Values)
         {
             Trait[] newTraits = creature.RollNewTraits(numTraits);
             if (creature.isPlayer)
@@ -228,7 +229,7 @@ public class GameManager : MonoBehaviour
             Tile tile = cell.tile;
             tile.biome.ResetResources();
 
-            foreach (Creature creature in Creature.creatures)
+            foreach (Creature creature in Creature.creatures.Values)
             {
                 if (tile.HasCreature(creature.name))
                 {
@@ -245,7 +246,7 @@ public class GameManager : MonoBehaviour
         foreach (HexCell cell in hexGrid.cells)
         {
             Tile tile = cell.tile;
-            foreach (Creature creature in Creature.creatures)
+            foreach (Creature creature in Creature.creatures.Values)
             {
                 creature.ForageAndHunt(tile);
             }
@@ -266,7 +267,7 @@ public class GameManager : MonoBehaviour
 
     void BeginMigrationPhase()
     {
-        foreach (Creature creature in Creature.creatures)
+        foreach (Creature creature in Creature.creatures.Values)
         {
             MigrateCreature(creature);
         }
@@ -284,9 +285,7 @@ public class GameManager : MonoBehaviour
     void PlaceMigrationArrows()
     {
         uiPerspective.ClearArrows();
-        // TODO: change 0 to player creature
-        Creature creature = Creature.creatures[0];
-        if (selectedCell.HasCreature(creature.name))
+        if (selectedCell.HasCreature(Creature.player.name))
         {
             uiPerspective.PlaceArrows(selectedCell);
         }
@@ -294,10 +293,8 @@ public class GameManager : MonoBehaviour
 
     public void MoveInDirection(HexCell neighbor, HexCell cell, int amount)
     {
-        // TODO: change 0 to player creature
-        Creature creature = Creature.creatures[0];
-        cell.RemoveCreature(creature, amount);
-        neighbor.AddCreature(creature);
+        cell.RemoveCreature(Creature.player, amount);
+        neighbor.AddCreature(Creature.player);
     }
 
 

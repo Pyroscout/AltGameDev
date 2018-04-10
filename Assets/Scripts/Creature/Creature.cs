@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class Creature
 {
-    public static List<Creature> creatures = new List<Creature>();
+    public static Dictionary<string,Creature> creatures = new Dictionary<string, Creature>();
+    public static Creature player;
 
     public static int MAX_TRAIT_COUNT = 4;
 
@@ -213,15 +214,43 @@ public class Creature
     // returns new energy required
     int Hunt(Tile tile, int energyRequired)
     {
-        float huntSuccessRate = 0.1f;
-        float roll = Random.value;
-        int energyForaged = 0;
-
-        if (huntSuccessRate < roll)
+        // TODO: hunting other creatures affected by aggression?
+        bool isHuntingCreature = tile.creatureCounts.Count > 1 && Random.value <= 0.05f;
+        
+        if (isHuntingCreature)
         {
-            energyForaged = tile.biome.HuntAttempt();
+            Creature prey = ChooseCreatureToHunt(tile);
+            
         }
+        else
+        {
+            float huntSuccessRate = 0.1f;
+            float roll = Random.value;
+            int energyForaged = 0;
+
+            if (huntSuccessRate < roll)
+            {
+                energyForaged = tile.biome.HuntAttempt();
+            }
+        }
+
+        
         return energyRequired;
+    }
+
+    Creature ChooseCreatureToHunt(Tile tile)
+    {
+        List<Creature> potentialPrey = new List<Creature>();
+        foreach (string creatureName in tile.creatureCounts.Keys)
+        {
+            if (creatureName != name)
+            {
+                potentialPrey.Add(Creature.creatures[creatureName]);
+            }
+        }
+
+        int roll = (int)(Random.value * potentialPrey.Count * 0.999f);
+        return potentialPrey[roll];
     }
 
     void Hunt(Creature prey)
