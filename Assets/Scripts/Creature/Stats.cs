@@ -8,6 +8,7 @@ public class Stats
     public int def; // defense, formerly aggro
     public int evs; // evasion, formerly mobility
     public int hunt; // hunt
+
     public int vegCon; // vegetable consumption required
     public int meatCon; // meat consumption required
     public int meatVal; // meat value of creature
