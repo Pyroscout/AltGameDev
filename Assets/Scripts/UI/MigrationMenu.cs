@@ -18,10 +18,6 @@ public class MigrationMenu : MenuVisibilityCtrl
 
     private void Update()
     {
-        if (!field.isFocused)
-        {
-            field.ActivateInputField();
-        }
         if (Input.GetKeyDown(KeyCode.Return))
         {
             Confirm();
@@ -63,11 +59,12 @@ public class MigrationMenu : MenuVisibilityCtrl
 
         activeCell = cell;
         this.neighbor = neighbor;
+        field.ActivateInputField();
     }
 
-    public void Close()
+    public override void Close()
     {
-        hide();
+        base.Close();
         HexMapCamera.Locked = false;
     }
 }

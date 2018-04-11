@@ -13,7 +13,7 @@ public class MenuVisibilityCtrl : MonoBehaviour
         setupInvisibleBG();
         _myGameObj = gameObject;
         if (!shouldStartVisible)
-            hide();
+            Close();
     }
 
     void setupInvisibleBG()
@@ -40,7 +40,7 @@ public class MenuVisibilityCtrl : MonoBehaviour
         _invisibleBG.SetActive(true);
     }
 
-    public void hide()
+    public virtual void Close()
     {
         _myGameObj.SetActive(false);
         _invisibleBG.SetActive(false);
