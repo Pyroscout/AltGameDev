@@ -214,13 +214,12 @@ public class Creature
     // returns new energy required
     int Hunt(Tile tile, int energyRequired)
     {
-        // TODO: hunting other creatures affected by aggression?
-        bool isHuntingCreature = tile.creatureCounts.Count > 1 && Random.value <= 0.05f;
+        bool isHuntingCreature = tile.creatureCounts.Count > 1 && Random.value <= (stats.hunt * 0.05f);
         
         if (isHuntingCreature)
         {
             Creature prey = ChooseCreatureToHunt(tile);
-            Hunt(prey);
+            energyRequired = Hunt(prey, tile, energyRequired);
         }
         else
         {
@@ -252,21 +251,29 @@ public class Creature
         return potentialPrey[roll];
     }
 
-    void Hunt(Creature prey)
+    int Hunt(Creature prey, Tile tile, int energyRequired)
     {
-        // TODO: make this meaningful with stat calc
+        float huntRoll = Random.value * stats.hunt;
+        float evadeRoll = Random.value * prey.stats.evs;
 
-        int hunger = population * stats.meatCon;
-        int meatSup = prey.population * prey.stats.meatVal;
-        int deltaMeat = meatSup - hunger;
-        if (deltaMeat > 0)
+        float atkRoll = Random.value * stats.hunt;
+        float defRoll = Random.value * prey.stats.evs;
+        if (evadeRoll > huntRoll || atkRoll > defRoll)
         {
-            prey.population = deltaMeat / prey.stats.meatVal;
-            return;
+            return energyRequired;
         }
-        // more hunger than supply
-        prey.population = 0;
-        unfedPop = Mathf.Abs(deltaMeat) / stats.meatCon;
+        
+        int numPreyHunted = (int)(Random.value * 2 + 1);
+        int preyInTile = tile.creatureCounts[prey.name];
+        if (numPreyHunted > preyInTile)
+        {
+            numPreyHunted = preyInTile;
+        }
+
+        int energyHunted = numPreyHunted * prey.stats.meatVal;
+        tile.RemoveCreature(prey, numPreyHunted);
+
+        return Mathf.Max(0, energyRequired - energyHunted);
     }
 
     public void KillUnfed()
