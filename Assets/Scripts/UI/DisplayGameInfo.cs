@@ -8,6 +8,7 @@ public class DisplayGameInfo : MonoBehaviour
     public GameObject wing2;
     public GameObject totem;
     public GameObject returnbutton;
+    public GameObject leaves;
 
 	// Use this for initialization
 	public void show ()
@@ -15,8 +16,10 @@ public class DisplayGameInfo : MonoBehaviour
         totem.SetActive(false);
         wing1.SetActive(false);
         wing2.SetActive(false);
+        leaves.SetActive(false);
         InfoCanvas.SetActive(true);
         returnbutton.SetActive(true);
+    
 
 	}
 	
@@ -26,6 +29,7 @@ public class DisplayGameInfo : MonoBehaviour
         wing1.SetActive(true);
         wing2.SetActive(true);
         totem.SetActive(true);
+        leaves.SetActive(true);
         InfoCanvas.SetActive(false);
         returnbutton.SetActive(false);
 	}
