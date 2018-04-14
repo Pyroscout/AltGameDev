@@ -11,7 +11,6 @@ public class UIManager : MonoBehaviour
     public Text herbCountLabel;
     public Text meatCountLabel;
 
-
     public Text[] creatureCountLabels;
     
     public Canvas creatureInfoPrefab;
@@ -20,6 +19,7 @@ public class UIManager : MonoBehaviour
     {
         HideTimer();
     }
+
 
     public void UpdateUI(HexCell selectedCell)
     {

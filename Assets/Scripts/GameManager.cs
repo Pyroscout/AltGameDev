@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
 
     public ChooseEvolutionMenu chooseEvoMenu;
 
+    
     int generationNum;
 
     bool initialPhase;
@@ -31,6 +32,7 @@ public class GameManager : MonoBehaviour
         CreateCreatures();
     }
 
+
     // Use this for initialization
     void Start ()
     {
@@ -42,6 +44,8 @@ public class GameManager : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+
+
         if (Input.GetMouseButton(0) &&
             !EventSystem.current.IsPointerOverGameObject())
         {
