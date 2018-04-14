@@ -23,11 +23,13 @@ public class GnashingTeethTrait : Trait
             if (stats.vegCon > 0 || count > 0)
             {
                 stats.vegCon++;
+                stats.meatVal++;
                 count--;
             }
             else
             {
                 stats.meatCon++;
+                stats.meatVal++;
                 count--;
             }
         }
@@ -44,11 +46,13 @@ public class GnashingTeethTrait : Trait
             if (stats.vegCon > 0 || count > 0)
             {
                 stats.vegCon--;
+                stats.meatVal--;
                 count--;
             }
             else
             {
                 stats.meatCon--;
+                stats.meatVal--;
                 count--;
             }
         }

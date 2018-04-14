@@ -21,14 +21,16 @@ public class ParalysisTrait : Trait
 
         while (count > 0)
         {
-            if (stats.vegCon > 0 || count > 0)
+            if (stats.vegCon >= 1 || count > 0)
             {
                 stats.vegCon++;
+                stats.meatVal++;
                 count--;
             }
             else
             {
                 stats.meatCon++;
+                stats.meatVal++;
                 count--;
             }
         }
@@ -46,11 +48,13 @@ public class ParalysisTrait : Trait
             if (stats.vegCon > 0 || count > 0)
             {
                 stats.vegCon--;
+                stats.meatVal--;
                 count--;
             }
             else
             {
                 stats.meatCon--;
+                stats.meatVal--;
                 count--;
             }
         }

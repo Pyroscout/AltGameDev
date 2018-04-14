@@ -6,23 +6,25 @@ public class LightSkeleTrait : Trait
     public LightSkeleTrait()
     {
         name = "Light weight Skeleton";
-        description = "Atk-1, Def-2, Evs+2, Hunt+1";
-        eduInfo = "";
+        description = "Atk-2, Def-5, Evs+5, Hunt+2";
+        eduInfo = "Light bones and smaller structure make you faster, but more fragile";
+
+        imagePath = "Images/Evolutions/Light";
     }
 
     public override void OnAdd(Stats stats)
     {
-        stats.atk--;
-        stats.def-=2;
-        stats.evs+=2;
-        stats.hunt++;
+        stats.atk -= 2;
+        stats.def -=5;
+        stats.evs +=5;
+        stats.hunt +=2;
     }
 
     public override void OnRemove(Stats stats)
     {
-        stats.atk++;
-        stats.def+=2;
-        stats.evs-=2;
-        stats.hunt--;
+        stats.atk += 2;
+        stats.def += 5;
+        stats.evs -= 5;
+        stats.hunt -= 2;
     }
 }
