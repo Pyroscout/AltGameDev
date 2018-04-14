@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: b8c319fd797eb89438324d24bb8fa209
-timeCreated: 1523685970
+guid: 5983e7d575bd30b428834a96d66eec14
+timeCreated: 1523694406
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Info Box_0
+    21300000: bone-clipart-dog-free-17_0
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -35,7 +35,7 @@ TextureImporter:
     aniso: -1
     mipBias: -1
     wrapU: 1
-    wrapV: 1
+    wrapV: -1
     wrapW: -1
   nPOTScale: 0
   lightmap: 0
@@ -72,7 +72,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
-  - buildTarget: Android
+  - buildTarget: iPhone
     maxTextureSize: 2048
     textureFormat: -1
     textureCompression: 1
@@ -80,7 +80,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
-  - buildTarget: iPhone
+  - buildTarget: Android
     maxTextureSize: 2048
     textureFormat: -1
     textureCompression: 1
@@ -92,13 +92,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Info Box_0
+      name: bone-clipart-dog-free-17_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1146
-        height: 247
+        width: 500
+        height: 195
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

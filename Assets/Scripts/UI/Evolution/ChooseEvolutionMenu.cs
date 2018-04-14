@@ -7,7 +7,6 @@ public class ChooseEvolutionMenu : MonoBehaviour
     public ReplaceEvolutionMenu replaceEvoMenu;
     public Text traitNameLabel;
     public Text traitDescLabel;
-
     public GameObject trait1Image;
     public GameObject trait2Image;
 
@@ -61,7 +60,7 @@ public class ChooseEvolutionMenu : MonoBehaviour
 
     public void UpdateTraitInfo(Trait trait)
     {
-        traitNameLabel.text = trait.name;
-        traitDescLabel.text = trait.description;
+        traitNameLabel.text = "Evolution: " + trait.name;
+        traitDescLabel.text = "Abilities: " + trait.description;
     }
 }

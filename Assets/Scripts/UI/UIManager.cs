@@ -27,8 +27,8 @@ public class UIManager : MonoBehaviour
         {
             Tile tile = selectedCell.tile;
             biomeLabel.text = tile.biome.name;
-            herbCountLabel.text = tile.biome.herbSupply.ToString();
-            meatCountLabel.text = tile.biome.meatSupply.ToString();
+            herbCountLabel.text = "Veggies: " + tile.biome.herbSupply.ToString();
+            meatCountLabel.text = "Meats: " + tile.biome.meatSupply.ToString();
             int index = 1;
             foreach (Creature creature in Creature.creatures.Values)
             {
@@ -81,6 +81,6 @@ public class UIManager : MonoBehaviour
 
     public void UpdateTimer(int timeLeft)
     {
-        timerLabel.text = timeLeft.ToString();
+        timerLabel.text = "Feeding: " + timeLeft.ToString();
     }
 }
