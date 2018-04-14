@@ -21,9 +21,6 @@ public class Creature
     int unfedPop;
     //Queue<int> deathQueue = new Queue<int>();
 
-    bool isCarnivore;
-    bool isHerbavore;
-
     public Dictionary<string, Tile> tilesOccupied = new Dictionary<string, Tile>();
 
     // movement method
@@ -39,7 +36,7 @@ public class Creature
         this.stats = new Stats();
         this.population = population;
         this.isPlayer = isPlayer;
-        isHerbavore = true;
+        //isHerbavore = true;
         //deathQueue.Enqueue(population);
     }
 
@@ -81,66 +78,204 @@ public class Creature
     {
         List<Trait> traits = new List<Trait>();
 
-        // tier 1 evolutions
-        if (stats.size == Stats.Size.small)
+        //Neither check
+        if (stats.isherbivore == false && stats.isherbivore == false)
+            stats.isherbivore = true;
+
+        // Herbivor Check
+        if (stats.isherbivore == true && stats.iscarnivore == false)
         {
-            traits.Add(new MediumSizeTrait()); // makes size 2
+            // Herbivore + small evolutions
+            if (stats.size == Stats.Size.small)
+            {
+                traits.Add(new MediumSizeTrait()); // makes size 2
 
-            traits.Add(new DeadlyTalonsTrait()); // attack up 1
-            traits.Add(new FangsTrait()); // attack up 1
+                traits.Add(new becomeCarnivorous());
 
-            traits.Add(new FurCoatTrait()); // survivability up 1
-            traits.Add(new TemperatureRegulationTrait()); // survivability up 1 -- Unique to deserts and tundras?
+                traits.Add(new FangsTrait()); // attack up
 
-            traits.Add(new WingsTrait()); // Mobility up 1
-            traits.Add(new AppendagesTrait()); // Mobility up 1
+                traits.Add(new FurCoatTrait()); // survivability up
+                traits.Add(new TemperatureRegulationTrait()); // survivability up -- Unique to deserts and tundras?
 
-            traits.Add(new ShellTrait()); // strength up 1
-            traits.Add(new ThickHideTrait()); // strength up 1
+                traits.Add(new WingsTrait()); // Mobility up
+                traits.Add(new AppendagesTrait()); // Mobility up
+
+                traits.Add(new ShellTrait()); // strength up
+                traits.Add(new ThickHideTrait()); // strength up
+            }
+
+            // Herbivore + medium evoltions
+            if (stats.size == Stats.Size.med)
+            {
+                traits.Add(new SmallSizeTrait()); // makes size 1
+                traits.Add(new LargeSizeTrait()); // makes size 3
+
+                traits.Add(new becomeCarnivorous());
+
+                traits.Add(new TolerantLungsTrait()); // survivability up -- benefits related to water tiles?
+                traits.Add(new PheromonesTrait()); // survivability up
+
+                traits.Add(new ThumbsTrait()); // Mobility up
+                traits.Add(new FinsTrait()); // Mobility up -- benefit related to water tiles?
+
+                traits.Add(new HornsTrait()); // strength up
+                traits.Add(new PoisonTrait()); // strength up
+
+            }
+
+            // Herbivore + large evolutions
+            if (stats.size == Stats.Size.large)
+            {
+                traits.Add(new MediumSizeTrait()); // makes size 2
+
+                traits.Add(new becomeCarnivorous());
+
+                traits.Add(new GnashingTeethTrait()); // attack up
+
+                traits.Add(new EggLayingTrait()); // survivability up
+                traits.Add(new CamouflageTrait()); // survivability up
+
+
+                traits.Add(new SmoothSkinTrait()); // Mobility up -- desert or tundra?
+                traits.Add(new PaddedFeetTrait()); // Mobility up
+
+
+                traits.Add(new RepuliveOdorTrait()); // strength up
+                traits.Add(new ThornedBodyTrait()); // strength up
+
+            }
         }
 
-        // tier 2 evolutions
-        if (stats.size == Stats.Size.med)
+        // Carnivore Check
+        if (stats.iscarnivore == true && stats.isherbivore == false)
         {
-            traits.Add(new SmallSizeTrait()); // makes size 1
-            traits.Add(new LargeSizeTrait()); // makes size 3
+            // Carnivore + small evolutions
+            if (stats.size == Stats.Size.small)
+            {
+                traits.Add(new MediumSizeTrait()); // makes size 2
 
-            traits.Add(new VenomTrait()); // attack up 1
-            traits.Add(new ParalysisTrait()); // attack up 1
+                traits.Add(new becomeHerbivorous());
 
-            traits.Add(new TolerantLungsTrait()); // survivability up 1 -- benefits related to water tiles?
-            traits.Add(new PheromonesTrait()); // survivability up 1
+                traits.Add(new DeadlyTalonsTrait()); // attack up
+                traits.Add(new FangsTrait()); // attack up
 
-            traits.Add(new ThumbsTrait()); // Mobility up 1
-            traits.Add(new FinsTrait()); // Mobility up 1 -- benefit related to water tiles?
+                traits.Add(new FurCoatTrait()); // survivability up
+                traits.Add(new TemperatureRegulationTrait()); // survivability up -- Unique to deserts and tundras?
 
-            traits.Add(new HornsTrait()); // strength up 1
-            traits.Add(new PoisonTrait()); // strength up 1
+                traits.Add(new WingsTrait()); // Mobility up
+                traits.Add(new AppendagesTrait()); // Mobility up
 
+            }
+
+            // Carnivore + medium evolutions
+            if (stats.size == Stats.Size.med)
+            {
+                traits.Add(new SmallSizeTrait()); // makes size 1
+                traits.Add(new LargeSizeTrait()); // makes size 3
+
+                traits.Add(new becomeHerbivorous());
+
+                traits.Add(new VenomTrait()); // attack up
+                traits.Add(new ParalysisTrait()); // attack up
+
+                traits.Add(new TolerantLungsTrait()); // survivability up -- benefits related to water tiles?
+                traits.Add(new PheromonesTrait()); // survivability up
+
+                traits.Add(new FinsTrait()); // Mobility up-- benefit related to water tiles?
+
+                traits.Add(new HornsTrait()); // strength up
+
+            }
+
+            // Carnivore + large evolutions
+            if (stats.size == Stats.Size.large)
+            {
+                traits.Add(new MediumSizeTrait()); // makes size 2
+
+                traits.Add(new becomeHerbivorous());
+
+                traits.Add(new ConstrictingTentaclesTrait()); //attack up
+
+                traits.Add(new EggLayingTrait()); // survivability up
+                traits.Add(new CamouflageTrait()); // survivability up
+
+
+                traits.Add(new SmoothSkinTrait()); // Mobility up -- desert or tundra?
+                traits.Add(new PaddedFeetTrait()); // Mobility up
+
+
+                traits.Add(new RepuliveOdorTrait()); // strength up
+                traits.Add(new ThornedBodyTrait()); // strength up
+
+            }
         }
 
-        // tier 3 evolutions
-        if (stats.size == Stats.Size.large)
+        // Omnivore Check
+        if (stats.isherbivore == true && stats.iscarnivore == true)
         {
-            traits.Add(new MediumSizeTrait()); // makes size 2
-            //traits.Add(new SmallSizeTrait()); // makes size 1
-
-            traits.Add(new GnashingTeethTrait()); // attack up 1
-            traits.Add(new ConstrictingTentaclesTrait()); //attack up 1
-
-            traits.Add(new EggLayingTrait()); // survivability up 1
-            traits.Add(new CamouflageTrait()); // survivability up 1
+            // Omnivore + small evolutions
+            if (stats.size == Stats.Size.small)
+            {
+                traits.Add(new MediumSizeTrait()); // makes size 2
 
 
-            traits.Add(new SmoothSkinTrait()); // Mobility up 1 -- desert or tundra?
-            traits.Add(new PaddedFeetTrait()); // Mobility up 1
+                traits.Add(new DeadlyTalonsTrait()); // attack up
+                traits.Add(new FangsTrait()); // attack up
+
+                traits.Add(new FurCoatTrait()); // survivability up
+                traits.Add(new TemperatureRegulationTrait()); // survivability up -- Unique to deserts and tundras?
+
+                traits.Add(new WingsTrait()); // Mobility up
+                traits.Add(new AppendagesTrait()); // Mobility up
+
+                traits.Add(new ShellTrait()); // strength up
+                traits.Add(new ThickHideTrait()); // strength up
+            }
+
+            // Omnivore + medium evolutions
+            if (stats.size == Stats.Size.med)
+            {
+                traits.Add(new SmallSizeTrait()); // makes size 1
+                traits.Add(new LargeSizeTrait()); // makes size 3
 
 
+                traits.Add(new VenomTrait()); // attack up
+                traits.Add(new ParalysisTrait()); // attack up
 
-            traits.Add(new RepuliveOdorTrait()); // strength up 1
-            traits.Add(new ThornedBodyTrait()); // strength up 1
+                traits.Add(new TolerantLungsTrait()); // survivability up -- benefits related to water tiles?
+                traits.Add(new PheromonesTrait()); // survivability up
 
+                traits.Add(new ThumbsTrait()); // Mobility up
+                traits.Add(new FinsTrait()); // Mobility up -- benefit related to water tiles?
+
+                traits.Add(new HornsTrait()); // strength up
+                traits.Add(new PoisonTrait()); // strength up
+
+            }
+
+            // Omnivmore + large evolutions
+            if (stats.size == Stats.Size.large)
+            {
+                traits.Add(new MediumSizeTrait()); // makes size 2
+
+                traits.Add(new GnashingTeethTrait()); // attack up
+                traits.Add(new ConstrictingTentaclesTrait()); //attack up
+
+                traits.Add(new EggLayingTrait()); // survivability up
+                traits.Add(new CamouflageTrait()); // survivability up
+
+
+                traits.Add(new SmoothSkinTrait()); // Mobility up -- desert or tundra?
+                traits.Add(new PaddedFeetTrait()); // Mobility up
+
+
+                traits.Add(new RepuliveOdorTrait()); // strength up
+                traits.Add(new ThornedBodyTrait()); // strength up
+
+            }
         }
+
+
 
         return traits;
     }
@@ -177,7 +312,7 @@ public class Creature
             return;
         }
 
-        if (isHerbavore)
+        if (stats.isherbivore == true)
         {
             int foraged = Forage(tile, energyRequired);
             energyRequired = foraged;
@@ -188,7 +323,7 @@ public class Creature
             return;
         }
 
-        if (isCarnivore)
+        if (stats.iscarnivore == true)
         {
             energyRequired = Hunt(tile, energyRequired);
         }

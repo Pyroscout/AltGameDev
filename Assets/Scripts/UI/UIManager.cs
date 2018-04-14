@@ -11,6 +11,10 @@ public class UIManager : MonoBehaviour
     public Text herbCountLabel;
     public Text meatCountLabel;
 
+    public Text speciesType;
+
+    Creature theCreature;
+
 
     public Text[] creatureCountLabels;
     
@@ -43,6 +47,19 @@ public class UIManager : MonoBehaviour
                 }
             }
         }
+
+        if (theCreature.stats.isherbivore == true)
+        {
+            speciesType.text = "Type: Herbivorous";
+        }
+        if (theCreature.stats.iscarnivore == true)
+        {
+            speciesType.text = "Type: Carnivorous";
+        }
+        if (theCreature.stats.isherbivore == true && theCreature.stats.iscarnivore == true)
+        {
+            speciesType.text = "Type: Omnivorous";
+        }
     }
 
     public void UpdateGeneration(int genNum)
@@ -52,6 +69,8 @@ public class UIManager : MonoBehaviour
 
     public void UpdatePhase(Phase phase)
     {
+
+
         switch (phase)
         {
             case Phase.Migrate:
@@ -64,7 +83,7 @@ public class UIManager : MonoBehaviour
                 phaseLabel.text = "Phase: EVOLVE";
                 break;
             case Phase.Feed:
-                phaseLabel.text = "Phase: FEED";
+                phaseLabel.text = "Phase: FORAGE";
                 break;
         }
     }
