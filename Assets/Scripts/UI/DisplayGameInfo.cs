@@ -3,15 +3,26 @@ using UnityEngine.UI;
 
 public class DisplayGameInfo : MonoBehaviour
 {
-    public GameObject InfoCanvas;
+    public GameObject informationcanvas;
+    public GameObject totem;
+    public GameObject wing1;
+    public GameObject wing2;
 
-	public void show ()
+    public bool wantsInfo;
+
+    public void show()
     {
-        InfoCanvas.SetActive(true);
-	}
-	
-	public void hide ()
+        totem.SetActive(false);
+        wing1.SetActive(false);
+        wing2.SetActive(false);
+        informationcanvas.SetActive(true);
+    }
+
+    public void hide()
     {
-        InfoCanvas.SetActive(false);
-	}
+        totem.SetActive(true);
+        wing1.SetActive(true);
+        wing2.SetActive(true);
+        informationcanvas.SetActive(false);
+    }
 }
