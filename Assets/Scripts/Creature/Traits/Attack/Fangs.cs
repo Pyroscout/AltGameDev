@@ -6,19 +6,19 @@ public class FangsTrait : Trait
     public FangsTrait()
     {
         name = "Fangs";
-        description = "Atk+1";
-        eduInfo = "";
+        description = "Atk+5";
+        eduInfo = "Specialized teeth for killing prey";
 
-        imagePath = "Images/Evolutions/Aggression/Fangs";
+        imagePath = "Images/Evolutions/Fangs";
     }
 
     public override void OnAdd(Stats stats)
     {
-        stats.atk++;
+        stats.atk += 5;
     }
 
     public override void OnRemove(Stats stats)
     {
-        stats.atk--;
+        stats.atk += 5;
     }
 }

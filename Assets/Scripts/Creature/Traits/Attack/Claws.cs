@@ -1,13 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class FerocityTrait : Trait
+public class ClawsTrait : Trait
 {
-    public FerocityTrait()
+    public ClawsTrait()
     {
-        name = "Ferocity";
-        description = "Atk+2, Def+2";
-        eduInfo = "";
+        name = "Claws";
+        description = "Atk+2, Def+2,";
+        eduInfo = "Sharp claws make you a more formidable creature";
+
+        imagePath = "Images/Evolutions/Claws";
     }
 
     public override void OnAdd(Stats stats)
