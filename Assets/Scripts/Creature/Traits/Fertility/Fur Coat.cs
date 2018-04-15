@@ -8,6 +8,8 @@ public class FurCoatTrait : Trait
         name = "Fur Coat";
         description = "Brth+1";
         eduInfo = "";
+        imagePath = "Images/Evolutions/Fur Coat";
+
     }
 
     public override void OnAdd(Stats stats)

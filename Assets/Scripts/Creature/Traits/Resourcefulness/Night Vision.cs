@@ -8,6 +8,8 @@ public class NightVisionTrait : Trait
         name = "Night Vision";
         description = "Hunt+1";
         eduInfo = "";
+        imagePath = "Images/Evolutions/NightVision";
+
     }
 
     public override void OnAdd(Stats stats)

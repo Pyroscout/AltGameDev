@@ -8,6 +8,9 @@ public class ClawsTrait : Trait
         name = "Claws";
         description = "Atk+1, Def+1,";
         eduInfo = "";
+
+        imagePath = "Images/Evolutions/Claws";
+
     }
 
     public override void OnAdd(Stats stats)

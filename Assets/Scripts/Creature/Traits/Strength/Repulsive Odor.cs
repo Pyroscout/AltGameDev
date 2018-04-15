@@ -8,6 +8,8 @@ public class RepuliveOdorTrait : Trait
         name = "Repulsive Odor";
         description = "Def+1";
         eduInfo = "When some species are threatened, they release a strong reupulsive odor to make the attacker flee";
+        imagePath = "Images/Evolutions/Odor";
+
     }
 
     public override void OnAdd(Stats stats)

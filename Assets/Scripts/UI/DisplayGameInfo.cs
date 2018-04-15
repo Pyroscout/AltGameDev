@@ -9,6 +9,7 @@ public class DisplayGameInfo : MonoBehaviour
     public GameObject totem;
     public GameObject returnbutton;
     public GameObject leaves;
+    public GameObject next;
 
 	// Use this for initialization
 	public void show ()
@@ -19,6 +20,7 @@ public class DisplayGameInfo : MonoBehaviour
         leaves.SetActive(false);
         InfoCanvas.SetActive(true);
         returnbutton.SetActive(true);
+        next.SetActive(false);
     
 
 	}
@@ -32,5 +34,6 @@ public class DisplayGameInfo : MonoBehaviour
         leaves.SetActive(true);
         InfoCanvas.SetActive(false);
         returnbutton.SetActive(false);
+        next.SetActive(true);
 	}
 }

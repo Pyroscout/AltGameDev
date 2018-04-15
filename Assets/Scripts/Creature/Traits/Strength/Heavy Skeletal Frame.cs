@@ -8,6 +8,8 @@ public class HeavySkeletalFrame : Trait
         name = "Heavy weight skeleton";
         description = "Atk+1, Def+2, Evs-2, Hunt-1";
         eduInfo = "";
+        imagePath = "Images/Evolutions/Heavy";
+
     }
 
     public override void OnAdd(Stats stats)

@@ -8,6 +8,8 @@ public class SmallSizeTrait : Trait
         name = "Small Size";
         description = "Sets the size of your creatures to Small";
         eduInfo = "You big boi";
+        imagePath = "Images/Evolutions/Small";
+
     }
 
     public override void OnAdd(Stats stats)

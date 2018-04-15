@@ -8,6 +8,8 @@ public class HornsTrait : Trait
         name = "Horns";
         description = "Def+1";
         eduInfo = "Horns are an excellent means of defense against predators";
+        imagePath = "Images/Evolutions/Horns";
+
     }
 
     public override void OnAdd(Stats stats)

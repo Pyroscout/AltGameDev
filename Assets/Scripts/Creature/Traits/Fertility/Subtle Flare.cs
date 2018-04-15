@@ -8,6 +8,8 @@ public class SubtleFlareTrait : Trait
         name = "Subtle Flare";
         description = "Evs-1. Brth +1";
         eduInfo = "";
+        imagePath = "Images/Evolutions/FlareSubtle";
+
     }
 
     public override void OnAdd(Stats stats)

@@ -8,6 +8,8 @@ public class becomeHerbivorous : Trait
         name = "Become Herbivorous";
         description = "Allows you to feed from veggie resources";
         eduInfo = "";
+        imagePath = "Images/Evolutions/HerbavoreHex";
+
     }
 
     public override void OnAdd(Stats stats)

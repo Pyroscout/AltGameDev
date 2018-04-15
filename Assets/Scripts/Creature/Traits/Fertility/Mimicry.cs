@@ -8,6 +8,8 @@ public class MimicryTrait : Trait
         name = "Mimicry";
         description = "Evs+2";
         eduInfo = "";
+        imagePath = "Images/Evolutions/Mimicry";
+
     }
 
     public override void OnAdd(Stats stats)
