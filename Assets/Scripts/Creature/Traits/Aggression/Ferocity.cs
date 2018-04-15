@@ -8,6 +8,8 @@ public class FerocityTrait : Trait
         name = "Ferocity";
         description = "Atk+2, Def+2";
         eduInfo = "";
+        imagePath = "Images/Evolutions/Ferocity";
+
     }
 
     public override void OnAdd(Stats stats)

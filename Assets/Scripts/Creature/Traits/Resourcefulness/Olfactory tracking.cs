@@ -8,6 +8,8 @@ public class OlfactoryTrait : Trait
         name = "Olfactory Tracking";
         description = "Hunt+1";
         eduInfo = "";
+        imagePath = "Images/Evolutions/olfactory";
+
     }
 
     public override void OnAdd(Stats stats)

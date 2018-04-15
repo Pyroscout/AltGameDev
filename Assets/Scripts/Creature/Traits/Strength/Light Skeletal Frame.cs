@@ -8,6 +8,8 @@ public class LightSkeleTrait : Trait
         name = "Light weight Skeleton";
         description = "Atk-1, Def-2, Evs+2, Hunt+1";
         eduInfo = "";
+        imagePath = "Images/Evolutions/Light";
+
     }
 
     public override void OnAdd(Stats stats)

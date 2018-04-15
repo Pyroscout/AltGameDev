@@ -8,6 +8,8 @@ public class PointedTeethTrait : Trait
         name = "Shredding Teeth";
         description = "Hunt+2";
         eduInfo = "";
+        imagePath = "Images/Evolutions/SharpTeeth";
+
     }
 
     public override void OnAdd(Stats stats)

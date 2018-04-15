@@ -8,6 +8,8 @@ public class TemperatureRegulationTrait : Trait
         name = "Temperature Regulation";
         description = "Brth+1";
         eduInfo = "";
+        imagePath = "Images/Evolutions/Temperature";
+
     }
 
     public override void OnAdd(Stats stats)

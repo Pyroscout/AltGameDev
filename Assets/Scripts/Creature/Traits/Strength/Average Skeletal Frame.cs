@@ -8,6 +8,8 @@ public class AverageSkeletalFrame : Trait
         name = "Medium weight skeleton";
         description = "";
         eduInfo = "";
+        imagePath = "Images/Evolutions/MedWeight";
+
     }
 
     public override void OnAdd(Stats stats)

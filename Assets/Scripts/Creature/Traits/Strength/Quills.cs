@@ -8,6 +8,8 @@ public class QuillsTrait : Trait
         name = "Quills";
         description = "Def+3, Evs-1, Hunt-1";
         eduInfo = "";
+        imagePath = "Images/Evolutions/ThornandQuil";
+
     }
 
     public override void OnAdd(Stats stats)

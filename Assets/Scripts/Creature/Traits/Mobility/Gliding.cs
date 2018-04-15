@@ -8,6 +8,8 @@ public class GlidingTrait : Trait
         name = "Gliding";
         description = "Evs+1, Hunt+1";
         eduInfo = "";
+        imagePath = "Images/Evolutions/Glide";
+
     }
 
     public override void OnAdd(Stats stats)

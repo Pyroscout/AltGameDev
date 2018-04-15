@@ -8,6 +8,8 @@ public class AverageMetabolismTrait : Trait
         name = "Average Metabolism";
         description = "";
         eduInfo = "";
+        imagePath = "Images/Evolutions/MedMeat";
+
     }
 
     public override void OnAdd(Stats stats)

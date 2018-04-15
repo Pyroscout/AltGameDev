@@ -8,6 +8,8 @@ public class LowMetabolismTrait : Trait
         name = "Low Metabolism";
         description = "Atk-1, Def-1, Evs-1, Hunt-1";
         eduInfo = "";
+        imagePath = "Images/Evolutions/LowMeat";
+
     }
 
     public override void OnAdd(Stats stats)

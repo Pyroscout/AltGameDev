@@ -8,6 +8,8 @@ public class ParalysisTrait : Trait
         name = "Paralysis";
         description = "Atk+1";
         eduInfo = "";
+        imagePath = "Images/Evolutions/Paralysis";
+
     }
 
     public override void OnAdd(Stats stats)
