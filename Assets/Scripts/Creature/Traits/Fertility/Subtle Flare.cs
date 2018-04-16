@@ -8,7 +8,7 @@ public class SubtleFlareTrait : Trait
         name = "Subtle Flare";
         description = "Evs-1. Brth +1";
         eduInfo = "";
-        imagePath = "Images/Evolutions/FlareSubtle";
+        imagePath = "Images/Evolutions/Flare Subtle";
 
     }
 

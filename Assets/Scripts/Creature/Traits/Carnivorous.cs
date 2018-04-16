@@ -5,10 +5,10 @@ public class becomeCarnivorous : Trait
 {
     public becomeCarnivorous()
     {
-        name = "Become Carnivorous";
+        name = "Carnivorous";
         description = "Allows you to feed from meat resources";
         eduInfo = "";
-        imagePath = "Images/Evolutions/CarnivoreHex";
+        imagePath = "Images/Evolutions/Temp/Carnivore Hex";
 
     }
 

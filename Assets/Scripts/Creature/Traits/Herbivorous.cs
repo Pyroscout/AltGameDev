@@ -5,10 +5,10 @@ public class becomeHerbivorous : Trait
 {
     public becomeHerbivorous()
     {
-        name = "Become Herbivorous";
+        name = "Herbivorous";
         description = "Allows you to feed from veggie resources";
         eduInfo = "";
-        imagePath = "Images/Evolutions/HerbavoreHex";
+        imagePath = "Images/Evolutions/Temp/Herbavore Hex";
 
     }
 

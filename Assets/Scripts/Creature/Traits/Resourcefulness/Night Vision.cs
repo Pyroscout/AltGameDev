@@ -8,7 +8,7 @@ public class NightVisionTrait : Trait
         name = "Night Vision";
         description = "Hunt+1";
         eduInfo = "";
-        imagePath = "Images/Evolutions/NightVision";
+        imagePath = "Images/Evolutions/Night Vision";
 
     }
 

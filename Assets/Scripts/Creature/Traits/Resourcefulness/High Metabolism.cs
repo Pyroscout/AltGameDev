@@ -8,7 +8,7 @@ public class HighMetabolismTrait : Trait
         name = "High Metabolism";
         description = "Atk+1, Def+1, Evs-1, Hunt+1";
         eduInfo = "";
-        imagePath = "Images/Evolutions/HighMeat";
+        imagePath = "Images/Evolutions/High Met";
 
     }
 

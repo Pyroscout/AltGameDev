@@ -35,7 +35,6 @@ public class ReplaceEvolutionMenu : MonoBehaviour
         Evolutions.SetActive(false);
 
 
-
         UpdateTraitInfo(creature.traits[activeTraitIndex]);
 
         gameObject.SetActive(true);

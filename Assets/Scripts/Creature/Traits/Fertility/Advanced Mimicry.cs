@@ -8,7 +8,7 @@ public class AdvancedMimicryTrait : Trait
         name = "Advanced Mimicry";
         description = "Evs+3";
         eduInfo = "";
-        imagePath = "Images/Evolutions/MimicryAdv";
+        imagePath = "Images/Evolutions/Mimicry Adv";
 
     }
 

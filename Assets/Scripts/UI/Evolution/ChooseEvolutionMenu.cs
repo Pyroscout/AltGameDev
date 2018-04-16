@@ -30,6 +30,7 @@ public class ChooseEvolutionMenu : MonoBehaviour
 
         gameObject.SetActive(true);
         HexMapCamera.Locked = true;
+
         Evolutions.SetActive(false);
         settings.SetActive(false);
         Score.SetActive(false);
@@ -70,6 +71,7 @@ public class ChooseEvolutionMenu : MonoBehaviour
             Score.SetActive(true);
             Totem.SetActive(true);
             game.NextPhase();
+            
         }
         Close();
     }

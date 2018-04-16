@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 114654362375777248}
   - component: {fileID: 114269571961508428}
   m_Layer: 5
-  m_Name: Go Back
+  m_Name: View Evolutions Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2381,12 +2381,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InfoCanvas: {fileID: 1348209820417092}
-  wing1: {fileID: 1110622244550878}
   wing2: {fileID: 1516995577782180}
   totem: {fileID: 1526445660015386}
   returnbutton: {fileID: 1302074724544050}
   leaves: {fileID: 1452337802257222}
   next: {fileID: 0}
+  Score: {fileID: 0}
+  SettingsButton: {fileID: 0}
+  EvolutionsCanvas: {fileID: 0}
+  Evo1: {fileID: 0}
+  Evo2: {fileID: 0}
+  Evo3: {fileID: 0}
+  Evo4: {fileID: 0}
+  traitName: {fileID: 0}
+  traitDesc: {fileID: 0}
 --- !u!114 &114020446536583432
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3177,6 +3185,10 @@ MonoBehaviour:
   score: {fileID: 1737669644329494}
   settings: {fileID: 1419031749289666}
   Evolutions: {fileID: 1078253517447758}
+  trait1Image: {fileID: 1485805608433898}
+  trait2Image: {fileID: 1633339418728474}
+  trait3Image: {fileID: 1802637222927120}
+  trait4Image: {fileID: 1508245770315688}
 --- !u!114 &114146613157107252
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3634,14 +3646,14 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_MethodName: MENU_ACTION_GotoPage
-        m_Mode: 5
+        m_MethodName: OpenEvoScreen
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Evolution UI
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
@@ -3902,7 +3914,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: b1c17f27ab2e4014baa655db25099ae4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 133cc3a1b5f205b49b1f71a76604b045, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -3929,8 +3941,8 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: b8c319fd797eb89438324d24bb8fa209, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -5778,7 +5790,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: b1c17f27ab2e4014baa655db25099ae4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 133cc3a1b5f205b49b1f71a76604b045, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -5991,12 +6003,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InfoCanvas: {fileID: 1946225496331746}
-  wing1: {fileID: 1110622244550878}
-  wing2: {fileID: 1516995577782180}
+  wing2: {fileID: 0}
   totem: {fileID: 1526445660015386}
   returnbutton: {fileID: 0}
   leaves: {fileID: 0}
   next: {fileID: 0}
+  Score: {fileID: 0}
+  SettingsButton: {fileID: 0}
+  EvolutionsCanvas: {fileID: 0}
+  Evo1: {fileID: 0}
+  Evo2: {fileID: 0}
+  Evo3: {fileID: 0}
+  Evo4: {fileID: 0}
+  traitName: {fileID: 0}
+  traitDesc: {fileID: 0}
 --- !u!114 &114604702955245276
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6092,7 +6112,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: b1c17f27ab2e4014baa655db25099ae4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 133cc3a1b5f205b49b1f71a76604b045, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -6284,7 +6304,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 262f01c12ccd7e2498fe76a09f41d072, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b8c319fd797eb89438324d24bb8fa209, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7327,7 +7347,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: b1c17f27ab2e4014baa655db25099ae4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 133cc3a1b5f205b49b1f71a76604b045, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -9144,8 +9164,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 150.1}
-  m_SizeDelta: {x: 0, y: 181.2}
+  m_AnchoredPosition: {x: 0, y: 126.7}
+  m_SizeDelta: {x: 0, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224081227681657458
 RectTransform:
@@ -9426,7 +9446,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -26, y: 0}
+  m_AnchoredPosition: {x: -0.0000019073, y: 0}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224222335355062058
@@ -9499,7 +9519,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -26, y: 0}
+  m_AnchoredPosition: {x: 0.000038147, y: 0}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224254443090385812
@@ -9763,7 +9783,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -26, y: 0}
+  m_AnchoredPosition: {x: 0.0000019073, y: 0}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224366827804354340
@@ -9781,7 +9801,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -1178, y: -108.26}
+  m_AnchoredPosition: {x: -1217, y: -64}
   m_SizeDelta: {x: 520.4, y: 80.08}
   m_Pivot: {x: 0, y: 0}
 --- !u!224 &224370632567842174
@@ -10227,7 +10247,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -26, y: 0}
+  m_AnchoredPosition: {x: 0.000038147, y: 0}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224571887471868442
@@ -10861,7 +10881,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 256.8}
+  m_AnchoredPosition: {x: 0, y: 84.5}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224829801670534172
@@ -10898,7 +10918,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -1178, y: -176.79999}
+  m_AnchoredPosition: {x: -1217, y: -132.53998}
   m_SizeDelta: {x: 1214.5, y: 134.6}
   m_Pivot: {x: 0, y: 0}
 --- !u!224 &224857719201286222

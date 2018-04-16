@@ -8,7 +8,7 @@ public class SideEyesTrait : Trait
         name = "Side Facing Eyes";
         description = "Evs+2, Hunt-1";
         eduInfo = "";
-        imagePath = "Images/Evolutions/SideEyes";
+        imagePath = "Images/Evolutions/Side Eyes";
 
     }
 
