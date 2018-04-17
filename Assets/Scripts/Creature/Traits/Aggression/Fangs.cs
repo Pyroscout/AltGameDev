@@ -14,11 +14,11 @@ public class FangsTrait : Trait
 
     public override void OnAdd(Stats stats)
     {
-        stats.atk += 5;
+        stats.Attack += 5;
     }
 
     public override void OnRemove(Stats stats)
     {
-        stats.atk += 5;
+        stats.Attack += 5;
     }
 }

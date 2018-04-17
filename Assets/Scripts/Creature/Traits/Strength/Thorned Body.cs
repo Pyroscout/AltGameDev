@@ -14,13 +14,13 @@ public class ThornedBodyTrait : Trait
 
     public override void OnAdd(Stats stats)
     {
-        stats.def += 10;
-        stats.evs -= 2;
+        stats.Defense += 10;
+        stats.Evasion -= 2;
     }
 
     public override void OnRemove(Stats stats)
     {
-        stats.def -= 10;
-        stats.evs += 2;
+        stats.Defense -= 10;
+        stats.Evasion += 2;
     }
 }

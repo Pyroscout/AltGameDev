@@ -14,13 +14,13 @@ public class ShellTrait : Trait
 
     public override void OnAdd(Stats stats)
     {
-        stats.def += 15;
-        stats.evs -= 10;
+        stats.Defense += 15;
+        stats.Evasion -= 10;
     }
 
     public override void OnRemove(Stats stats)
     {
-        stats.def -= 15;
-        stats.evs += 10;
+        stats.Defense -= 15;
+        stats.Evasion += 10;
     }
 }

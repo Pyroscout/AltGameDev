@@ -12,10 +12,10 @@ public class FlightTrait : Trait
 
     public override void OnAdd(Stats stats)
     {
-        stats.atk -= 2;
-        stats.def -= 2;
-        stats.evs += 15;
-        stats.hunt += 15;
+        stats.Attack -= 2;
+        stats.Defense -= 2;
+        stats.Evasion += 15;
+        stats.Hunt += 15;
 
         int count = 2;
 
@@ -24,13 +24,13 @@ public class FlightTrait : Trait
             if (stats.vegCon > 0 || count > 0)
             {
                 stats.vegCon++;
-                stats.meatVal++;
+                stats.MeatValue++;
                 count--;
             }
             else
             {
                 stats.meatCon++;
-                stats.meatVal++;
+                stats.MeatValue++;
                 count--;
             }
         }
@@ -38,10 +38,10 @@ public class FlightTrait : Trait
 
     public override void OnRemove(Stats stats)
     {
-        stats.atk += 2;
-        stats.def += 2;
-        stats.evs -= 15;
-        stats.hunt -= 15;
+        stats.Attack += 2;
+        stats.Defense += 2;
+        stats.Evasion -= 15;
+        stats.Hunt -= 15;
 
         int count = 2;
 
@@ -50,13 +50,13 @@ public class FlightTrait : Trait
             if (stats.vegCon > 0 || count > 0)
             {
                 stats.vegCon--;
-                stats.meatVal--;
+                stats.MeatValue--;
                 count--;
             }
             else
             {
                 stats.meatCon--;
-                stats.meatVal--;
+                stats.MeatValue--;
                 count--;
             }
         }

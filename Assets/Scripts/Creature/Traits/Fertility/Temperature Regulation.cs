@@ -14,7 +14,7 @@ public class TemperatureRegulationTrait : Trait
 
     public override void OnAdd(Stats stats)
     {
-        stats.fert++;
+        stats.Fert++;
 
         int count = 2;
 
@@ -23,13 +23,13 @@ public class TemperatureRegulationTrait : Trait
             if (stats.vegCon > 0 || count > 0)
             {
                 stats.vegCon++;
-                stats.meatVal++;
+                stats.MeatValue++;
                 count--;
             }
             else
             {
                 stats.meatCon++;
-                stats.meatVal++;
+                stats.MeatValue++;
                 count--;
             }
         }
@@ -37,7 +37,7 @@ public class TemperatureRegulationTrait : Trait
 
     public override void OnRemove(Stats stats)
     {
-        stats.fert--;
+        stats.Fert--;
 
         int count = 2;
 
@@ -46,13 +46,13 @@ public class TemperatureRegulationTrait : Trait
             if (stats.vegCon > 0 || count > 0)
             {
                 stats.vegCon--;
-                stats.meatVal--;
+                stats.MeatValue--;
                 count--;
             }
             else
             {
                 stats.meatCon--;
-                stats.meatVal--;
+                stats.MeatValue--;
                 count--;
             }
         }

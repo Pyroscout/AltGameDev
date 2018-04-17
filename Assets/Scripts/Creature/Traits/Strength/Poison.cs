@@ -14,8 +14,8 @@ public class PoisonTrait : Trait
 
     public override void OnAdd(Stats stats)
     {
-        stats.def += 10;
-        stats.evs += 5;
+        stats.Defense += 10;
+        stats.Evasion += 5;
 
         int count = 2;
 
@@ -24,13 +24,13 @@ public class PoisonTrait : Trait
             if (stats.vegCon > 0 || count > 0)
             {
                 stats.vegCon++;
-                stats.meatVal++;
+                stats.MeatValue++;
                 count--;
             }
             else
             {
                 stats.meatCon++;
-                stats.meatVal++;
+                stats.MeatValue++;
                 count--;
             }
         }
@@ -38,8 +38,8 @@ public class PoisonTrait : Trait
 
     public override void OnRemove(Stats stats)
     {
-        stats.def -= 10;
-        stats.evs -= 5;
+        stats.Defense -= 10;
+        stats.Evasion -= 5;
 
         int count = 2;
 
@@ -48,13 +48,13 @@ public class PoisonTrait : Trait
             if (stats.vegCon > 0 || count > 0)
             {
                 stats.vegCon--;
-                stats.meatVal--;
+                stats.MeatValue--;
                 count--;
             }
             else
             {
                 stats.meatCon--;
-                stats.meatVal--;
+                stats.MeatValue--;
                 count--;
             }
         }

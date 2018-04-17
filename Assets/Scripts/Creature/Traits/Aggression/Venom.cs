@@ -14,8 +14,8 @@ public class VenomTrait : Trait
 
     public override void OnAdd(Stats stats)
     {
-        stats.atk += 2;
-        stats.hunt += 5;
+        stats.Attack += 2;
+        stats.Hunt += 5;
 
         int count = 1;
 
@@ -24,13 +24,13 @@ public class VenomTrait : Trait
             if (stats.vegCon > 0 || count > 0)
             {
                 stats.vegCon++;
-                stats.meatVal++;
+                stats.MeatValue++;
                 count--;
             }
             else
             {
                 stats.meatCon++;
-                stats.meatVal++;
+                stats.MeatValue++;
                 count--;
             }
         }
@@ -38,8 +38,8 @@ public class VenomTrait : Trait
 
     public override void OnRemove(Stats stats)
     {
-        stats.atk -= 2;
-        stats.hunt -= 5;
+        stats.Attack -= 2;
+        stats.Hunt -= 5;
 
         int count = 1;
 
@@ -48,13 +48,13 @@ public class VenomTrait : Trait
             if (stats.vegCon > 0 || count > 0)
             {
                 stats.vegCon--;
-                stats.meatVal--;
+                stats.MeatValue--;
                 count--;
             }
             else
             {
                 stats.meatCon--;
-                stats.meatVal--;
+                stats.MeatValue--;
                 count--;
             }
         }

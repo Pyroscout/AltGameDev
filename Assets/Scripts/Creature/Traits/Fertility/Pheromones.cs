@@ -14,8 +14,8 @@ public class PheromonesTrait : Trait
 
     public override void OnAdd(Stats stats)
     {
-        stats.fert++;
-        stats.evs -= 5;
+        stats.Fert++;
+        stats.Evasion -= 5;
 
         int count = 1;
 
@@ -24,13 +24,13 @@ public class PheromonesTrait : Trait
             if (stats.vegCon > 0 || count > 0)
             {
                 stats.vegCon++;
-                stats.meatVal++;
+                stats.MeatValue++;
                 count--;
             }
             else
             {
                 stats.meatCon++;
-                stats.meatVal++;
+                stats.MeatValue++;
                 count--;
             }
         }
@@ -38,8 +38,8 @@ public class PheromonesTrait : Trait
 
     public override void OnRemove(Stats stats)
     {
-        stats.fert--;
-        stats.evs += 5;
+        stats.Fert--;
+        stats.Evasion += 5;
 
         int count = 1;
 
@@ -48,13 +48,13 @@ public class PheromonesTrait : Trait
             if (stats.vegCon > 0 || count > 0)
             {
                 stats.vegCon--;
-                stats.meatVal--;
+                stats.MeatValue--;
                 count--;
             }
             else
             {
                 stats.meatCon--;
-                stats.meatVal--;
+                stats.MeatValue--;
                 count--;
             }
         }

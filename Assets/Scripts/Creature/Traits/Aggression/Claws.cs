@@ -14,13 +14,13 @@ public class ClawsTrait : Trait
 
     public override void OnAdd(Stats stats)
     {
-        stats.atk += 2;
-        stats.def += 2;
+        stats.Attack += 2;
+        stats.Defense += 2;
     }
 
     public override void OnRemove(Stats stats)
     {
-        stats.atk -= 2;
-        stats.def -= 2;
+        stats.Attack -= 2;
+        stats.Defense -= 2;
     }
 }

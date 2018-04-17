@@ -97,10 +97,10 @@ public class Creature
 
                 traits.Add(new FangsTrait()); // attack up
 
-                traits.Add(new FurCoatTrait()); // survivability up
+                //traits.Add(new FurCoatTrait()); // survivability up
                 traits.Add(new TemperatureRegulationTrait()); // survivability up -- Unique to deserts and tundras?
 
-                traits.Add(new WingsTrait()); // Mobility up
+                //traits.Add(new WingsTrait()); // Mobility up
                 traits.Add(new AppendagesTrait()); // Mobility up
 
                 traits.Add(new ShellTrait()); // strength up
@@ -162,10 +162,10 @@ public class Creature
                 traits.Add(new DeadlyTalonsTrait()); // attack up
                 traits.Add(new FangsTrait()); // attack up
 
-                traits.Add(new FurCoatTrait()); // survivability up
+                //traits.Add(new FurCoatTrait()); // survivability up
                 traits.Add(new TemperatureRegulationTrait()); // survivability up -- Unique to deserts and tundras?
 
-                traits.Add(new WingsTrait()); // Mobility up
+                //traits.Add(new WingsTrait()); // Mobility up
                 traits.Add(new AppendagesTrait()); // Mobility up
 
             }
@@ -225,10 +225,10 @@ public class Creature
                 traits.Add(new DeadlyTalonsTrait()); // attack up
                 traits.Add(new FangsTrait()); // attack up
 
-                traits.Add(new FurCoatTrait()); // survivability up
+                //traits.Add(new FurCoatTrait()); // survivability up
                 traits.Add(new TemperatureRegulationTrait()); // survivability up -- Unique to deserts and tundras?
 
-                traits.Add(new WingsTrait()); // Mobility up
+                //traits.Add(new WingsTrait()); // Mobility up
                 traits.Add(new AppendagesTrait()); // Mobility up
 
                 traits.Add(new ShellTrait()); // strength up

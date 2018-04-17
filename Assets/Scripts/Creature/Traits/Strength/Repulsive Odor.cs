@@ -14,8 +14,8 @@ public class RepuliveOdorTrait : Trait
 
     public override void OnAdd(Stats stats)
     {
-        stats.def += 7;
-        stats.evs += 2;
+        stats.Defense += 7;
+        stats.Evasion += 2;
 
         int count = 1;
 
@@ -24,13 +24,13 @@ public class RepuliveOdorTrait : Trait
             if (stats.vegCon > 0 || count > 0)
             {
                 stats.vegCon++;
-                stats.meatVal++;
+                stats.MeatValue++;
                 count--;
             }
             else
             {
                 stats.meatCon++;
-                stats.meatVal++;
+                stats.MeatValue++;
                 count--;
             }
         }
@@ -39,8 +39,8 @@ public class RepuliveOdorTrait : Trait
 
     public override void OnRemove(Stats stats)
     {
-        stats.def -= 7;
-        stats.evs -= 2;
+        stats.Defense -= 7;
+        stats.Evasion -= 2;
 
         int count = 1;
 
@@ -49,13 +49,13 @@ public class RepuliveOdorTrait : Trait
             if (stats.vegCon > 0 || count > 0)
             {
                 stats.vegCon--;
-                stats.meatVal--;
+                stats.MeatValue--;
                 count--;
             }
             else
             {
                 stats.meatCon--;
-                stats.meatVal--;
+                stats.MeatValue--;
                 count--;
             }
         }

@@ -14,13 +14,13 @@ public class ConstrictingTentaclesTrait : Trait
 
     public override void OnAdd(Stats stats)
     {
-        stats.atk += 2;
-        stats.hunt += 2;
+        stats.Attack += 2;
+        stats.Hunt += 2;
     }
 
     public override void OnRemove(Stats stats)
     {
-        stats.atk -= 2;
-        stats.hunt -= 2;
+        stats.Attack -= 2;
+        stats.Hunt -= 2;
     }
 }

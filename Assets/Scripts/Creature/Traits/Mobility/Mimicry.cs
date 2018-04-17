@@ -14,13 +14,13 @@ public class MimicryTrait : Trait
 
     public override void OnAdd(Stats stats)
     {
-        stats.evs += 10;
-        stats.def -= 2;
+        stats.Evasion += 10;
+        stats.Defense -= 2;
     }
 
     public override void OnRemove(Stats stats)
     {
-        stats.evs -= 10;
-        stats.def += 2;
+        stats.Evasion -= 10;
+        stats.Defense += 2;
     }
 }

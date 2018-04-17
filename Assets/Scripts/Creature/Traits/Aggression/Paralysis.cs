@@ -14,8 +14,8 @@ public class ParalysisTrait : Trait
 
     public override void OnAdd(Stats stats)
     {
-        stats.atk += 5;
-        stats.hunt += 10;
+        stats.Attack += 5;
+        stats.Hunt += 10;
 
         int count = 3;
 
@@ -24,13 +24,13 @@ public class ParalysisTrait : Trait
             if (stats.vegCon >= 1 || count > 0)
             {
                 stats.vegCon++;
-                stats.meatVal++;
+                stats.MeatValue++;
                 count--;
             }
             else
             {
                 stats.meatCon++;
-                stats.meatVal++;
+                stats.MeatValue++;
                 count--;
             }
         }
@@ -38,8 +38,8 @@ public class ParalysisTrait : Trait
 
     public override void OnRemove(Stats stats)
     {
-        stats.atk -= 5;
-        stats.hunt -= 10;
+        stats.Attack -= 5;
+        stats.Hunt -= 10;
 
         int count = 3;
 
@@ -48,13 +48,13 @@ public class ParalysisTrait : Trait
             if (stats.vegCon > 0 || count > 0)
             {
                 stats.vegCon--;
-                stats.meatVal--;
+                stats.MeatValue--;
                 count--;
             }
             else
             {
                 stats.meatCon--;
-                stats.meatVal--;
+                stats.MeatValue--;
                 count--;
             }
         }

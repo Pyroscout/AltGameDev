@@ -14,11 +14,11 @@ public class LooseSkinTrait : Trait
 
     public override void OnAdd(Stats stats)
     {
-        stats.def += 5;
+        stats.Defense += 5;
     }
 
     public override void OnRemove(Stats stats)
     {
-        stats.def -= 5;
+        stats.Defense -= 5;
     }
 }

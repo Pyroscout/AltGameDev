@@ -14,13 +14,13 @@ public class TolerantLungsTrait : Trait
 
     public override void OnAdd(Stats stats)
     {
-        stats.evs += 5;
-        stats.def += 5;
+        stats.Evasion += 5;
+        stats.Defense += 5;
     }
 
     public override void OnRemove(Stats stats)
     {
-        stats.evs -= 5;
-        stats.def -= 5;
+        stats.Evasion -= 5;
+        stats.Defense -= 5;
     }
 }

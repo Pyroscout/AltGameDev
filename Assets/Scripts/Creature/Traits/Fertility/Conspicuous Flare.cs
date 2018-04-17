@@ -14,15 +14,15 @@ public class ConspicuousFlareTrait : Trait
 
     public override void OnAdd(Stats stats)
     {
-        stats.evs -= 10;
-        stats.def -= 5;
-        stats.fert += 2;
+        stats.Evasion -= 10;
+        stats.Defense -= 5;
+        stats.Fert += 2;
     }
 
     public override void OnRemove(Stats stats)
     {
-        stats.evs += 10;
-        stats.def += 5;
-        stats.fert -= 2;
+        stats.Evasion += 10;
+        stats.Defense += 5;
+        stats.Fert -= 2;
     }
 }

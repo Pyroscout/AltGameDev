@@ -14,17 +14,17 @@ public class HornsTrait : Trait
 
     public override void OnAdd(Stats stats)
     {
-        stats.def += 10;
-        stats.atk += 5;
-        stats.evs -= 2;
-        stats.hunt -= 2;
+        stats.Defense += 10;
+        stats.Attack += 5;
+        stats.Evasion -= 2;
+        stats.Hunt -= 2;
     }
 
     public override void OnRemove(Stats stats)
     {
-        stats.def -= 10;
-        stats.atk -= 5;
-        stats.evs += 2;
-        stats.hunt += 2;
+        stats.Defense -= 10;
+        stats.Attack -= 5;
+        stats.Evasion += 2;
+        stats.Hunt += 2;
     }
 }

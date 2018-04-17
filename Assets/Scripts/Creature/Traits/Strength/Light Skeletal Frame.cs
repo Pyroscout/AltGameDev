@@ -14,17 +14,17 @@ public class LightSkeleTrait : Trait
 
     public override void OnAdd(Stats stats)
     {
-        stats.atk -= 2;
-        stats.def -=5;
-        stats.evs +=5;
-        stats.hunt +=2;
+        stats.Attack -= 2;
+        stats.Defense -=5;
+        stats.Evasion +=5;
+        stats.Hunt +=2;
     }
 
     public override void OnRemove(Stats stats)
     {
-        stats.atk += 2;
-        stats.def += 5;
-        stats.evs -= 5;
-        stats.hunt -= 2;
+        stats.Attack += 2;
+        stats.Defense += 5;
+        stats.Evasion -= 5;
+        stats.Hunt -= 2;
     }
 }

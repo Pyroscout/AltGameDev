@@ -12,17 +12,17 @@ public class HeavySkeletalFrame : Trait
 
     public override void OnAdd(Stats stats)
     {
-        stats.atk++;
-        stats.def+=2;
-        stats.evs-=2;
-        stats.hunt--;
+        stats.Attack++;
+        stats.Defense+=2;
+        stats.Evasion-=2;
+        stats.Hunt--;
     }
 
     public override void OnRemove(Stats stats)
     {
-        stats.atk--;
-        stats.def-=2;
-        stats.evs+=2;
-        stats.hunt++;
+        stats.Attack--;
+        stats.Defense-=2;
+        stats.Evasion+=2;
+        stats.Hunt++;
     }
 }
