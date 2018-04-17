@@ -22,13 +22,18 @@ public class DisplayGameInfo : MonoBehaviour
 
     public Text traitName;
     public Text traitDesc;
+    public Text SpeciesType;
+
+    public GameObject Herbivorous;
+    public GameObject Carnivorous;
+    public GameObject Omnivorous;
 
 
 
 
 
     // Use this for initialization
-    public void show ()
+    public void show()
     {
         totem.SetActive(false);
         wing2.SetActive(false);
@@ -36,12 +41,12 @@ public class DisplayGameInfo : MonoBehaviour
         InfoCanvas.SetActive(true);
         returnbutton.SetActive(true);
         next.SetActive(false);
-    
 
-	}
-	
-	// Update is called once per frame
-	public void hide ()
+
+    }
+
+    // Update is called once per frame
+    public void hide()
     {
         wing2.SetActive(true);
         totem.SetActive(true);
@@ -49,7 +54,7 @@ public class DisplayGameInfo : MonoBehaviour
         InfoCanvas.SetActive(false);
         returnbutton.SetActive(false);
         next.SetActive(true);
-	}
+    }
 
     public void OpenEvoScreen()
     {
@@ -67,6 +72,34 @@ public class DisplayGameInfo : MonoBehaviour
         InfoCanvas.SetActive(false);
         next.SetActive(false);
 
+        Herbivorous.SetActive(false);
+        Carnivorous.SetActive(false);
+        Omnivorous.SetActive(false);
+
+        if (Creature.player.isHerbivore == true && Creature.player.isCarnivore == false) // herbivore
+        {
+            Herbivorous.SetActive(true);
+            Carnivorous.SetActive(false);
+            Omnivorous.SetActive(false);
+            SpeciesType.text = "Herbiborous";
+
+        }
+        if (Creature.player.isCarnivore == true && Creature.player.isHerbivore == false) // carnivorous
+        {
+            Herbivorous.SetActive(true);
+            Carnivorous.SetActive(false);
+            Omnivorous.SetActive(false);
+            SpeciesType.text = "Carnivorous";
+
+        }
+        if (Creature.player.isCarnivore == true && Creature.player.isHerbivore == true) // omnivorous
+        {
+            Herbivorous.SetActive(false);
+            Carnivorous.SetActive(false);
+            Omnivorous.SetActive(true);
+            SpeciesType.text = "Omnivorous";
+
+        }
 
         Evo1.GetComponent<Image>().sprite = Resources.Load<Sprite>(Creature.player.traits[0].imagePath);
         Evo2.GetComponent<Image>().sprite = Resources.Load<Sprite>(Creature.player.traits[1].imagePath);
@@ -86,6 +119,7 @@ public class DisplayGameInfo : MonoBehaviour
         SettingsButton.SetActive(true);
         Score.SetActive(true);
         next.SetActive(true);
+
 
         HexMapCamera.Locked = false;
 
@@ -114,4 +148,5 @@ public class DisplayGameInfo : MonoBehaviour
         traitName.text = Creature.player.traits[3].name;
         traitDesc.text = Creature.player.traits[3].description;
     }
+
 }

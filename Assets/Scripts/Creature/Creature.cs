@@ -23,6 +23,9 @@ public class Creature
 
     public Dictionary<string, Tile> tilesOccupied = new Dictionary<string, Tile>();
 
+    public bool isCarnivore;
+    public bool isHerbivore;
+
     // movement method
     // hunting method
 
@@ -36,7 +39,7 @@ public class Creature
         this.stats = new Stats();
         this.population = population;
         this.isPlayer = isPlayer;
-        //isHerbavore = true;
+        this.isHerbivore = true;
         //deathQueue.Enqueue(population);
     }
 
@@ -79,11 +82,11 @@ public class Creature
         List<Trait> traits = new List<Trait>();
 
         //Neither check
-        if (stats.isherbivore == false && stats.isherbivore == false)
-            stats.isherbivore = true;
+        if (player.isHerbivore == false && player.isCarnivore == false)
+            player.isHerbivore = true;
 
-        // Herbivor Check
-        if (stats.isherbivore == true && stats.iscarnivore == false)
+        // Herbivore Check
+        if (player.isHerbivore == true && stats.iscarnivore == false)
         {
             // Herbivore + small evolutions
             if (stats.size == Stats.Size.small)
@@ -147,7 +150,7 @@ public class Creature
         }
 
         // Carnivore Check
-        if (stats.iscarnivore == true && stats.isherbivore == false)
+        if (player.isCarnivore == true && player.isHerbivore == false)
         {
             // Carnivore + small evolutions
             if (stats.size == Stats.Size.small)
@@ -211,7 +214,7 @@ public class Creature
         }
 
         // Omnivore Check
-        if (stats.isherbivore == true && stats.iscarnivore == true)
+        if (player.isHerbivore == true && player.isCarnivore == true)
         {
             // Omnivore + small evolutions
             if (stats.size == Stats.Size.small)
