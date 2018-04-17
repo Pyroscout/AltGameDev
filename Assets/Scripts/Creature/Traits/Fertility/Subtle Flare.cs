@@ -6,21 +6,21 @@ public class SubtleFlareTrait : Trait
     public SubtleFlareTrait()
     {
         name = "Subtle Flare";
-        description = "Evs-1. Brth +1";
-        eduInfo = "";
-        imagePath = "Images/Evolutions/Flare Subtle";
+        description = "Evs-7, Brth +1";
+        eduInfo = "Decorative colors help court mates, in exchange for standing out";
 
+        imagePath = "Images/Evolutions/Flare Subtle";
     }
 
     public override void OnAdd(Stats stats)
     {
-        stats.Evasion --;
-        stats.Fert++;
+        stats.evs -= 7;
+        stats.fert++;
     }
 
     public override void OnRemove(Stats stats)
     {
-        stats.Evasion++;
-        stats.Fert--;
+        stats.evs += 7;
+        stats.fert--;
     }
 }

@@ -6,19 +6,57 @@ public class ParalysisTrait : Trait
     public ParalysisTrait()
     {
         name = "Paralysis";
-        description = "Atk+1";
-        eduInfo = "";
-        imagePath = "Images/Evolutions/Paralysis";
+        description = "Atk+5, hunt+10, energy+3";
+        eduInfo = "Paralysing venom deteriorates your prey's ability to flee";
 
+        imagePath = "Images/Evolutions/Palarysis";
     }
 
     public override void OnAdd(Stats stats)
     {
-        stats.Attack++;
+        stats.atk += 5;
+        stats.hunt += 10;
+
+        int count = 3;
+
+        while (count > 0)
+        {
+            if (stats.vegCon >= 1 || count > 0)
+            {
+                stats.vegCon++;
+                stats.meatVal++;
+                count--;
+            }
+            else
+            {
+                stats.meatCon++;
+                stats.meatVal++;
+                count--;
+            }
+        }
     }
 
     public override void OnRemove(Stats stats)
     {
-        stats.Attack--;
+        stats.atk -= 5;
+        stats.hunt -= 10;
+
+        int count = 3;
+
+        while (count > 0)
+        {
+            if (stats.vegCon > 0 || count > 0)
+            {
+                stats.vegCon--;
+                stats.meatVal--;
+                count--;
+            }
+            else
+            {
+                stats.meatCon--;
+                stats.meatVal--;
+                count--;
+            }
+        }
     }
 }

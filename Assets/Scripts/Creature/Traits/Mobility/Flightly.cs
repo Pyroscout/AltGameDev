@@ -1,25 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EggLayingTrait : Trait
+public class FlightlyTrait : Trait
 {
-    public EggLayingTrait()
+    public FlightlyTrait()
     {
-        name = "Egg Laying";
-        description = "Brth+2, def+5, atk-5, hunt-5, energy+1";
-        eduInfo = "Some creatures are capable of laying eggs as a method of reproduction";
+        name = "Flightly";
+        description = "Evs+10, hunt+10, Energy+1";
+        eduInfo = "Flightly wings allow for limited flight";
 
-        imagePath = "Images/Evolutions/Fertility/Egg";
+        imagePath = "Images/Evolutions/Flightish";
     }
 
     public override void OnAdd(Stats stats)
     {
-        stats.fert += 2;
-        stats.def += 5;
-        stats.atk -= 5;
-        stats.hunt -= 5;
+        stats.evs += 10;
+        stats.hunt += 10;
 
-        int count = 2;
+        int count = 1;
 
         while (count > 0)
         {
@@ -40,12 +38,10 @@ public class EggLayingTrait : Trait
 
     public override void OnRemove(Stats stats)
     {
-        stats.fert -= 2;
-        stats.def -= 5;
-        stats.atk += 5;
-        stats.hunt += 5;
+        stats.evs -= 10;
+        stats.hunt -= 10;
 
-        int count = 2;
+        int count = 1;
 
         while (count > 0)
         {
