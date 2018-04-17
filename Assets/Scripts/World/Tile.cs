@@ -20,14 +20,6 @@ public class Tile
         }
     }
 
-    public Color Color
-    {
-        get
-        {
-            return biome.color;
-        }
-    }
-
     public Tile(HexCell cell)
     {
         this.cell = cell;
@@ -111,8 +103,10 @@ public class Tile
             case BiomeType.Mountain:
                 SetMountain();
                 break;
+            case BiomeType.Tundra:
+                SetTundra();
+                break;
             default:
-                this.biome = new Biome("Oops", Color.magenta, 0, 0, 0, 0);
                 break;
         }
     }
@@ -121,32 +115,34 @@ public class Tile
     {
         SetBiomeType((BiomeType)biomeTypeIndex);
     }
-
-    Color32 forestColor = new Color32(34, 139, 34, 255);
+    
     public void SetForest()
     {
-        this.biome = new Biome("Forest", forestColor, 600, 6, 600, 6);
+        this.biome = new Biome("Forest", 600, 6, 600, 6);
         this.biomeType = BiomeType.Forest;
     }
-
-    Color32 desertColor = new Color32(237, 201, 175, 255);
+    
     public void SetDesert()
     {
-        this.biome = new Biome("Desert", desertColor, 200, 2, 200, 2);
+        this.biome = new Biome("Desert", 200, 2, 200, 2);
         this.biomeType = BiomeType.Desert;
     }
-
-    Color32 mountainColor = new Color32(141, 81, 80, 255);
+    
     public void SetMountain()
     {
-        this.biome = new Biome("Mountain", mountainColor, 400, 4, 200, 2);
+        this.biome = new Biome("Mountain", 400, 4, 200, 2);
         this.biomeType = BiomeType.Mountain;
     }
-
-    Color32 seaFloorColor = new Color32(194, 178, 128, 255);
+    
+    public void SetTundra()
+    {
+        this.biome = new Biome("Tundra", 300, 3, 300, 3);
+        this.biomeType = BiomeType.Tundra;
+    }
+    
     public void SetOcean()
     {
-        this.biome = new Biome("Ocean", seaFloorColor, 0, 0, 0, 0);
+        this.biome = new Biome("Ocean", 0, 0, 0, 0);
         this.biomeType = BiomeType.Ocean;
     }
 

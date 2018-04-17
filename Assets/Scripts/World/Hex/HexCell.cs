@@ -98,18 +98,6 @@ public class HexCell : MonoBehaviour
         }
     }
 
-    public Color Color
-    {
-        get
-        {
-            if (isSelected)
-            {
-                return CombineColors(tile.Color, new Color(1, 0, 1));
-            }
-            return tile.Color;
-        }
-    }
-
     public float StreamBedY
     {
         get

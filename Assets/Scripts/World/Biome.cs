@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public enum BiomeType { Ocean, Forest, Desert, Mountain, COUNT }
+public enum BiomeType { Ocean, Forest, Desert, Mountain, Tundra, COUNT }
 
 public class Biome
 {
@@ -12,9 +12,7 @@ public class Biome
     public int meatSupply;
     int meatSupplyFactor;
 
-    public Color color;
-
-    public Biome(string name, Color color,
+    public Biome(string name,
         int herbSupply, int herbSupplyFactor,
         int meatSupply, int meatSupplyFactor)
     {
@@ -25,7 +23,6 @@ public class Biome
         this.baseMeatSupply = meatSupply;
         this.meatSupply = meatSupply;
         this.meatSupplyFactor = meatSupplyFactor;
-        this.color = color;
     }
 
     public void ResetResources()
