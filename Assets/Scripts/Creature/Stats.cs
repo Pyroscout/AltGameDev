@@ -4,16 +4,111 @@ using UnityEngine;
 
 public class Stats
 {
-    public int atk; // attack, formerly str/strength
-    public int def; // defense, formerly aggro
-    public int evs; // evasion, formerly mobility
-    public int hunt; // hunt
+    // attack
+    public int atk
+    {
+        get
+        {
+            if(atk > 1)
+            {
+                return 1;
+            }
+            return atk;
+        }
+        set
+        {
+            atk = value;
+        }
+    }
+
+    // defense
+    public int def
+    {
+        get
+        {
+            if (def > 1)
+            {
+                return 1;
+            }
+            return def;
+        }
+        set
+        {
+            def = value;
+        }
+    }
+
+    // evasion
+    public int evs
+    {
+        get
+        {
+            if (evs > 1)
+            {
+                return 1;
+            }
+            return evs;
+        }
+        set
+        {
+            evs = value;
+        }
+    } 
+
+    // ability to gather food
+    public int hunt
+    {
+        get
+        {
+            if (hunt > 1)
+            {
+                return 1;
+            }
+            return hunt;
+        }
+        set
+        {
+            hunt = value;
+        }
+    }
+
+    // meat value of creature
+    public int meatVal
+    {
+        get
+        {
+            if (meatVal > 1)
+            {
+                return 1;
+            }
+            return meatVal;
+        }
+        set
+        {
+            meatVal = value;
+        }
+    }
+
+    // birth rate, survivability
+    public int fert
+    {
+        get
+        {
+            if (fert > 1)
+            {
+                return 1;
+            }
+            return fert;
+        }
+        set
+        {
+            fert = value;
+        }
+    }
 
     public int vegCon; // vegetable consumption required
     public int meatCon; // meat consumption required
-    public int meatVal; // meat value of creature
     public int lSpn; // lifespan
-    public int fert; // birth rate, survivability
 
     public bool isherbivore;
     public bool iscarnivore;
