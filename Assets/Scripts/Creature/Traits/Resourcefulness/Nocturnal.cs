@@ -8,6 +8,8 @@ public class NocturnalTrait : Trait
         name = "Nocturnal";
         description = "Evs+2";
         eduInfo = "";
+        imagePath = "Images/Evolutions/Nocturnal";
+
     }
 
     public override void OnAdd(Stats stats)

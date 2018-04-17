@@ -7,9 +7,12 @@ public class ChooseEvolutionMenu : MonoBehaviour
     public ReplaceEvolutionMenu replaceEvoMenu;
     public Text traitNameLabel;
     public Text traitDescLabel;
-
     public GameObject trait1Image;
     public GameObject trait2Image;
+    public GameObject Evolutions;
+    public GameObject settings;
+    public GameObject Score;
+    public GameObject Totem;
 
     Creature creature;
     Trait[] traits;
@@ -27,6 +30,11 @@ public class ChooseEvolutionMenu : MonoBehaviour
 
         gameObject.SetActive(true);
         HexMapCamera.Locked = true;
+
+        Evolutions.SetActive(false);
+        settings.SetActive(false);
+        Score.SetActive(false);
+        Totem.SetActive(false);
     }
 
     public void Close()
@@ -50,18 +58,27 @@ public class ChooseEvolutionMenu : MonoBehaviour
         if (creature.traits.Count == Creature.MAX_TRAIT_COUNT)
         {
             replaceEvoMenu.Open(creature, newTrait);
+            Evolutions.SetActive(false);
+            settings.SetActive(false);
+            Score.SetActive(false);
+            Totem.SetActive(false);
         }
         else
         {
             creature.AddTrait(newTrait);
+            Evolutions.SetActive(true);
+            settings.SetActive(true);
+            Score.SetActive(true);
+            Totem.SetActive(true);
             game.NextPhase();
+            
         }
         Close();
     }
 
     public void UpdateTraitInfo(Trait trait)
     {
-        traitNameLabel.text = trait.name;
-        traitDescLabel.text = trait.description;
+        traitNameLabel.text = "Evolution: " + trait.name;
+        traitDescLabel.text = "Abilities: " + trait.description;
     }
 }

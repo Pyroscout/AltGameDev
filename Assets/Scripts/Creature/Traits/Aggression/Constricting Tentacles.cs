@@ -8,6 +8,9 @@ public class ConstrictingTentaclesTrait : Trait
         name = "Constricting Tentacles";
         description = "Atk+1";
         eduInfo = "";
+
+        imagePath = "Images/Evolutions/Tentacle";
+
     }
 
     public override void OnAdd(Stats stats)

@@ -8,6 +8,8 @@ public class CamouflageTrait : Trait
         name = "Camouflage";
         description = "Evs+1";
         eduInfo = "Camouflage can save a species from becoming prey, increasing their chances of reproducing";
+        imagePath = "Images/Evolutions/Camouflage";
+
     }
 
     public override void OnAdd(Stats stats)

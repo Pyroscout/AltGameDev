@@ -8,6 +8,8 @@ public class TolerantLungsTrait : Trait
         name = "Tolerant Lungs";
         description = "Brth+1";
         eduInfo = "Some animals have adapted their lungs to be carbon tolerant, allowing them to stay under water for long periods of time.";
+        imagePath = "Images/Evolutions/Lungs";
+
     }
 
     public override void OnAdd(Stats stats)

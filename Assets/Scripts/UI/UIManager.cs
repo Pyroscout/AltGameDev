@@ -11,6 +11,10 @@ public class UIManager : MonoBehaviour
     public Text herbCountLabel;
     public Text meatCountLabel;
 
+    public Text speciesType;
+
+    Creature theCreature;
+
 
     public Text[] creatureCountLabels;
     
@@ -27,8 +31,8 @@ public class UIManager : MonoBehaviour
         {
             Tile tile = selectedCell.tile;
             biomeLabel.text = tile.biome.name;
-            herbCountLabel.text = tile.biome.herbSupply.ToString();
-            meatCountLabel.text = tile.biome.meatSupply.ToString();
+            herbCountLabel.text = "Veggies: " + tile.biome.herbSupply.ToString();
+            meatCountLabel.text = "Meats: " + tile.biome.meatSupply.ToString();
             int index = 1;
             foreach (Creature creature in Creature.creatures.Values)
             {
@@ -43,6 +47,19 @@ public class UIManager : MonoBehaviour
                 }
             }
         }
+
+        if (theCreature.stats.isherbivore == true)
+        {
+            speciesType.text = "Type: Herbivorous";
+        }
+        if (theCreature.stats.iscarnivore == true)
+        {
+            speciesType.text = "Type: Carnivorous";
+        }
+        if (theCreature.stats.isherbivore == true && theCreature.stats.iscarnivore == true)
+        {
+            speciesType.text = "Type: Omnivorous";
+        }
     }
 
     public void UpdateGeneration(int genNum)
@@ -52,6 +69,8 @@ public class UIManager : MonoBehaviour
 
     public void UpdatePhase(Phase phase)
     {
+
+
         switch (phase)
         {
             case Phase.Migrate:
@@ -64,7 +83,7 @@ public class UIManager : MonoBehaviour
                 phaseLabel.text = "Phase: EVOLVE";
                 break;
             case Phase.Feed:
-                phaseLabel.text = "Phase: FEED";
+                phaseLabel.text = "Phase: FORAGE";
                 break;
         }
     }
@@ -81,6 +100,6 @@ public class UIManager : MonoBehaviour
 
     public void UpdateTimer(int timeLeft)
     {
-        timerLabel.text = timeLeft.ToString();
+        timerLabel.text = "Feeding: " + timeLeft.ToString();
     }
 }

@@ -8,6 +8,8 @@ public class ConspicuousFlareTrait : Trait
         name = "Conspicuous Flare";
         description = "Evs-1, Def-1, Brth+1";
         eduInfo = "";
+        imagePath = "Images/Evolutions/Flare Conspicuous";
+
     }
 
     public override void OnAdd(Stats stats)

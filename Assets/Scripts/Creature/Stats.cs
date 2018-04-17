@@ -15,6 +15,9 @@ public class Stats
     public int lSpn; // lifespan
     public int fert; // birth rate, survivability
 
+    public bool isherbivore;
+    public bool iscarnivore;
+
     public Size size;
     public enum Size { small = 1, med, large };
 
@@ -29,6 +32,9 @@ public class Stats
         meatVal = 1;
         lSpn = 1;
         fert = 1;
+
+        isherbivore = false;
+        iscarnivore = false;
 
         size = Size.small;
     }

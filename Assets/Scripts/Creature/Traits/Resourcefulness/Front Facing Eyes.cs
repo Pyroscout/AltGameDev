@@ -8,6 +8,8 @@ public class FrontEyesTrait : Trait
         name = "Front Facing Eyes";
         description = "Evs-1, Hunt+2";
         eduInfo = "";
+        imagePath = "Images/Evolutions/Front Eyes";
+
     }
 
     public override void OnAdd(Stats stats)

@@ -8,6 +8,8 @@ public class ProminentFlareTrait : Trait
         name = "Prominent Flare";
         description = "Evs-1, Def-1, Brth+2";
         eduInfo = "";
+        imagePath = "Images/Evolutions/Flare Prominent";
+
     }
 
     public override void OnAdd(Stats stats)
