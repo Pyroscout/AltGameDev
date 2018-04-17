@@ -24,7 +24,7 @@ public class HexCell : MonoBehaviour
     int urbanLevel, farmLevel, plantLevel;
 
     public bool hasIncomingRiver, hasOutgoingRiver;
-	public HexDirection incomingRiver, outgoingRiver;
+    public HexDirection incomingRiver, outgoingRiver;
 
     public bool HasIncomingRiver
     {
@@ -79,6 +79,18 @@ public class HexCell : MonoBehaviour
         return
             hasIncomingRiver && incomingRiver == direction ||
             hasOutgoingRiver && outgoingRiver == direction;
+    }
+
+    public int TerrainTypeIndex
+    {
+        get
+        {
+            if(isSelected)
+            {
+                return ((int)Biome + (int)BiomeType.COUNT);
+            }
+            return (int)Biome;
+        }
     }
 
     public BiomeType Biome
