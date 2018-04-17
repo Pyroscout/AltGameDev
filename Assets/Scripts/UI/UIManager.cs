@@ -48,6 +48,11 @@ public class UIManager : MonoBehaviour
             }
         }
 
+        if (true)
+        {
+            return;
+        }
+
         if (theCreature.stats.isherbivore == true)
         {
             speciesType.text = "Type: Herbivorous";
