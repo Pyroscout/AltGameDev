@@ -37,7 +37,7 @@ public class CreatureManager : MonoBehaviour
                 else
                 {
                     instance = Instantiate(creaturePrefabs[index]);
-                    index++;
+                    //index++;
                 }
                 Vector3 newCenter = center;
                 newCenter.y += instance.localScale.y * 0.5f;

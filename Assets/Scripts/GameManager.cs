@@ -167,12 +167,15 @@ public class GameManager : MonoBehaviour
 
     void CreateCreatures()
     {
-        Creature rabbit = new Creature("rabbit", 200, true);
-        Creature.creatures[rabbit.name] = rabbit;
-        Creature.player = rabbit;
+        Creature player = new Creature("player", 200, true);
+        Creature.creatures[player.name] = player;
+        Creature.player = player;
         
-        Creature wolf = new Creature("wolf", 200);
-        Creature.creatures[wolf.name] = wolf;
+        for(int i = 1; i < 10; i++)
+        {
+            Creature ai = new Creature("CPU " + i, 200);
+            Creature.creatures[ai.name] = ai;
+        }
     }
 
     void BeginReproductionPhase()
