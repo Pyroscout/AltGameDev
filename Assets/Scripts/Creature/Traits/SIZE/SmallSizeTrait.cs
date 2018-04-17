@@ -15,18 +15,18 @@ public class SmallSizeTrait : Trait
     public override void OnAdd(Stats stats)
     {
         stats.size = Stats.Size.small;
-        stats.atk--;
-        stats.def--;
-        stats.evs+=2;
-        stats.meatVal += 1;
+        stats.Attack--;
+        stats.Defense--;
+        stats.Evasion+=2;
+        stats.MeatValue += 1;
    
     }
 
     public override void OnRemove(Stats stats)
     {
-        stats.atk++;
-        stats.def++;
-        stats.evs-=2;
-        stats.meatVal -= 1;
+        stats.Attack++;
+        stats.Defense++;
+        stats.Evasion-=2;
+        stats.MeatValue -= 1;
     }
 }

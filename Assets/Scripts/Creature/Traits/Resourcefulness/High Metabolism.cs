@@ -14,17 +14,17 @@ public class HighMetabolismTrait : Trait
 
     public override void OnAdd(Stats stats)
     {
-        stats.atk++;
-        stats.def++;
-        stats.evs--;
-        stats.hunt++;
+        stats.Attack++;
+        stats.Defense++;
+        stats.Evasion--;
+        stats.Hunt++;
     }
 
     public override void OnRemove(Stats stats)
     {
-        stats.atk--;
-        stats.def--;
-        stats.evs++;
-        stats.hunt--;
+        stats.Attack--;
+        stats.Defense--;
+        stats.Evasion++;
+        stats.Hunt--;
     }
 }

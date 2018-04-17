@@ -14,13 +14,13 @@ public class SubtleFlareTrait : Trait
 
     public override void OnAdd(Stats stats)
     {
-        stats.evs --;
-        stats.fert++;
+        stats.Evasion --;
+        stats.Fert++;
     }
 
     public override void OnRemove(Stats stats)
     {
-        stats.evs++;
-        stats.fert--;
+        stats.Evasion++;
+        stats.Fert--;
     }
 }

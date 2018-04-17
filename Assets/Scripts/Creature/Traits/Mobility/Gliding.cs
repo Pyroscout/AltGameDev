@@ -14,13 +14,13 @@ public class GlidingTrait : Trait
 
     public override void OnAdd(Stats stats)
     {
-        stats.evs ++;
-        stats.hunt ++;
+        stats.Evasion ++;
+        stats.Hunt ++;
     }
 
     public override void OnRemove(Stats stats)
     {
-        stats.evs--;
-        stats.hunt--;
+        stats.Evasion--;
+        stats.Hunt--;
     }
 }

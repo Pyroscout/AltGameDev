@@ -14,11 +14,11 @@ public class AppendagesTrait : Trait
 
     public override void OnAdd(Stats stats)
     {
-        stats.evs++;
+        stats.Evasion++;
     }
 
     public override void OnRemove(Stats stats)
     {
-        stats.evs--;
+        stats.Evasion--;
     }
 }

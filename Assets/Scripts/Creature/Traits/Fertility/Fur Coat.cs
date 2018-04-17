@@ -14,11 +14,11 @@ public class FurCoatTrait : Trait
 
     public override void OnAdd(Stats stats)
     {
-        stats.fert++;
+        stats.Fert++;
     }
 
     public override void OnRemove(Stats stats)
     {
-        stats.fert--;
+        stats.Fert--;
     }
 }

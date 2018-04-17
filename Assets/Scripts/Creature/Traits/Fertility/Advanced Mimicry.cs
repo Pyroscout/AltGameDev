@@ -14,11 +14,11 @@ public class AdvancedMimicryTrait : Trait
 
     public override void OnAdd(Stats stats)
     {
-        stats.evs += 3;
+        stats.Evasion += 3;
     }
 
     public override void OnRemove(Stats stats)
     {
-        stats.evs -= 3;
+        stats.Evasion -= 3;
     }
 }

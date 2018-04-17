@@ -14,15 +14,15 @@ public class ProminentFlareTrait : Trait
 
     public override void OnAdd(Stats stats)
     {
-        stats.evs --;
-        stats.def--;
-        stats.fert += 2;
+        stats.Evasion --;
+        stats.Defense--;
+        stats.Fert += 2;
     }
 
     public override void OnRemove(Stats stats)
     {
-        stats.evs++;
-        stats.def++;
-        stats.fert -= 2;
+        stats.Evasion++;
+        stats.Defense++;
+        stats.Fert -= 2;
     }
 }

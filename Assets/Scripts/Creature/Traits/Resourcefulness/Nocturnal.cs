@@ -14,11 +14,11 @@ public class NocturnalTrait : Trait
 
     public override void OnAdd(Stats stats)
     {
-        stats.evs += 2;
+        stats.Evasion += 2;
     }
 
     public override void OnRemove(Stats stats)
     {
-        stats.evs -= 2;
+        stats.Evasion -= 2;
     }
 }

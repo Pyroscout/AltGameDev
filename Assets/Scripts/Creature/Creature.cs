@@ -288,7 +288,7 @@ public class Creature
         int tilePop = tile.GetCreatureCount(name);
         if(tilePop > 0)
         {
-            int newBornCount = tilePop * stats.fert;
+            int newBornCount = tilePop * stats.Fert;
             tile.AddCreature(this, newBornCount);
             population += newBornCount;
         }
@@ -352,7 +352,7 @@ public class Creature
     // returns new energy required
     int Hunt(Tile tile, int energyRequired)
     {
-        bool isHuntingCreature = tile.creatureCounts.Count > 1 && Random.value <= (stats.hunt * 0.05f);
+        bool isHuntingCreature = tile.creatureCounts.Count > 1 && Random.value <= (stats.Hunt * 0.05f);
         
         if (isHuntingCreature)
         {
@@ -391,11 +391,11 @@ public class Creature
 
     int Hunt(Creature prey, Tile tile, int energyRequired)
     {
-        float huntRoll = Random.value * stats.hunt;
-        float evadeRoll = Random.value * prey.stats.evs;
+        float huntRoll = Random.value * stats.Hunt;
+        float evadeRoll = Random.value * prey.stats.Evasion;
 
-        float atkRoll = Random.value * stats.hunt;
-        float defRoll = Random.value * prey.stats.evs;
+        float atkRoll = Random.value * stats.Hunt;
+        float defRoll = Random.value * prey.stats.Evasion;
         if (evadeRoll > huntRoll || atkRoll > defRoll)
         {
             return energyRequired;
@@ -408,7 +408,7 @@ public class Creature
             numPreyHunted = preyInTile;
         }
 
-        int energyHunted = numPreyHunted * prey.stats.meatVal;
+        int energyHunted = numPreyHunted * prey.stats.MeatValue;
         tile.RemoveCreature(prey, numPreyHunted);
 
         return Mathf.Max(0, energyRequired - energyHunted);

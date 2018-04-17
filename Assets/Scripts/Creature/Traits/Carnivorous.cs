@@ -14,15 +14,15 @@ public class becomeCarnivorous : Trait
 
     public override void OnAdd(Stats stats)
     {
-        stats.atk++;
-        stats.def++;
+        stats.Attack++;
+        stats.Defense++;
         Creature.player.isCarnivore = true;
     }
 
     public override void OnRemove(Stats stats)
     {
-        stats.atk--;
-        stats.def--;
+        stats.Attack--;
+        stats.Defense--;
         Creature.player.isCarnivore = false;
     }
 }

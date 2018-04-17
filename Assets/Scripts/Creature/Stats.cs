@@ -5,7 +5,8 @@ using UnityEngine;
 public class Stats
 {
     // attack
-    public int atk
+    int atk;
+    public int Attack
     {
         get
         {
@@ -22,7 +23,8 @@ public class Stats
     }
 
     // defense
-    public int def
+    int def;
+    public int Defense
     {
         get
         {
@@ -39,7 +41,8 @@ public class Stats
     }
 
     // evasion
-    public int evs
+    int evs;
+    public int Evasion
     {
         get
         {
@@ -53,10 +56,11 @@ public class Stats
         {
             evs = value;
         }
-    } 
+    }
 
     // ability to gather food
-    public int hunt
+    int hunt;
+    public int Hunt
     {
         get
         {
@@ -73,7 +77,8 @@ public class Stats
     }
 
     // meat value of creature
-    public int meatVal
+    int meatVal;
+    public int MeatValue
     {
         get
         {
@@ -90,7 +95,8 @@ public class Stats
     }
 
     // birth rate, survivability
-    public int fert
+    int fert;
+    public int Fert
     {
         get
         {
@@ -118,15 +124,17 @@ public class Stats
 
     public Stats()
     {
-        atk = 1;
-        def = 1;
-        evs = 1;
-        hunt = 1;
+        Attack = 1;
+        Defense = 1;
+        Evasion = 1;
+        Hunt = 1;
+
+        MeatValue = 1;
+        Fert = 1;
+
         vegCon = 1;
         meatCon = 1;
-        meatVal = 1;
         lSpn = 1;
-        fert = 1;
 
         isherbivore = false;
         iscarnivore = false;

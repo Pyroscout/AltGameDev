@@ -14,11 +14,11 @@ public class OlfactoryTrait : Trait
 
     public override void OnAdd(Stats stats)
     {
-        stats.hunt++;
+        stats.Hunt++;
     }
 
     public override void OnRemove(Stats stats)
     {
-        stats.hunt--;
+        stats.Hunt--;
     }
 }

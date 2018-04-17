@@ -14,11 +14,11 @@ public class DeadlyTalonsTrait : Trait
 
     public override void OnAdd(Stats stats)
     {
-        stats.atk++;
+        stats.Attack++;
     }
 
     public override void OnRemove(Stats stats)
     {
-        stats.atk--;
+        stats.Attack--;
     }
 }

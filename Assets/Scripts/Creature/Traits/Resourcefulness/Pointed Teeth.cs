@@ -14,11 +14,11 @@ public class PointedTeethTrait : Trait
 
     public override void OnAdd(Stats stats)
     {
-        stats.hunt += 2;
+        stats.Hunt += 2;
     }
 
     public override void OnRemove(Stats stats)
     {
-        stats.hunt -= 2;
+        stats.Hunt -= 2;
     }
 }

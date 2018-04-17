@@ -15,18 +15,18 @@ public class LargeSizeTrait : Trait
     public override void OnAdd(Stats stats)
     {
         stats.size = Stats.Size.large;
-        stats.atk++;
-        stats.def++;
-        stats.evs-=2;
-        stats.meatVal += 2;
+        stats.Attack++;
+        stats.Defense++;
+        stats.Evasion-=2;
+        stats.MeatValue += 2;
         
     }
 
     public override void OnRemove(Stats stats)
     {
-        stats.atk--;
-        stats.def--;
-        stats.evs+=2;
-        stats.meatVal -= 2;
+        stats.Attack--;
+        stats.Defense--;
+        stats.Evasion+=2;
+        stats.MeatValue -= 2;
     }
 }

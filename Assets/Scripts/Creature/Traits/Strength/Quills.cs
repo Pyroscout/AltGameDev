@@ -14,15 +14,15 @@ public class QuillsTrait : Trait
 
     public override void OnAdd(Stats stats)
     {
-        stats.def-=3;
-        stats.evs --;
-        stats.hunt--;
+        stats.Defense-=3;
+        stats.Evasion --;
+        stats.Hunt--;
     }
 
     public override void OnRemove(Stats stats)
     {
-        stats.def+=3;
-        stats.evs ++;
-        stats.hunt++;
+        stats.Defense+=3;
+        stats.Evasion ++;
+        stats.Hunt++;
     }
 }

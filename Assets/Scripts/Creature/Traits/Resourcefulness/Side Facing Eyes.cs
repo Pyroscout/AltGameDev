@@ -15,14 +15,14 @@ public class SideEyesTrait : Trait
     public override void OnAdd(Stats stats)
     {
 
-        stats.evs+=2;
-        stats.hunt--;
+        stats.Evasion+=2;
+        stats.Hunt--;
     }
 
     public override void OnRemove(Stats stats)
     {
 
-        stats.evs-=2;
-        stats.hunt++;
+        stats.Evasion-=2;
+        stats.Hunt++;
     }
 }

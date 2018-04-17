@@ -14,13 +14,13 @@ public class FrontEyesTrait : Trait
 
     public override void OnAdd(Stats stats)
     {
-        stats.evs--;
-        stats.hunt+=2;
+        stats.Evasion--;
+        stats.Hunt+=2;
     }
 
     public override void OnRemove(Stats stats)
     {
-        stats.evs++;
-        stats.hunt-=2;
+        stats.Evasion++;
+        stats.Hunt-=2;
     }
 }
