@@ -12,7 +12,9 @@ public class ChooseEvolutionMenu : MonoBehaviour
     public GameObject Evolutions;
     public GameObject settings;
     public GameObject Score;
-    public GameObject Totem;
+
+    public GameObject PrimalView;
+    public GameObject BiomeView;
 
     Creature creature;
     Trait[] traits;
@@ -34,7 +36,8 @@ public class ChooseEvolutionMenu : MonoBehaviour
         Evolutions.SetActive(false);
         settings.SetActive(false);
         Score.SetActive(false);
-        Totem.SetActive(false);
+        PrimalView.SetActive(false);
+        BiomeView.SetActive(false);
     }
 
     public void Close()
@@ -61,7 +64,8 @@ public class ChooseEvolutionMenu : MonoBehaviour
             Evolutions.SetActive(false);
             settings.SetActive(false);
             Score.SetActive(false);
-            Totem.SetActive(false);
+            PrimalView.SetActive(false);
+            BiomeView.SetActive(false);
         }
         else
         {
@@ -69,7 +73,8 @@ public class ChooseEvolutionMenu : MonoBehaviour
             Evolutions.SetActive(true);
             settings.SetActive(true);
             Score.SetActive(true);
-            Totem.SetActive(true);
+            PrimalView.SetActive(false);
+            BiomeView.SetActive(true);
             game.NextPhase();
             
         }
@@ -78,7 +83,7 @@ public class ChooseEvolutionMenu : MonoBehaviour
 
     public void UpdateTraitInfo(Trait trait)
     {
-        traitNameLabel.text = "Evolution: " + trait.name;
-        traitDescLabel.text = "Abilities: " + trait.description;
+        traitNameLabel.text = trait.name;
+        traitDescLabel.text = trait.description;
     }
 }

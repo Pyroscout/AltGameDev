@@ -9,7 +9,7 @@ public class ParalysisTrait : Trait
         description = "Atk+5, hunt+10, energy+3";
         eduInfo = "Paralysing venom deteriorates your prey's ability to flee";
 
-        imagePath = "Images/Evolutions/Palarysis";
+        imagePath = "Images/Evolutions/Paralysis";
     }
 
     public override void OnAdd(Stats stats)

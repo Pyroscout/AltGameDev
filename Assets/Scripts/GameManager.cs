@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
 
     public ChooseEvolutionMenu chooseEvoMenu;
 
+    public GameObject BiomeView;
+
     int generationNum;
 
     bool initialPhase;
@@ -38,9 +40,9 @@ public class GameManager : MonoBehaviour
         Load();
         PlaceEnemyCreatures();
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update ()
     {
         if (Input.GetMouseButton(0) &&
             !EventSystem.current.IsPointerOverGameObject())

@@ -6,10 +6,11 @@ public class ReplaceEvolutionMenu : MonoBehaviour
     public GameManager game;
     public Text traitNameLabel;
     public Text traitDescLabel;
-    public GameObject totem;
+    public GameObject PrimalView;
     public GameObject score;
     public GameObject settings;
     public GameObject Evolutions;
+    public GameObject BiomeView;
 
     public GameObject trait1Image;
     public GameObject trait2Image;
@@ -29,7 +30,12 @@ public class ReplaceEvolutionMenu : MonoBehaviour
         this.creature = creature;
         this.newTrait = newTrait;
 
-        totem.SetActive(false);
+        HexMapCamera.Locked = true;
+
+
+        PrimalView.SetActive(false);
+        BiomeView.SetActive(false);
+
         score.SetActive(false);
         settings.SetActive(false);
         Evolutions.SetActive(false);
@@ -43,7 +49,6 @@ public class ReplaceEvolutionMenu : MonoBehaviour
         UpdateTraitInfo(creature.traits[activeTraitIndex]);
 
         gameObject.SetActive(true);
-        HexMapCamera.Locked = true;
     }
 
     public void Close()
@@ -51,7 +56,8 @@ public class ReplaceEvolutionMenu : MonoBehaviour
         creature = null;
         newTrait = null;
 
-        totem.SetActive(true);
+        PrimalView.SetActive(false);
+        BiomeView.SetActive(true);
         score.SetActive(true);
         settings.SetActive(true);
         Evolutions.SetActive(true);

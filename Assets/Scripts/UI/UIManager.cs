@@ -11,7 +11,9 @@ public class UIManager : MonoBehaviour
     public Text herbCountLabel;
     public Text meatCountLabel;
 
-    public Text speciesType;
+    public GameObject biomeView;
+    public GameObject primalView;
+
 
     //Creature theCreature;
 
@@ -25,6 +27,8 @@ public class UIManager : MonoBehaviour
     public void SetupUI()
     {
         HideTimer();
+        biomeView.SetActive(true);
+        primalView.SetActive(false);
     }
 
     public void UpdateUI(HexCell selectedCell)
@@ -56,19 +60,6 @@ public class UIManager : MonoBehaviour
         {
             return;
         }
-
-        //if (theCreature.stats.isherbivore == true)
-        //{
-         //   speciesType.text = "Type: Herbivorous";
-        //}
-        //if (theCreature.stats.iscarnivore == true)
-        //{
-        //    speciesType.text = "Type: Carnivorous";
-        //}
-        //if (theCreature.stats.isherbivore == true && theCreature.stats.iscarnivore == true)
-        //{
-        //    speciesType.text = "Type: Omnivorous";
-        //}
     }
 
     public void UpdateGeneration(int genNum)

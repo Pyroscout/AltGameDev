@@ -9,7 +9,7 @@ public class EggLayingTrait : Trait
         description = "Brth+2, def+5, atk-5, hunt-5, energy+1";
         eduInfo = "Some creatures are capable of laying eggs as a method of reproduction";
 
-        imagePath = "Images/Evolutions/Fertility/Egg";
+        imagePath = "Images/Evolutions/Egg";
     }
 
     public override void OnAdd(Stats stats)

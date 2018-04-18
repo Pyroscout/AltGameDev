@@ -3,11 +3,10 @@ using UnityEngine.UI;
 
 public class DisplayGameInfo : MonoBehaviour
 {
-    public GameObject InfoCanvas;
+    public GameObject BiomeView;
 
-    public GameObject wing2;
-    public GameObject totem;
-    public GameObject returnbutton;
+    public GameObject PrimalView;
+    public GameObject returntoPrimal;
     public GameObject leaves;
     public GameObject next;
 
@@ -34,31 +33,30 @@ public class DisplayGameInfo : MonoBehaviour
     public Text EnergyuseText;
     public Text PopulationText;
 
+    public GameObject InstructionPage;
+
 
 
 
 
     // Use this for initialization
-    public void show()
+    public void showBiomeView()
     {
-        totem.SetActive(false);
-        wing2.SetActive(false);
+        PrimalView.SetActive(false);
         leaves.SetActive(false);
-        InfoCanvas.SetActive(true);
-        returnbutton.SetActive(true);
-        next.SetActive(false);
+        BiomeView.SetActive(true);
+        returntoPrimal.SetActive(true);
+        next.SetActive(true);
 
 
     }
 
-    // Update is called once per frame
-    public void hide()
+    public void hideBiomeView()
     {
-        wing2.SetActive(true);
-        totem.SetActive(true);
+        PrimalView.SetActive(true);
         leaves.SetActive(true);
-        InfoCanvas.SetActive(false);
-        returnbutton.SetActive(false);
+        BiomeView.SetActive(false);
+        returntoPrimal.SetActive(false);
         next.SetActive(true);
     }
 
@@ -70,12 +68,11 @@ public class DisplayGameInfo : MonoBehaviour
         HexMapCamera.Locked = true;
 
 
-        totem.SetActive(false);
-        wing2.SetActive(false);
+        PrimalView.SetActive(false);
         leaves.SetActive(false);
         SettingsButton.SetActive(false);
         Score.SetActive(false);
-        InfoCanvas.SetActive(false);
+        BiomeView.SetActive(false);
         next.SetActive(false);
 
         Herbivorous.SetActive(false);
@@ -129,8 +126,8 @@ public class DisplayGameInfo : MonoBehaviour
     {
 
         EvolutionsCanvas.SetActive(false);
-        totem.SetActive(true);
-        wing2.SetActive(true);
+        BiomeView.SetActive(true);
+        PrimalView.SetActive(false);
         leaves.SetActive(true);
         SettingsButton.SetActive(true);
         Score.SetActive(true);
@@ -163,6 +160,28 @@ public class DisplayGameInfo : MonoBehaviour
     {
         traitName.text = Creature.player.traits[3].name;
         traitDesc.text = Creature.player.traits[3].description;
+    }
+
+    public void Showinstructions()
+    {
+        InstructionPage.SetActive(true);
+
+        PrimalView.SetActive(false);
+        leaves.SetActive(false);
+        BiomeView.SetActive(false);
+        returntoPrimal.SetActive(false);
+        next.SetActive(false);
+        Score.SetActive(false);
+    }
+
+    public void HideInstructions()
+    {
+        InstructionPage.SetActive(false);
+
+        BiomeView.SetActive(true);
+        returntoPrimal.SetActive(true);
+        next.SetActive(true);
+        Score.SetActive(true);
     }
 
 }
