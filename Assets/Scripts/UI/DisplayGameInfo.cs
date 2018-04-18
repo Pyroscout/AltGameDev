@@ -28,6 +28,12 @@ public class DisplayGameInfo : MonoBehaviour
     public GameObject Carnivorous;
     public GameObject Omnivorous;
 
+    public Text AggressionText;
+    public Text DefenseText;
+    public Text BirthrateText;
+    public Text EnergyuseText;
+    public Text PopulationText;
+
 
 
 
@@ -75,6 +81,16 @@ public class DisplayGameInfo : MonoBehaviour
         Herbivorous.SetActive(false);
         Carnivorous.SetActive(false);
         Omnivorous.SetActive(false);
+
+        AggressionText.text = Creature.player.stats.Attack.ToString();
+        DefenseText.text = Creature.player.stats.Defense.ToString();
+        BirthrateText.text = Creature.player.stats.Fert.ToString();
+        PopulationText.text = Creature.player.population.ToString();
+        EnergyuseText.text = Creature.player.stats.MeatValue.ToString();
+
+
+
+
 
         if (Creature.player.isHerbivore == true && Creature.player.isCarnivore == false) // herbivore
         {

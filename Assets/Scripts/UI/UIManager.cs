@@ -13,7 +13,9 @@ public class UIManager : MonoBehaviour
 
     public Text speciesType;
 
-    Creature theCreature;
+    //Creature theCreature;
+
+    public Text population;
 
 
     public Text[] creatureCountLabels;
@@ -33,6 +35,8 @@ public class UIManager : MonoBehaviour
             biomeLabel.text = tile.biome.name;
             herbCountLabel.text = "Veggies: " + tile.biome.herbSupply.ToString();
             meatCountLabel.text = "Meats: " + tile.biome.meatSupply.ToString();
+            population.text = "Population: " + Creature.player.population.ToString();
+
             int index = 1;
             foreach (Creature creature in Creature.creatures.Values)
             {
@@ -53,18 +57,18 @@ public class UIManager : MonoBehaviour
             return;
         }
 
-        if (theCreature.stats.isherbivore == true)
-        {
-            speciesType.text = "Type: Herbivorous";
-        }
-        if (theCreature.stats.iscarnivore == true)
-        {
-            speciesType.text = "Type: Carnivorous";
-        }
-        if (theCreature.stats.isherbivore == true && theCreature.stats.iscarnivore == true)
-        {
-            speciesType.text = "Type: Omnivorous";
-        }
+        //if (theCreature.stats.isherbivore == true)
+        //{
+         //   speciesType.text = "Type: Herbivorous";
+        //}
+        //if (theCreature.stats.iscarnivore == true)
+        //{
+        //    speciesType.text = "Type: Carnivorous";
+        //}
+        //if (theCreature.stats.isherbivore == true && theCreature.stats.iscarnivore == true)
+        //{
+        //    speciesType.text = "Type: Omnivorous";
+        //}
     }
 
     public void UpdateGeneration(int genNum)
