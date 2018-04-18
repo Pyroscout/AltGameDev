@@ -86,7 +86,7 @@ public class Creature
             player.isHerbivore = true;
 
         // Herbivore Check
-        if (player.isHerbivore == true && stats.iscarnivore == false)
+        if (player.isHerbivore == true && player.isCarnivore == false)
         {
             // Herbivore + small evolutions
             if (stats.size == Stats.Size.small)
@@ -315,7 +315,7 @@ public class Creature
             return;
         }
 
-        if (stats.isherbivore == true)
+        if (isHerbivore == true)
         {
             int foraged = Forage(tile, energyRequired);
             energyRequired = foraged;
@@ -326,7 +326,7 @@ public class Creature
             return;
         }
 
-        if (stats.iscarnivore == true)
+        if (isCarnivore == true)
         {
             energyRequired = Hunt(tile, energyRequired);
         }

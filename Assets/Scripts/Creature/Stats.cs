@@ -116,9 +116,6 @@ public class Stats
     public int meatCon; // meat consumption required
     public int lSpn; // lifespan
 
-    public bool isherbivore;
-    public bool iscarnivore;
-
     public Size size;
     public enum Size { small = 1, med, large };
 
@@ -135,9 +132,6 @@ public class Stats
         vegCon = 1;
         meatCon = 1;
         lSpn = 1;
-
-        isherbivore = false;
-        iscarnivore = false;
 
         size = Size.small;
     }

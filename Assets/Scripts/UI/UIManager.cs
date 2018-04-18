@@ -46,7 +46,7 @@ public class UIManager : MonoBehaviour
                 }
                 else
                 {
-                    creatureCountLabels[index].text = tile.GetCreatureCount(creature.name).ToString();
+                    //creatureCountLabels[index].text = tile.GetCreatureCount(creature.name).ToString();
                     //index++;
                 }
             }
