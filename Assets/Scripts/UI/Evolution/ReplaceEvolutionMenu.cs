@@ -34,6 +34,11 @@ public class ReplaceEvolutionMenu : MonoBehaviour
         settings.SetActive(false);
         Evolutions.SetActive(false);
 
+        trait1Image.GetComponent<Image>().sprite = Resources.Load<Sprite>(creature.traits[0].imagePath);
+        trait2Image.GetComponent<Image>().sprite = Resources.Load<Sprite>(creature.traits[1].imagePath);
+        trait3Image.GetComponent<Image>().sprite = Resources.Load<Sprite>(creature.traits[2].imagePath);
+        trait4Image.GetComponent<Image>().sprite = Resources.Load<Sprite>(creature.traits[3].imagePath);
+
 
         UpdateTraitInfo(creature.traits[activeTraitIndex]);
 
