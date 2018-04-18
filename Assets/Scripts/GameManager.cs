@@ -111,6 +111,10 @@ public class GameManager : MonoBehaviour
 
     public void InitialPhase()
     {
+        if(selectedCell.IsUnderwater)
+        {
+            return;
+        }
         foreach (Creature creature in Creature.creatures.Values)
         {
             if (creature.isPlayer)
