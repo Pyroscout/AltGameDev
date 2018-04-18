@@ -386,9 +386,9 @@ public class HexCell : MonoBehaviour
         neighbor.RefreshSelfOnly();
     }
 
-    public void AddCreature(Creature creature)
+    public void AddCreature(Creature creature, int amount)
     {
-        tile.AddCreature(creature, creature.population);
+        tile.AddCreature(creature, amount);
         RefreshSelfOnly();
     }
 

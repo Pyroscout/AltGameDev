@@ -104,7 +104,7 @@ public class GameManager : MonoBehaviour
             if (!creature.isPlayer)
             {
                 HexCell cell = hexGrid.GetRandomCellAboveWater();
-                cell.AddCreature(creature);
+                cell.AddCreature(creature, creature.population);
             }
         }
     }
@@ -119,7 +119,7 @@ public class GameManager : MonoBehaviour
         {
             if (creature.isPlayer)
             {
-                selectedCell.AddCreature(creature);
+                selectedCell.AddCreature(creature, creature.population);
                 initialPhase = false;
                 NextPhase();
             }
@@ -301,7 +301,7 @@ public class GameManager : MonoBehaviour
     public void MoveInDirection(HexCell neighbor, HexCell cell, int amount)
     {
         cell.RemoveCreature(Creature.player, amount);
-        neighbor.AddCreature(Creature.player);
+        neighbor.AddCreature(Creature.player, amount);
     }
 
 
