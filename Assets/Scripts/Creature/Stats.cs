@@ -10,10 +10,10 @@ public class Stats
     {
         get
         {
-            if(atk > 1)
-            {
-                return 1;
-            }
+            //if(atk > 1)
+            //{
+            //    return 1;
+            //}
             return atk;
         }
         set
@@ -28,10 +28,10 @@ public class Stats
     {
         get
         {
-            if (def > 1)
-            {
-                return 1;
-            }
+            //if (def > 1)
+            //{
+            //    return 1;
+            //}
             return def;
         }
         set
@@ -46,10 +46,10 @@ public class Stats
     {
         get
         {
-            if (evs > 1)
-            {
-                return 1;
-            }
+            //if (evs > 1)
+            //{
+            //    return 1;
+            //}
             return evs;
         }
         set
@@ -64,10 +64,10 @@ public class Stats
     {
         get
         {
-            if (hunt > 1)
-            {
-                return 1;
-            }
+           // if (hunt > 1)
+            //{
+            //    return 1;
+            //}
             return hunt;
         }
         set
@@ -82,10 +82,10 @@ public class Stats
     {
         get
         {
-            if (meatVal > 1)
-            {
-                return 1;
-            }
+            //if (meatVal > 1)
+            //{
+            //    return 1;
+            //}
             return meatVal;
         }
         set
@@ -100,10 +100,10 @@ public class Stats
     {
         get
         {
-            if (fert > 1)
-            {
-                return 1;
-            }
+            //if (fert > 1)
+            //{
+             //   return 1;
+            //}
             return fert;
         }
         set
@@ -119,6 +119,9 @@ public class Stats
     public Size size;
     public enum Size { small = 1, med, large };
 
+    public bool Carnivorous;
+    public bool Herbivorous;
+
     public Stats()
     {
         Attack = 1;
@@ -132,6 +135,8 @@ public class Stats
         vegCon = 1;
         meatCon = 1;
         lSpn = 1;
+
+        Herbivorous = true;
 
         size = Size.small;
     }

@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject BiomeView;
 
+
     int generationNum;
 
     bool initialPhase;
@@ -268,7 +269,6 @@ public class GameManager : MonoBehaviour
         {
             cell.KillUnfedCreatrues();
         }
-
         huntIsActive = false;
         ui.HideTimer();
         NextPhase();

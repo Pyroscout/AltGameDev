@@ -39,7 +39,8 @@ public class UIManager : MonoBehaviour
             biomeLabel.text = tile.biome.name;
             herbCountLabel.text = "Veggies: " + tile.biome.herbSupply.ToString();
             meatCountLabel.text = "Meats: " + tile.biome.meatSupply.ToString();
-            population.text = "Population: " + Creature.player.population.ToString();
+            population.text = "Your Population: " + tile.GetCreatureCount(Creature.player.name).ToString();
+
 
             int index = 1;
             foreach (Creature creature in Creature.creatures.Values)

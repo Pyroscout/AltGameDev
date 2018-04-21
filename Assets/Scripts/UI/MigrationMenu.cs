@@ -11,6 +11,8 @@ public class MigrationMenu : MenuVisibilityCtrl
     HexCell activeCell;
     HexCell neighbor;
 
+    public Text currentPop;
+
     void Start()
     {
         field.onValueChanged.AddListener(delegate { FieldValueChanged(); });
@@ -56,6 +58,8 @@ public class MigrationMenu : MenuVisibilityCtrl
 
         gameObject.SetActive(true);
         HexMapCamera.Locked = true;
+        currentPop.text = "You have  " + cell.tile.GetCreatureCount(Creature.player.name).ToString() + "  creatures living here.";
+        
 
         activeCell = cell;
         this.neighbor = neighbor;

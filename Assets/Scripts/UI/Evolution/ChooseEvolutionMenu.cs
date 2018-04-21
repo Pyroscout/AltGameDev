@@ -58,8 +58,10 @@ public class ChooseEvolutionMenu : MonoBehaviour
     public void ConfirmTrait()
     {
         Trait newTrait = traits[activeTraitIndex];
+
         if (creature.traits.Count == Creature.MAX_TRAIT_COUNT)
         {
+
             replaceEvoMenu.Open(creature, newTrait);
             Evolutions.SetActive(false);
             settings.SetActive(false);

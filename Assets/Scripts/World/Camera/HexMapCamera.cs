@@ -110,6 +110,6 @@ public class HexMapCamera : MonoBehaviour
 
     public static void ValidatePosition()
     {
-        instance.AdjustPosition(0f, 0f);
+        instance.AdjustPosition (470f, 300f);
     }
 }

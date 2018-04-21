@@ -10,6 +10,10 @@ public class DisplayGameInfo : MonoBehaviour
     public GameObject leaves;
     public GameObject next;
 
+    public GameObject smallIcon;
+    public GameObject medIcon;
+    public GameObject LargeIcon;
+
     public GameObject Score;
     public GameObject SettingsButton;
 
@@ -67,6 +71,9 @@ public class DisplayGameInfo : MonoBehaviour
 
         HexMapCamera.Locked = true;
 
+        smallIcon.SetActive(false);
+        medIcon.SetActive(false);
+        LargeIcon.SetActive(false);
 
         PrimalView.SetActive(false);
         leaves.SetActive(false);
@@ -89,15 +96,15 @@ public class DisplayGameInfo : MonoBehaviour
 
 
 
-        if (Creature.player.isHerbivore == true && Creature.player.isCarnivore == false) // herbivore
+        if (Creature.player.stats.Herbivorous == true && Creature.player.stats.Carnivorous == false) // herbivore
         {
             Herbivorous.SetActive(true);
             Carnivorous.SetActive(false);
             Omnivorous.SetActive(false);
-            SpeciesType.text = "Herbiborous";
+            SpeciesType.text = "Herbivorous";
 
         }
-        if (Creature.player.isCarnivore == true && Creature.player.isHerbivore == false) // carnivorous
+        if (Creature.player.stats.Carnivorous == true && Creature.player.stats.Herbivorous == false) // carnivorous
         {
             Herbivorous.SetActive(true);
             Carnivorous.SetActive(false);
@@ -105,7 +112,7 @@ public class DisplayGameInfo : MonoBehaviour
             SpeciesType.text = "Carnivorous";
 
         }
-        if (Creature.player.isCarnivore == true && Creature.player.isHerbivore == true) // omnivorous
+        if (Creature.player.stats.Carnivorous == true && Creature.player.stats.Herbivorous == true) // omnivorous
         {
             Herbivorous.SetActive(false);
             Carnivorous.SetActive(false);
@@ -113,6 +120,26 @@ public class DisplayGameInfo : MonoBehaviour
             SpeciesType.text = "Omnivorous";
 
         }
+
+        if (Creature.player.stats.size == Stats.Size.small)
+        {
+            smallIcon.SetActive(true);
+            medIcon.SetActive(false);
+            LargeIcon.SetActive(false);
+        }
+        if (Creature.player.stats.size == Stats.Size.med)
+        {
+            smallIcon.SetActive(false);
+            medIcon.SetActive(true);
+            LargeIcon.SetActive(false);
+        }
+        if (Creature.player.stats.size == Stats.Size.large)
+        {
+            smallIcon.SetActive(false);
+            medIcon.SetActive(false);
+            LargeIcon.SetActive(true);
+        }
+
 
         Evo1.GetComponent<Image>().sprite = Resources.Load<Sprite>(Creature.player.traits[0].imagePath);
         Evo2.GetComponent<Image>().sprite = Resources.Load<Sprite>(Creature.player.traits[1].imagePath);

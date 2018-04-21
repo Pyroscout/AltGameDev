@@ -18,13 +18,11 @@ public class Creature
     public List<Trait> traits = new List<Trait>();
 
     public int population; //added population counter
-    int unfedPop;
+    public int unfedPop;
     //Queue<int> deathQueue = new Queue<int>();
 
     public Dictionary<string, Tile> tilesOccupied = new Dictionary<string, Tile>();
 
-    public bool isCarnivore;
-    public bool isHerbivore;
 
     // movement method
     // hunting method
@@ -39,7 +37,6 @@ public class Creature
         this.stats = new Stats();
         this.population = population;
         this.isPlayer = isPlayer;
-        this.isHerbivore = true;
         //deathQueue.Enqueue(population);
     }
 
@@ -65,28 +62,33 @@ public class Creature
 
     public Trait[] RollNewTraits(int count)
     {
-        Trait[] traits = new Trait[count];
-        List<Trait> potentialTraits = GenerateTraitList();
-        for(int i = 0; i < count; i++)
+        Trait[] datraits = new Trait[count]; // [trait1, trait2]
+        List<Trait> potentialTraits = GenerateTraitList(); // get the list
+
+        for (int i = 0; i < count; i++) // twice
         {
-            int roll = (int)(Random.value * potentialTraits.Count * 0.999f);
-            traits[i] = potentialTraits[roll];
+            int roll = (int)(Random.value * potentialTraits.Count * 0.999f); // picks a random trait from the list
+
+            datraits[i] = potentialTraits[roll]; // set it
             potentialTraits.RemoveAt(roll);
         }
 
-        return traits;
+        return datraits;
     }
 
     public List<Trait> GenerateTraitList()
     {
+
         List<Trait> traits = new List<Trait>();
 
         //Neither check
-        if (player.isHerbivore == false && player.isCarnivore == false)
-            player.isHerbivore = true;
+        if (player.stats.Herbivorous == false && player.stats.Carnivorous == false)
+        {
+            player.stats.Herbivorous = true;
+        }
 
         // Herbivore Check
-        if (player.isHerbivore == true && player.isCarnivore == false)
+        if (player.stats.Herbivorous == true && player.stats.Carnivorous == false)
         {
             // Herbivore + small evolutions
             if (stats.size == Stats.Size.small)
@@ -97,10 +99,8 @@ public class Creature
 
                 traits.Add(new FangsTrait()); // attack up
 
-                //traits.Add(new FurCoatTrait()); // survivability up
                 traits.Add(new TemperatureRegulationTrait()); // survivability up -- Unique to deserts and tundras?
 
-                //traits.Add(new WingsTrait()); // Mobility up
                 traits.Add(new AppendagesTrait()); // Mobility up
 
                 traits.Add(new ShellTrait()); // strength up
@@ -150,7 +150,7 @@ public class Creature
         }
 
         // Carnivore Check
-        if (player.isCarnivore == true && player.isHerbivore == false)
+        if (player.stats.Carnivorous == true && player.stats.Herbivorous == false)
         {
             // Carnivore + small evolutions
             if (stats.size == Stats.Size.small)
@@ -162,10 +162,8 @@ public class Creature
                 traits.Add(new DeadlyTalonsTrait()); // attack up
                 traits.Add(new FangsTrait()); // attack up
 
-                //traits.Add(new FurCoatTrait()); // survivability up
                 traits.Add(new TemperatureRegulationTrait()); // survivability up -- Unique to deserts and tundras?
 
-                //traits.Add(new WingsTrait()); // Mobility up
                 traits.Add(new AppendagesTrait()); // Mobility up
 
             }
@@ -214,21 +212,18 @@ public class Creature
         }
 
         // Omnivore Check
-        if (player.isHerbivore == true && player.isCarnivore == true)
+        if (player.stats.Herbivorous == true && player.stats.Carnivorous == true)
         {
             // Omnivore + small evolutions
             if (stats.size == Stats.Size.small)
             {
                 traits.Add(new MediumSizeTrait()); // makes size 2
 
-
                 traits.Add(new DeadlyTalonsTrait()); // attack up
                 traits.Add(new FangsTrait()); // attack up
 
-                //traits.Add(new FurCoatTrait()); // survivability up
                 traits.Add(new TemperatureRegulationTrait()); // survivability up -- Unique to deserts and tundras?
 
-                //traits.Add(new WingsTrait()); // Mobility up
                 traits.Add(new AppendagesTrait()); // Mobility up
 
                 traits.Add(new ShellTrait()); // strength up
@@ -278,8 +273,6 @@ public class Creature
             }
         }
 
-
-
         return traits;
     }
 
@@ -315,7 +308,7 @@ public class Creature
             return;
         }
 
-        if (isHerbivore == true)
+        if (player.stats.Herbivorous == true)
         {
             int foraged = Forage(tile, energyRequired);
             energyRequired = foraged;
@@ -326,7 +319,7 @@ public class Creature
             return;
         }
 
-        if (isCarnivore == true)
+        if (player.stats.Carnivorous == true)
         {
             energyRequired = Hunt(tile, energyRequired);
         }
@@ -347,7 +340,6 @@ public class Creature
         }
         return Mathf.Max(0, energyRequired - energyForaged);
     }
-
 
     // returns new energy required
     int Hunt(Tile tile, int energyRequired)

@@ -19,6 +19,6 @@ public class FangsTrait : Trait
 
     public override void OnRemove(Stats stats)
     {
-        stats.Attack += 5;
+        stats.Attack -= 5;
     }
 }

@@ -16,13 +16,15 @@ public class becomeCarnivorous : Trait
     {
         stats.Attack++;
         stats.Defense++;
-        Creature.player.isCarnivore = true;
+        stats.Carnivorous = true;
+        //Creature.player.isCarnivore = true;
     }
 
     public override void OnRemove(Stats stats)
     {
         stats.Attack--;
         stats.Defense--;
-        Creature.player.isCarnivore = false;
+        stats.Carnivorous = false;
+        //Creature.player.isCarnivore = false;
     }
 }
