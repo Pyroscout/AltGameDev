@@ -6,7 +6,7 @@ public class NightVisionTrait : Trait
     public NightVisionTrait()
     {
         name = "Night Vision";
-        description = "Hunt+1";
+        description = "Hunt+10, Evs+5";
         eduInfo = "";
         imagePath = "Images/Evolutions/Night Vision";
 
@@ -14,7 +14,8 @@ public class NightVisionTrait : Trait
 
     public override void OnAdd(Stats stats)
     {
-        stats.Evasion ++;
+        stats.Hunt += 10;
+        stats.Evasion += 5;
     }
 
     public override void OnRemove(Stats stats)

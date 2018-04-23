@@ -6,7 +6,7 @@ public class FrontEyesTrait : Trait
     public FrontEyesTrait()
     {
         name = "Front Facing Eyes";
-        description = "Evs-1, Hunt+2";
+        description = "Evs-5, Hunt+10";
         eduInfo = "";
         imagePath = "Images/Evolutions/Front Eyes";
 
@@ -14,13 +14,13 @@ public class FrontEyesTrait : Trait
 
     public override void OnAdd(Stats stats)
     {
-        stats.Evasion--;
-        stats.Hunt+=2;
+        stats.Evasion -= 5;
+        stats.Hunt += 10;
     }
 
     public override void OnRemove(Stats stats)
     {
-        stats.Evasion++;
-        stats.Hunt-=2;
+        stats.Evasion += 5;
+        stats.Hunt -= 10;
     }
 }

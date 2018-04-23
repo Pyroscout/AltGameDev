@@ -7,18 +7,20 @@ public class ThumbsTrait : Trait
     {
         name = "Opposable Thumbs";
         description = "Evs+1";
-        eduInfo = "Opposable thumbs can give a species expert climbing ability";
+        eduInfo = "Opposable thumbs allow for expert climbing and grappling";
         imagePath = "Images/Evolutions/Thumbs";
 
     }
 
     public override void OnAdd(Stats stats)
     {
-        stats.Evasion++;
+        stats.Attack += 5;
+        stats.Evasion += 10;
     }
 
     public override void OnRemove(Stats stats)
     {
-        stats.Evasion--;
+        stats.Attack -= 5;
+        stats.Evasion -= 10;
     }
 }
