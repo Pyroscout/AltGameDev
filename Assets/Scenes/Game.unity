@@ -1353,7 +1353,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 7.2000484, y: -366.59998}
+  m_AnchoredPosition: {x: 7.2000484, y: -371.54}
   m_SizeDelta: {x: 795.5, y: 177.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &910074424
@@ -1388,8 +1388,11 @@ MonoBehaviour:
     m_RichText: 0
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: 'TUTORIAL TEST: INIT'
+    m_LineSpacing: 1.5
+  m_Text: Explore the map with the arrow keys, then select a tile to start your species
+    on. Click Region Details to see the food and population on each tile. Each turn
+    has four phases - Evolve, Forage, Migrate, and Reproduce. When you're ready to
+    evolve your species, click Next Phase.
 --- !u!222 &910074425
 CanvasRenderer:
   m_ObjectHideFlags: 0

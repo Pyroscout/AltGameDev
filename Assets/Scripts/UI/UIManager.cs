@@ -77,11 +77,11 @@ public class UIManager : MonoBehaviour
         {
             case Phase.Migrate:
                 phaseLabel.text = "Phase: MIGRATE";
-                phaseTutorial.text = "TUTORIAL TEST: MIGRATE";
+                phaseTutorial.text = "Now you can expand your species to other tiles. Click an inhabited tile, then select an arrow to move your creatures in that direction. To see how many creatures are on one tile, check Region Details. Make sure there's enough food left on each tile to support its growing population!";
                 break;
             case Phase.Reproduce:
                 phaseLabel.text = "Phase: REPRODUCE";
-                phaseTutorial.text = "TUTORIAL TEST: REPRODUCE";
+                phaseTutorial.text = "Your population is growing! If there isn't enough food on each tile, some creatures won't make it - Keep this in mind when choosing how many migrate to each tile. Check the Region Details to see your new population, and click Next Phase when you're ready to start the next turn.";
                 break;
             case Phase.Evolve:
                 phaseLabel.text = "Phase: EVOLVE";
@@ -89,7 +89,7 @@ public class UIManager : MonoBehaviour
                 break;
             case Phase.Feed:
                 phaseLabel.text = "Phase: FORAGE";
-                phaseTutorial.text = "TUTORIAL TEST: FORAGE";
+                phaseTutorial.text = "The creatures are eating - Check Region Details to see how much they consume.";
                 break;
         }
     }
