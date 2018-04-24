@@ -5,6 +5,7 @@ public class UIManager : MonoBehaviour
 {
     public Text genLabel;
     public Text phaseLabel;
+    public Text phaseTutorial;
     public Text timerLabel;
 
     public Text biomeLabel;
@@ -76,15 +77,19 @@ public class UIManager : MonoBehaviour
         {
             case Phase.Migrate:
                 phaseLabel.text = "Phase: MIGRATE";
+                phaseTutorial.text = "TUTORIAL TEST: MIGRATE";
                 break;
             case Phase.Reproduce:
                 phaseLabel.text = "Phase: REPRODUCE";
+                phaseTutorial.text = "TUTORIAL TEST: REPRODUCE";
                 break;
             case Phase.Evolve:
                 phaseLabel.text = "Phase: EVOLVE";
+                phaseTutorial.text = "TUTORIAL TEST: EVOLVE";
                 break;
             case Phase.Feed:
                 phaseLabel.text = "Phase: FORAGE";
+                phaseTutorial.text = "TUTORIAL TEST: FORAGE";
                 break;
         }
     }
