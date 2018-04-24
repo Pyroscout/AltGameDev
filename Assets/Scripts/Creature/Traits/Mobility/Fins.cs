@@ -7,18 +7,18 @@ public class FinsTrait : Trait
     {
         name = "Fins";
         description = "Evs+1";
-        eduInfo = "Allows a species to propel themselves through bodies of water";
+        eduInfo = "Aquatic adaptions allow fast movement along the coast and rivers";
         imagePath = "Images/Evolutions/Fins";
 
     }
 
     public override void OnAdd(Stats stats)
     {
-        stats.Evasion++;
+        stats.Evasion += 15;
     }
 
     public override void OnRemove(Stats stats)
     {
-        stats.Evasion--;
+        stats.Evasion -= 15;
     }
 }

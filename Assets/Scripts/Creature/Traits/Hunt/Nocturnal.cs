@@ -6,7 +6,7 @@ public class NocturnalTrait : Trait
     public NocturnalTrait()
     {
         name = "Nocturnal";
-        description = "Evs+2";
+        description = "Hunt+7, Evs2";
         eduInfo = "";
         imagePath = "Images/Evolutions/Nocturnal";
 
@@ -14,11 +14,13 @@ public class NocturnalTrait : Trait
 
     public override void OnAdd(Stats stats)
     {
+        stats.Hunt += 7;
         stats.Evasion += 2;
     }
 
     public override void OnRemove(Stats stats)
     {
+        stats.Hunt -= 7;
         stats.Evasion -= 2;
     }
 }

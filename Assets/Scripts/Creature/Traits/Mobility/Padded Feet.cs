@@ -14,11 +14,13 @@ public class PaddedFeetTrait : Trait
 
     public override void OnAdd(Stats stats)
     {
-        stats.Evasion++;
+        stats.Hunt += 5;
+        stats.Evasion += 10;
     }
 
     public override void OnRemove(Stats stats)
     {
-        stats.Evasion--;
+        stats.Hunt -= 5;
+        stats.Evasion -= 10;
     }
 }

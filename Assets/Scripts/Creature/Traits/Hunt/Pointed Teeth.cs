@@ -6,7 +6,7 @@ public class PointedTeethTrait : Trait
     public PointedTeethTrait()
     {
         name = "Shredding Teeth";
-        description = "Hunt+2";
+        description = "Hunt+5";
         eduInfo = "";
         imagePath = "Images/Evolutions/SharpTeeth";
 
@@ -14,11 +14,11 @@ public class PointedTeethTrait : Trait
 
     public override void OnAdd(Stats stats)
     {
-        stats.Hunt += 2;
+        stats.Hunt += 5;
     }
 
     public override void OnRemove(Stats stats)
     {
-        stats.Hunt -= 2;
+        stats.Hunt -= 5;
     }
 }

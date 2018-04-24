@@ -6,7 +6,7 @@ public class OlfactoryTrait : Trait
     public OlfactoryTrait()
     {
         name = "Olfactory Tracking";
-        description = "Hunt+1";
+        description = "Hunt+15";
         eduInfo = "";
         imagePath = "Images/Evolutions/olfactory";
 
@@ -14,11 +14,11 @@ public class OlfactoryTrait : Trait
 
     public override void OnAdd(Stats stats)
     {
-        stats.Hunt++;
+        stats.Hunt += 15;
     }
 
     public override void OnRemove(Stats stats)
     {
-        stats.Hunt--;
+        stats.Hunt -= 15;
     }
 }
