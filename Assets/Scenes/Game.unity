@@ -1869,6 +1869,50 @@ Prefab:
       propertyPath: BirthrateText
       value: 
       objectReference: {fileID: 996678349}
+    - target: {fileID: 114049576730522976, guid: 4e3e75881c9b70c47a9eb1a73e515025,
+        type: 2}
+      propertyPath: m_Text
+      value: "Welcome to Overgrowth!\r\n\r\nExplore the map with the arrow keys and
+        make selections with the left mouse button. Your species is represented on
+        the map with pink cubes, while rival species are seen as blue cubes. The Primal
+        View shows the tutorial for each phase. The Biome View shows each tile's population
+        and available food. As the population grows, make sure there's enough food
+        on each tile or some creatures won't make it. If multiple species inhabit
+        a tile, they will compete for its resources.\r\n\r\nEach turn consists of
+        four phases - Evolve, Feed, Migrate, and Reproduce. Utilize each of these
+        to create the largest and most fit population before the meteor strikes.\r\n\nYOU
+        DONT PLAY GAME.  GAME PLAYS YOU!"
+      objectReference: {fileID: 0}
+    - target: {fileID: 224681094976942542, guid: 4e3e75881c9b70c47a9eb1a73e515025,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 224681094976942542, guid: 4e3e75881c9b70c47a9eb1a73e515025,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -319
+      objectReference: {fileID: 0}
+    - target: {fileID: 224681094976942542, guid: 4e3e75881c9b70c47a9eb1a73e515025,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 1267.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 224681094976942542, guid: 4e3e75881c9b70c47a9eb1a73e515025,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 692.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 114049576730522976, guid: 4e3e75881c9b70c47a9eb1a73e515025,
+        type: 2}
+      propertyPath: m_FontData.m_FontSize
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 114049576730522976, guid: 4e3e75881c9b70c47a9eb1a73e515025,
+        type: 2}
+      propertyPath: m_FontData.m_Alignment
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4e3e75881c9b70c47a9eb1a73e515025, type: 2}
   m_IsPrefabParent: 0

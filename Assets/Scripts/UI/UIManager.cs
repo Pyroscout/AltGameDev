@@ -89,7 +89,7 @@ public class UIManager : MonoBehaviour
                 break;
             case Phase.Feed:
                 phaseLabel.text = "Phase: FORAGE";
-                phaseTutorial.text = "The creatures are eating - Check Region Details to see how much they consume.";
+                phaseTutorial.text = "Your creatures are eating. Check Region Details to see how much they consume.";
                 break;
         }
     }
